@@ -1,4 +1,4 @@
-package com.example.alexis.myapplication;
+package groupe.onze.uclaconcentration;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
