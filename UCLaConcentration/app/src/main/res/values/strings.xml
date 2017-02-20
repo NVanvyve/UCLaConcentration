@@ -1,3 +1,8 @@
 <resources>
+<<<<<<< HEAD
     <string name="app_name">UCLaConcentration</string>
+=======
+    <string name="app_name">My Application</string>
+    <string name="StartTime">Début timer</string>
+>>>>>>> ed5eda5a0fa54850a04e8f7ac8bd2b82a6686ce5
 </resources>
