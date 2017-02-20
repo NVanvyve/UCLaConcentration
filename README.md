@@ -1,29 +1,17 @@
-# README #
+# UCLaConcentration
 
-This README would normally document whatever steps are necessary to get your application up and running.
+### Description du projet
 
-### What is this repository for? ###
+###### But
+Fournir un ensemble d’outils complet et centralisé dans une seule appliction et destiné aux étudiants en blocus.
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 
-### How do I get set up? ###
+###### Fonctionalités
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+ * Un timer qui permet de comptabiliser le temps d'etudes
+ * Un agenda pour organiser son étude
+ * Un acces limité à Facebook, uniquement pour les groupe de cours
+ * Un système de récompence lié au temps d'etudes
+ * Un acces à ADE
+ * Un acces aux horaires des batiments important
+ * Des conseils santé
