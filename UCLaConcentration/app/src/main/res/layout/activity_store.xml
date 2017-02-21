@@ -4,24 +4,25 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="258dp"
             android:layout_height="wrap_content"
             android:text="@string/coin_name"
             android:ems="10"
             android:id="@+id/money"
-            android:textAlignment="textEnd"
+            android:textAlignment="textStart"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
             android:textSize="30sp"
             android:layout_alignEnd="@+id/moremoney" />
 
         <TextView
-            android:layout_width="113dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="10"
@@ -30,75 +31,92 @@
             android:textSize="30sp"
             android:layout_alignParentEnd="true"
             android:layout_toEndOf="@+id/money"
-            android:layout_above="@+id/moremoney" />
+            android:layout_above="@+id/moremoney"
+            android:layout_weight="1" />
 
-        <Button
-            android:text="600 P"
-            android:layout_width="wrap_content"
-            android:layout_height="40sp"
-            android:id="@+id/button60min"
-            android:layout_alignBaseline="@+id/serie60"
-            android:layout_alignBottom="@+id/serie60"
-            android:layout_alignStart="@+id/button40min" />
+    </LinearLayout>
 
-        <Button
-            android:text="350 P"
-            android:layout_width="wrap_content"
-            android:layout_height="40sp"
-            android:id="@+id/button40min"
-            android:layout_alignBaseline="@+id/serie40"
-            android:layout_alignBottom="@+id/serie40"
-            android:layout_alignStart="@+id/button20min" />
+    <Button
+        android:text="Give Me MORE!!"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="34dp"
+        android:id="@+id/moremoney"
+        android:textSize="18sp"
+        android:layout_below="@+id/money"
+        android:layout_centerHorizontal="true" />
 
-        <TextView
-            android:text="Série : 40 min"
-            android:layout_width="wrap_content"
-            android:layout_height="40sp"
-            android:id="@+id/serie40"
-            android:textSize="24sp"
-            android:layout_marginStart="62dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentStart="true" />
-
-        <Button
-            android:text="Give Me MORE!!"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="34dp"
-            android:id="@+id/moremoney"
-            android:textSize="18sp"
-            android:layout_below="@+id/money"
-            android:layout_centerHorizontal="true" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <TextView
-            android:text="Série : 20 min"
+            android:text="Série : 20 min  "
             android:layout_width="wrap_content"
             android:id="@+id/serie20"
             android:textSize="24sp"
-            android:layout_height="40sp"
-            android:layout_above="@+id/button40min"
-            android:layout_alignStart="@+id/serie40"
-            android:layout_marginBottom="14dp" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
         <Button
             android:text="150 P"
             android:layout_width="wrap_content"
-            android:layout_height="40sp"
+            android:layout_height="wrap_content"
             android:id="@+id/button20min"
             android:layout_marginStart="39dp"
             android:layout_alignTop="@+id/serie20"
-            android:layout_toEndOf="@+id/serie20" />
+            android:layout_toEndOf="@+id/serie20"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <TextView
-            android:text="Série : 60 min"
+            android:text="Série : 40 min  "
             android:layout_width="wrap_content"
-            android:layout_height="40sp"
+            android:layout_height="wrap_content"
+            android:id="@+id/serie40"
+            android:textSize="24sp"
+            android:layout_centerVertical="false"
+            android:layout_alignParentStart="false" />
+
+        <Button
+            android:text="350 P"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button40min"
+            android:layout_alignBaseline="@+id/serie40"
+            android:layout_alignBottom="@+id/serie40"
+            android:layout_alignStart="@+id/button20min"
+            android:layout_weight="0.49" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:text="Série : 60 min  "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/serie60"
             android:textSize="24sp"
-            android:layout_marginTop="13dp"
-            android:layout_below="@+id/serie40"
-            android:layout_alignStart="@+id/serie40" />
+            android:layout_weight="1" />
 
-    </RelativeLayout>
+        <Button
+            android:text="600 P"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button60min"
+            android:layout_alignBaseline="@+id/serie60"
+            android:layout_alignBottom="@+id/serie60"
+            android:layout_alignStart="@+id/button40min"
+            android:layout_weight="1" />
+    </LinearLayout>
 
 </LinearLayout>
