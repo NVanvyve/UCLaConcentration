@@ -6,4 +6,5 @@
     <string name="StartTime">The &appname; app was created by &author;</string>
     <string name="title_activity_timer">TimerActivity</string>
     <string name="back">Back</string>
+    <string name="coin_name">ProcrastinaCoins :</string>
 </resources>

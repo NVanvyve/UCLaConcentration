@@ -45,5 +45,14 @@
         android:layout_marginBottom="108dp"
         android:id="@+id/testSophie" />
 
+    <Button
+        android:text="Store"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeLayout"
+        android:layout_alignStart="@+id/testSophie"
+        android:layout_marginTop="89dp"
+        android:id="@+id/button_store" />
+
 
 </RelativeLayout>
