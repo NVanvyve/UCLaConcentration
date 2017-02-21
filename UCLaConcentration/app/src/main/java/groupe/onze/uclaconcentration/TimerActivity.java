@@ -1,5 +1,10 @@
 package groupe.onze.uclaconcentration;
 
+import android.app.Application;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -27,7 +32,7 @@ public class TimerActivity extends Activity {
     int minutes;
     long startTime = 0;
     SharedPreferences mPrefs;
-
+    Context context;
     //runs without a timer by reposting this handler at the end of the runnable
     Handler timerHandler = new Handler();
     Runnable timerRunnable = new Runnable() {
@@ -38,9 +43,8 @@ public class TimerActivity extends Activity {
             seconds = (int) (millis / 1000);
             minutes = seconds / 60;
             seconds = seconds % 60;
-
+            //if(minutes>1) sendNotif();
             timerTextView.setText(String.format("%d:%02d", minutes, seconds));
-
             timerHandler.postDelayed(this, 500);
         }
     };
@@ -63,6 +67,8 @@ public class TimerActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Button b = (Button) v;
+                context=getApplicationContext();
+                NotificationsSys.sendNotif(context,"test titre","test descr",TimerActivity.class);
                 if (b.getText().equals("stop")) {
                     timerHandler.removeCallbacks(timerRunnable);
                     SharedPreferences.Editor mEditor = mPrefs.edit();
@@ -94,5 +100,4 @@ public class TimerActivity extends Activity {
         Button b = (Button)findViewById(R.id.buttonTimer);
         b.setText("start");
     }
-
 }

@@ -29,7 +29,10 @@ public class StoreActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store);
-
+        //test alexis notif
+        context=getApplicationContext();
+        NotificationsSys.sendNotif(context,"test title store","test description store",MainActivity.class);
+        //
         coins = 0;
         waiting = 10000;
 
