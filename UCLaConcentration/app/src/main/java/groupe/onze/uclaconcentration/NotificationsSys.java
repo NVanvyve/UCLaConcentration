@@ -14,6 +14,10 @@ import android.view.View;
  */
 
 public class NotificationsSys extends Activity {
+    /*
+    @Pre: Prend en argument le contexte dans lequel la méthode est appelé, Le titre de la notification a envoyer, la description de la notification et la classe a charger dans le cas ou l'utilisateur clique sur la notification
+    @Post Crée une notifcation qui contiendra les informations données en paramètre
+     */
     public static void sendNotif(Context mContext,String title, String Description,Class classToLoad) {
 //Récupération du notification Manager
         final NotificationManager mNotification = (NotificationManager) mContext.getSystemService(NOTIFICATION_SERVICE);
