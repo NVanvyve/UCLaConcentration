@@ -15,14 +15,10 @@ import java.util.Random;
 public class StoreActivity extends AppCompatActivity {
 
     SharedPreferences mPrefs;
-    
+
     TextView money;
-    Button more;
-    Button serie20;
-    Button serie40;
-    Button serie60;
-    Button reset;
     Context context;
+
     CharSequence text = "You don't have enough money";
     CharSequence text2 = "You must wait 10 seconds between 2 purchases";
     int duration = 1;
@@ -34,7 +30,7 @@ public class StoreActivity extends AppCompatActivity {
 
     private void update(){
         SharedPreferences.Editor mEditor = mPrefs.edit();
-        mEditor.putInt("save_coins",procraCoins).commit();
+        mEditor.putInt("save_coins", procraCoins).commit();
     }
 
     private void sell(int cost){
@@ -42,7 +38,7 @@ public class StoreActivity extends AppCompatActivity {
             last_purchase = System.currentTimeMillis();
             procraCoins -= cost;
             update();
-            money.setText(Integer.toString(procraCoins));;
+            money.setText(procraCoins+" P");;
         }
         else if(cost>= procraCoins){
             context = getApplicationContext();
@@ -68,64 +64,81 @@ public class StoreActivity extends AppCompatActivity {
         waiting = 10000;
         rand = new Random(System.currentTimeMillis());
         money = (TextView) findViewById(R.id.var_coin);
-        more = (Button) findViewById(R.id.moremoney);
-        serie20 = (Button) findViewById(R.id.button20min);
-        serie40 = (Button) findViewById(R.id.button40min);
-        serie60 = (Button) findViewById(R.id.button60min);
-        reset = (Button) findViewById(R.id.reset_button);
+        Button more = (Button) findViewById(R.id.moremoney);
+        Button reset = (Button) findViewById(R.id.reset_button);
 
-
+        // Récupération de la mémoire
         mPrefs = getSharedPreferences("label", 0);
         procraCoins = mPrefs.getInt("save_coins",0);
-        money.setText(procraCoins+"");
+        money.setText(procraCoins+" P");
+
+        // Récompenses 
+        // Boutons et Prix associés
+        Button [] ButtonList = {
+                (Button) findViewById(R.id.button20min),
+                (Button) findViewById(R.id.button40min),
+                (Button) findViewById(R.id.button60min)};
+
+        final int [] CostList = {
+                150,
+                350,
+                600};
 
 
+        // Initialisation des prix sur les boutons
+        for (int i = 0; i<ButtonList.length; i++){
+            ButtonList[i].setText(CostList[i]+ " P");
+        }
+        
+        // "More" et "Reset" sont des boutons temporaire qui permettent de tester le fonctionemment du Store
+        // A supprimer une fois qu'il existe un systeme pour générer des points
         more.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                // En attendant une conversion du temps en coins
                 procraCoins += 20 + rand.nextInt(30);
                 update();
-                money.setText(Integer.toString(procraCoins));
+                money.setText(procraCoins+" P");
             }
         });
-
         reset.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 procraCoins = 0;
                 update();
-                money.setText(Integer.toString(procraCoins));
+                money.setText(procraCoins+" P");
             }
         });
 
-        serie20.setOnClickListener(new View.OnClickListener() {
-
+        
+        // Méthode onClick() pour tous les boutons... Une solution plus compacte est la bien venue
+        ButtonList[0].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int cost  = 150;
-                sell(cost);
+                sell(CostList[0]);
             }
         });
-
-        serie40.setOnClickListener(new View.OnClickListener() {
-
+        ButtonList[1].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int cost  = 350;
-                sell(cost);
+                sell(CostList[1]);
             }
         });
-
-        serie60.setOnClickListener(new View.OnClickListener() {
-
+        ButtonList[2].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int cost  = 600;
-                sell(cost);
+                sell(CostList[2]);
             }
         });
+        
+        /*
+        // Ajout d'un nouveau bouton?
+        ButtonList[i].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sell(CostList[i]);
+            }
+        });
+        */
+        
     }
 }
