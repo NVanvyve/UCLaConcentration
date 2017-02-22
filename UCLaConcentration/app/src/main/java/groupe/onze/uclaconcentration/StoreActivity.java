@@ -8,11 +8,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Random;
+
 
 public class StoreActivity extends AppCompatActivity {
 
     TextView money;
-    int coins;
     Button more;
     Button serie20;
     Button serie40;
@@ -24,6 +25,8 @@ public class StoreActivity extends AppCompatActivity {
     int waiting;
     long last_purchase;
 
+    Random rand;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,14 +34,12 @@ public class StoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_store);
 
         //test alexis notif
-        context=getApplicationContext();
-        NotificationsSys.sendNotif(context,"test title store","test description store",MainActivity.class);
-        //
+        //context=getApplicationContext();
+        //NotificationsSys.sendNotif(context,"test title store","test description store",MainActivity.class);
 
-        coins = 0;
         waiting = 10000;
 
-
+        rand = new Random(System.currentTimeMillis());
 
         money = (TextView) findViewById(R.id.var_coin);
         more = (Button) findViewById(R.id.moremoney);
@@ -46,14 +47,15 @@ public class StoreActivity extends AppCompatActivity {
         serie40 = (Button) findViewById(R.id.button40min);
         serie60 = (Button) findViewById(R.id.button60min);
 
-        money.setText(coins+"");
+        money.setText(MainActivity.procraCoins+"");
 
         more.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                coins = coins + 50;
-                money.setText(coins+"");
+                // En attendant une conversion du temps en coins
+                MainActivity.procraCoins += 20 + rand.nextInt(30);
+                money.setText(MainActivity.procraCoins+"");;
             }
         });
 
@@ -62,12 +64,12 @@ public class StoreActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int cost  = 150;
-                if(cost<=coins && ((System.currentTimeMillis() - last_purchase)>=waiting)) {
+                if(cost<=(MainActivity.procraCoins) && ((System.currentTimeMillis() - last_purchase)>=waiting)) {
                     last_purchase = System.currentTimeMillis();
-                    coins = coins - cost;
-                    money.setText(coins + "");
+                    MainActivity.procraCoins -= cost;
+                    money.setText(MainActivity.procraCoins+"");;
                 }
-                else if(cost>=coins){
+                else if(cost>= MainActivity.procraCoins){
                     context = getApplicationContext();
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
@@ -85,12 +87,12 @@ public class StoreActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int cost  = 350;
-                if(cost<=coins && ((System.currentTimeMillis() - last_purchase)>=waiting)) {
+                if(cost<=(MainActivity.procraCoins) && ((System.currentTimeMillis() - last_purchase)>=waiting)) {
                     last_purchase = System.currentTimeMillis();
-                    coins = coins - cost;
-                    money.setText(coins + "");
+                    MainActivity.procraCoins -= cost;
+                    money.setText(MainActivity.procraCoins+"");;
                 }
-                else if(cost>=coins){
+                else if(cost>=(MainActivity.procraCoins)){
                     context = getApplicationContext();
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
@@ -108,12 +110,12 @@ public class StoreActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int cost  = 600;
-                if(cost<=coins && ((System.currentTimeMillis() - last_purchase)>=waiting)) {
+                if(cost<=(MainActivity.procraCoins) && ((System.currentTimeMillis() - last_purchase)>=waiting)) {
                     last_purchase = System.currentTimeMillis();
-                    coins = coins - cost;
-                    money.setText(coins + "");
+                    MainActivity.procraCoins -=cost;
+                    money.setText(MainActivity.procraCoins+"");;
                 }
-                else if(cost>=coins){
+                else if(cost>=(MainActivity.procraCoins)){
                     context = getApplicationContext();
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
@@ -125,17 +127,5 @@ public class StoreActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-
-
-
-
-
-
-
-
     }
-
-
 }

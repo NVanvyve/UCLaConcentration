@@ -4,6 +4,10 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10sp" />
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -54,75 +58,87 @@
         android:layout_width="match_parent"
         android:layout_height="50sp" />
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:text="@string/serie20"
-            android:layout_width="wrap_content"
-            android:id="@+id/serie20"
-            android:textSize="24sp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <Button
-            android:text="150 P"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/button20min"
-            android:layout_alignTop="@+id/serie20"
-            android:layout_toEndOf="@+id/serie20"
-            android:layout_weight="1"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:text="@string/serie40"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/serie40"
-            android:textSize="24sp"
-            android:layout_weight="1" />
-
-        <Button
-            android:text="350 P"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/button40min"
-            android:layout_alignBaseline="@+id/serie40"
-            android:layout_alignBottom="@+id/serie40"
-            android:layout_alignStart="@+id/button20min"
-            android:layout_weight="1" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:text="@string/serie60"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/serie60"
-            android:textSize="24sp"
-            android:layout_weight="1" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <Button
-            android:text="600 P"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/button60min"
-            android:layout_alignBaseline="@+id/serie60"
-            android:layout_alignBottom="@+id/serie60"
-            android:layout_alignStart="@+id/button40min"
-            android:layout_weight="1" />
-    </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:text="@string/serie20"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/serie20"
+                    android:textSize="24sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:text="150 P"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/button20min"
+                    android:layout_alignTop="@+id/serie20"
+                    android:layout_toEndOf="@+id/serie20"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:text="@string/serie40"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/serie40"
+                    android:textSize="24sp"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:text="350 P"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/button40min"
+                    android:layout_alignBaseline="@+id/serie40"
+                    android:layout_alignBottom="@+id/serie40"
+                    android:layout_alignStart="@+id/button20min"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:text="@string/serie60"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/serie60"
+                    android:textSize="24sp"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:text="600 P"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/button60min"
+                    android:layout_alignBaseline="@+id/serie60"
+                    android:layout_alignBottom="@+id/serie60"
+                    android:layout_alignStart="@+id/button40min"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

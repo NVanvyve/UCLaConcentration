@@ -8,13 +8,19 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static int procraCoins;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Variable pour stocker les coins
+        procraCoins = 0;
+
         //Acces au store
         Button store = (Button) findViewById(R.id.button_store);
+        assert store != null;
         store.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
