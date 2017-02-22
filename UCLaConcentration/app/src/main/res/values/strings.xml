@@ -5,6 +5,10 @@
     <string name="description">The &appname; app was created by &author;</string>
     <string name="StartTime">The &appname; app was created by &author;</string>
     <string name="title_activity_timer">TimerActivity</string>
+    <string name="title_activity_store">Store</string>
     <string name="back">Back</string>
     <string name="coin_name">ProcrastinaCoins :</string>
+    <string name="serie20">Série : 20 min  </string>
+    <string name="serie40">Série : 40 min  </string>
+    <string name="serie60">Série : 60 min  </string>
 </resources>

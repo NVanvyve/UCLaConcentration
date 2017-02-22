@@ -8,21 +8,21 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".TimerActivity"
             android:label="@string/title_activity_timer"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".StoreActivity"
-            android:label="StoreActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_store"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>

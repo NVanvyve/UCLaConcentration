@@ -1,15 +1,15 @@
 package groupe.onze.uclaconcentration;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class StoreActivity extends Activity {
+public class StoreActivity extends AppCompatActivity {
 
     TextView money;
     int coins;
@@ -20,7 +20,7 @@ public class StoreActivity extends Activity {
     Context context;
     CharSequence text = "You don't have enough money";
     CharSequence text2 = "You must wait 10 seconds between 2 purchases";
-    int duration = 2;
+    int duration = 1;
     int waiting;
     long last_purchase;
 
@@ -29,10 +29,12 @@ public class StoreActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store);
+
         //test alexis notif
         context=getApplicationContext();
         NotificationsSys.sendNotif(context,"test title store","test description store",MainActivity.class);
         //
+
         coins = 0;
         waiting = 10000;
 
