@@ -13,16 +13,6 @@
     tools:context="groupe.onze.uclaconcentration.TimerActivity"
     tools:showIn="@layout/activity_timer">
 
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="131dp"
-        android:layout_marginTop="83dp"
-        android:id="@+id/textViewtime" />
-
     <Button
         android:text="Button"
         android:layout_width="wrap_content"
@@ -37,17 +27,23 @@
         android:text="Back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/buttonTimer"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="68dp"
         android:id="@+id/testSophieBack" />
 
     <TextView
-        android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/buttonTimer"
         android:layout_alignStart="@+id/textViewtime"
         android:layout_marginTop="110dp"
         android:id="@+id/timetotal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="81dp"
+        android:id="@+id/textViewtime"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/buttonTimer" />
 </RelativeLayout>
