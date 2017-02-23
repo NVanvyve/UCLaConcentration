@@ -23,6 +23,7 @@ public class NotificationsSys extends Activity {
         final NotificationManager mNotification = (NotificationManager) mContext.getSystemService(NOTIFICATION_SERVICE);
 
         final Intent launchNotifiactionIntent = new Intent(mContext,classToLoad);
+        launchNotifiactionIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         final PendingIntent pendingIntent = PendingIntent.getActivity(mContext,
                 1, launchNotifiactionIntent,
                 PendingIntent.FLAG_ONE_SHOT);
