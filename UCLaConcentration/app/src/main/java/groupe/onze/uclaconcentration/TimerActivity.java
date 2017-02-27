@@ -75,8 +75,8 @@ public class TimerActivity extends Activity {
         int seconds = mPrefs.getInt("seconds", 0);//0=def value
         int minutes = mPrefs.getInt("minutes", 0);//0=def value
         String count = String.format("%d:%02d", minutes, seconds);
-        textView2 = (TextView) findViewById(R.id.timetotal);
-        textView2.setText(count);
+        //textView2 = (TextView) findViewById(R.id.timetotal);
+        //textView2.setText(count);
 
         Button b = (Button) findViewById(R.id.buttonTimer);
         b.setText("start");
