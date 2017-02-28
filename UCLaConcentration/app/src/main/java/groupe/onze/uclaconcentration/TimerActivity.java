@@ -43,7 +43,8 @@ public class TimerActivity extends Activity {
     Context context;
     //runs without a timer by reposting this handler at the end of the runnable
     Handler timerHandler = new Handler();
-
+    int procraCoins = 0;
+    final int RATE = 100;  // Coins per seconds
     Runnable timerRunnable = new Runnable() {
 
         @Override
@@ -59,7 +60,9 @@ public class TimerActivity extends Activity {
             SharedPreferences.Editor mEditor = mPrefs.edit();
             mEditor.putInt("CounterSeconds",seconds);
             mEditor.putInt("CounterMinutes",minutes);
+            mEditor.commit();
             timerTextView.setText(String.format("%d:%02d", minutes, seconds));
+
             timerHandler.postDelayed(this, 500);
         }
     };
@@ -77,6 +80,7 @@ public class TimerActivity extends Activity {
         String count = String.format("%d:%02d", minutes, seconds);
         //textView2 = (TextView) findViewById(R.id.timetotal);
         //textView2.setText(count);
+        procraCoins = mPrefs.getInt("save_coins",0);
 
         Button b = (Button) findViewById(R.id.buttonTimer);
         b.setText("start");
@@ -104,7 +108,9 @@ public class TimerActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-                addCoins();
+                Button b = (Button) findViewById(R.id.buttonTimer);
+                if (b.getText().equals("stop"))
+                    addCoins();
                 finish();
             }
         });
@@ -113,8 +119,11 @@ public class TimerActivity extends Activity {
     public void addCoins(){
         mPrefs = getSharedPreferences("label", 0);
         int seconds = mPrefs.getInt("counterSeconds", 0) + 60 * mPrefs.getInt("counterMinutes", 0);
+        seconds ++;
         TextView c = (TextView) findViewById(R.id.test1);
-        c.setText("Procrastinacoins récupérés : " + seconds * 100);
+        c.setText("Procrastinacoins récupérés : " + seconds * RATE);
+        procraCoins += seconds * RATE;
+        update();
     }
     @Override
     public void onStart() {
@@ -148,6 +157,11 @@ public class TimerActivity extends Activity {
         timerHandler.removeCallbacks(timerRunnable);
         Button b = (Button)findViewById(R.id.buttonTimer);
         b.setText("start");
+    }
+
+    private void update(){
+        SharedPreferences.Editor mEditor = mPrefs.edit();
+        mEditor.putInt("save_coins", procraCoins).commit();
     }
 
 }
