@@ -87,6 +87,7 @@ public class TimerActivity extends Activity {
                 Button b = (Button) v;
 
                 if (b.getText().equals("stop")) {
+                    addCoins();
                     timerHandler.removeCallbacks(timerRunnable);
                     b.setText("start");
                 } else {
@@ -103,11 +104,18 @@ public class TimerActivity extends Activity {
 
             @Override
             public void onClick(View v) {
+                addCoins();
                 finish();
             }
         });
     }
 
+    public void addCoins(){
+        mPrefs = getSharedPreferences("label", 0);
+        int seconds = mPrefs.getInt("counterSeconds", 0) + 60 * mPrefs.getInt("counterMinutes", 0);
+        TextView c = (TextView) findViewById(R.id.test1);
+        c.setText("Procrastinacoins récupérés : " + seconds * 100);
+    }
     @Override
     public void onStart() {
         super.onStart();
