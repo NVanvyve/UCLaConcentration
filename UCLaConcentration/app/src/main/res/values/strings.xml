@@ -13,4 +13,5 @@
     <string name="title_activity_ade">ADE</string>
     <string name="title_activity_prefs">Preferences</string>
     <string name="text_codes_cours">Codes des cours :</string>
+    <string name="Avertissement_pas_de_decours">Vous n\'avez pas défini vos cours. Rendez vous dans les préférences afin de les saisir</string>
 </resources>
