@@ -19,18 +19,17 @@ public class AdeActivity extends AppCompatActivity {
         setContentView(R.layout.ade_layout);
 
         SharedPreferences mPrefs = getSharedPreferences("label", 0);
-        String codes = mPrefs.getString("codes_cours","vide");
+        String codes = mPrefs.getString("codes_cours","");
 
-        if (codes=="vide"){
+        if (codes.equals("")) {
             Context context = getApplicationContext();
             String text = getString(R.string.Avertissement_pas_de_decours);
             Toast toast = Toast.makeText(context, text, 1);
             toast.show();
-            
+
             //Intent s = new Intent(AdeActivity.this, MainActivity.class);
             //startActivity(s);
-        }
-        else {
+        } else {
             WebView browser = (WebView) findViewById(R.id.ade_view);
 
             browser.getSettings().setJavaScriptEnabled(true);
