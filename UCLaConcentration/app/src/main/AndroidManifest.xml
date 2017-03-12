@@ -7,7 +7,8 @@ import com.facebook.FacebookSdk;
     android:theme="@style/Theme.AppCompat.Light.NoActionBar">
     <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id" />
 
-    <activity android:name=".MainActivity">
+    <activity android:name=".MainActivity" android:launchMode="singleInstance">
+
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
@@ -15,14 +16,14 @@ import com.facebook.FacebookSdk;
             <action android:name="groupe.onze.uclaconcentration.CommunicationService.action.ACTIVITY_STATUS_UPDATE" />
         </intent-filter>
     </activity>
-    <activity android:name=".AdeActivity" android:label="@string/title_activity_ade" android:theme="@style/AppTheme" />
-    <activity android:name=".PrefsActivity" android:label="@string/title_activity_prefs"
+    <activity android:name=".AdeActivity" android:launchMode="singleInstance" android:label="@string/title_activity_ade" android:theme="@style/AppTheme" />
+    <activity android:name=".PrefsActivity" android:launchMode="singleInstance" android:label="@string/title_activity_prefs"
         android:theme="@style/AppTheme" />
 
     <service android:name=".TimerService" android:enabled="true" android:exported="true" />
 
-    <activity android:name=".TestActivity" />
-<activity android:name=".StoreActivity"/>
+    <activity android:name=".TestActivity" android:launchMode="singleInstance"/>
+<activity android:name=".StoreActivity" android:launchMode="singleInstance"/>
 
     <service android:name=".SensorService" android:enabled="true" android:exported="true"></service>
 </application>

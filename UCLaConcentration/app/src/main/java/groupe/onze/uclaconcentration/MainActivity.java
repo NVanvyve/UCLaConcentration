@@ -1,5 +1,6 @@
 package groupe.onze.uclaconcentration;
 
+import android.app.ActionBar;
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -29,6 +30,10 @@ public class MainActivity extends BasicActivity {
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 
         //Acces au store
         Button store = (Button) findViewById(R.id.button_store);
@@ -117,13 +122,30 @@ public class MainActivity extends BasicActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_favorite) {
-            Toast.makeText(MainActivity.this, "Action clicked", Toast.LENGTH_LONG).show();
-            return true;
-        }
+        switch (item.getItemId()) {
+            case R.id.home :
+                finish(); // close this activity and return to preview activity (if there is any)
 
-        return super.onOptionsItemSelected(item);
+            case R.id.action_settings:
+                // User chose the "Settings" item, show the app settings UI...
+                return true;
+
+            case R.id.action_home:
+
+                return true;
+
+            case R.id.action_recompense:
+                Intent s = new Intent(MainActivity.this, StoreActivity.class);
+                startActivity(s);
+
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
 

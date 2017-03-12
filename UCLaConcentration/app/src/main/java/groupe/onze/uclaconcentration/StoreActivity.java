@@ -1,9 +1,13 @@
 package groupe.onze.uclaconcentration;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,7 +16,7 @@ import android.widget.Toast;
 import java.util.Random;
 
 
-public class StoreActivity extends AppCompatActivity {
+public class StoreActivity extends BasicActivity {
 
     SharedPreferences mPrefs;
 
@@ -21,7 +25,7 @@ public class StoreActivity extends AppCompatActivity {
 
     CharSequence text = "You don't have enough money";
     CharSequence text2 = "You must wait 10 seconds between 2 purchases";
-    int duration = 1;
+    int duration = Toast.LENGTH_SHORT;
     int waiting;
     long last_purchase;
     int procraCoins;
@@ -53,9 +57,60 @@ public class StoreActivity extends AppCompatActivity {
     }
 
     @Override
+    public int getLayoutResource() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        switch (item.getItemId()) {
+            case R.id.home :
+                finish(); // close this activity and return to preview activity (if there is any)
+
+            case R.id.action_settings:
+                // User chose the "Settings" item, show the app settings UI...
+                return true;
+
+            case R.id.action_home:
+                Intent s = new Intent(StoreActivity.this, MainActivity.class);
+                startActivity(s);
+                return true;
+
+            case R.id.action_recompense:
+
+
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         //test alexis notif
         //context=getApplicationContext();
