@@ -5,10 +5,22 @@
     tools:context=".MainActivity">
 
     <item
-        android:id="@+id/action_favorite"
+        android:id="@+id/action_home"
         android:orderInCategory="300"
         android:title="User"
-        android:icon="@drawable/ic_menu_black_24dp"
+        android:icon="@drawable/ic_school_black_24dp"
         app:showAsAction="ifRoom"></item>
+
+    <item
+        android:id="@+id/action_recompense"
+        android:orderInCategory="300"
+        android:title="User"
+        android:icon="@drawable/ic_star_border_black_24dp"
+        app:showAsAction="ifRoom"></item>
+
+    <!-- Settings, should always be in the overflow -->
+    <item android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        app:showAsAction="never"/>
 
 </menu>
