@@ -8,7 +8,7 @@
         android:id="@+id/action_favorite"
         android:orderInCategory="300"
         android:title="User"
-        android:icon="@drawable/car"
+        android:icon="@drawable/ic_menu_black_24dp"
         app:showAsAction="ifRoom"></item>
 
 </menu>
