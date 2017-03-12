@@ -25,7 +25,7 @@ public class MainActivity extends BasicActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tv=(TextView) findViewById(R.id.tv1);
+        tv = (TextView) findViewById(R.id.tv1);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -71,6 +71,16 @@ public class MainActivity extends BasicActivity {
             }
         });
 
+        Button face = (Button) findViewById(R.id.connexion_button);
+        assert face != null;
+        face.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent s = new Intent(MainActivity.this, Connexion.class);
+                startActivity(s);
+            }
+        });
+
 
         /** Lance le service de timer */
         ctx = this;
@@ -82,7 +92,9 @@ public class MainActivity extends BasicActivity {
         }
     }
 
-    /** Service de timer*/
+    /**
+     * Service de timer
+     */
     Intent mServiceIntent;
     private SensorService mSensorService;
     Context ctx;
@@ -140,10 +152,11 @@ public class MainActivity extends BasicActivity {
         return R.layout.activity_main;
     }
 
-    /** Initialise le récepteur de message broadcast */
+    /**
+     * Initialise le récepteur de message broadcast
+     */
     @Override
-    public void onResume()
-    {
+    public void onResume() {
         IntentFilter movementFilter;
         movementFilter = new IntentFilter(SensorService.TIMER_UPDATE);
         timerReceiver = new TimerServiceReceiver();
@@ -153,13 +166,16 @@ public class MainActivity extends BasicActivity {
         super.onResume();
     }
 
-    /** Démarre le timer */
-    private void startTimerService()
-    {
+    /**
+     * Démarre le timer
+     */
+    private void startTimerService() {
         startService(new Intent(this, SensorService.class));
     }
 
-    /** Update le TimeViewer */
+    /**
+     * Update le TimeViewer
+     */
     final Runnable myRunnable = new Runnable() {
         public void run() {
             tv.setText(String.valueOf(counter));
@@ -167,18 +183,21 @@ public class MainActivity extends BasicActivity {
     };
 
     final Handler myHandler = new Handler();
-    /** Update le TimeViewer du compteur grâce au Runnable */
+
+    /**
+     * Update le TimeViewer du compteur grâce au Runnable
+     */
     private void UpdateGUI() {
         myHandler.post(myRunnable);
     }
 
     //----------------
-    public class TimerServiceReceiver extends BroadcastReceiver
-    {
-        /** Reçoit les messages broadcast par les services */
+    public class TimerServiceReceiver extends BroadcastReceiver {
+        /**
+         * Reçoit les messages broadcast par les services
+         */
         @Override
-        public void onReceive(Context context, Intent intent)
-        {
+        public void onReceive(Context context, Intent intent) {
             counter = intent.getIntExtra(SensorService.COUNTER, 0);
             UpdateGUI();
         }

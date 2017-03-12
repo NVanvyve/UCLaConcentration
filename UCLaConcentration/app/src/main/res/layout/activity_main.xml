@@ -62,6 +62,12 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/prefs_button" />
 
+            <Button
+                android:id="@+id/connexion_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Facebook" />
+
         </LinearLayout>
     </ScrollView>
 
