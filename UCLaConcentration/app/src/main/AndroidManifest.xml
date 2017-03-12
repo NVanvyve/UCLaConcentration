@@ -1,42 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="groupe.onze.uclaconcentration">
-    import com.facebook.FacebookSdk;
+<?xml version="1.0" encoding="utf-8"?><manifest xmlns:android="http://schemas.android.com/apk/res/android"
+package="groupe.onze.uclaconcentration">
+import com.facebook.FacebookSdk;
+<uses-permission android:name="android.permission.INTERNET" />
 
+<application android:allowBackup="true" android:icon="@mipmap/ic_launcher" android:label="@string/app_name"
+    android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+    <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id" />
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <activity android:name=".MainActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-    <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+            <category android:name="android.intent.category.LAUNCHER" />
+            <action android:name="groupe.onze.uclaconcentration.CommunicationService.action.ACTIVITY_STATUS_UPDATE" />
+        </intent-filter>
+    </activity>
+    <activity android:name=".AdeActivity" android:label="@string/title_activity_ade" android:theme="@style/AppTheme" />
+    <activity android:name=".PrefsActivity" android:label="@string/title_activity_prefs"
+        android:theme="@style/AppTheme" />
 
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+    <service android:name=".TimerService" android:enabled="true" android:exported="true" />
 
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+    <activity android:name=".TestActivity" />
+<activity android:name=".StoreActivity"/>
 
-        <activity
-            android:name=".TimerActivity"
-            android:label="@string/title_activity_timer"
-            android:theme="@style/AppTheme"/>
-        <activity
-            android:name=".StoreActivity"
-            android:label="@string/title_activity_store"
-            android:theme="@style/AppTheme"/>
-        <activity
-            android:name=".AdeActivity"
-            android:label="@string/title_activity_ade"
-            android:theme="@style/AppTheme"/>
-        <activity
-            android:name=".PrefsActivity"
-            android:label="@string/title_activity_prefs"
-            android:theme="@style/AppTheme"/>
+    <service android:name=".SensorService" android:enabled="true" android:exported="true"></service>
+</application>
 
-    </application>
 </manifest>

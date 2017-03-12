@@ -4,8 +4,10 @@ import android.app.Application;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,6 +15,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import android.app.Activity;
@@ -27,13 +31,17 @@ import static android.util.Log.VERBOSE;
 import static groupe.onze.uclaconcentration.R.id.text;
 import static groupe.onze.uclaconcentration.R.id.title;
 
+/** ACTUELLEMENT CETTE CLASSE EST USELESS **/
+
+
 /* LE TEMPS ECOULE DEPUIS QUE LE TIMER A ETE LANCE EST RECUPERABLE PAR:
 *  mPrefs = getSharedPreferences("label", 0);
    int seconds = mPrefs.getInt("counterSeconds", "0");
    int minutes = mPrefs.getInt("counterMinutes", "0");
 * */
-public class TimerActivity extends Activity {
-
+public class TimerActivity extends AppCompatActivity {
+    MenuItem countdownTimer;
+    private BroadcastReceiver uiUpdated;
     TextView timerTextView;
     TextView textView2;
     int seconds;
@@ -68,9 +76,39 @@ public class TimerActivity extends Activity {
     };
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        countdownTimer = menu.findItem(R.id.action_favorite);
+        return true;
+    }
+    @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
+
+
+/////////////////////
+        startService(new Intent(context, TimerService.class));
+        registerReceiver(uiUpdated, new IntentFilter("COUNTDOWN_UPDATED"));
+//Log.d("SERVICE", "STARTED!");
+
+
+        uiUpdated = new BroadcastReceiver() {
+
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                //This is the part where I get the timer value from the service and I update it every second, because I send the data from the service every second. The coundtdownTimer is a MenuItem
+                countdownTimer.setTitle(intent.getExtras().getString("countdown"));
+
+            }
+        };
+
+        /////////////////////////////////////////
+
 
         timerTextView = (TextView) findViewById(R.id.textViewtime);
         /* Affiche le temps actuel écoulé*/

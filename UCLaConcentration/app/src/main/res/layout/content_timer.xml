@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -12,6 +13,29 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="groupe.onze.uclaconcentration.TimerActivity"
     tools:showIn="@layout/activity_timer">
+    <menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+        <!-- "Mark Favorite", should appear as action button if possible -->
+        <item
+            android:id="@+id/action_favorite"
+            android:icon="@drawable/car"
+            android:title="@string/action_favorite"
+            app:showAsAction="ifRoom"/>
+
+        <!-- Settings, should always be in the overflow -->
+        <item android:id="@+id/action_settings"
+            android:title="@string/action_settings"
+            app:showAsAction="never"/>
+
+    </menu>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
     <Button
         android:text="Button"
@@ -50,5 +74,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/buttonTimer"
         android:layout_alignParentEnd="true" />
+
+
 
 </RelativeLayout>
