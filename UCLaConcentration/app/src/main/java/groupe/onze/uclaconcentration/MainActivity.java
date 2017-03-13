@@ -33,6 +33,33 @@ public class MainActivity extends BasicActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
+        Button play = (Button) findViewById(R.id.button_play);
+        assert play!= null;
+        play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+
+
+                Context context= getCtx();
+                    if (isMyServiceRunning(SensorService.class)) {
+
+                        Toast.makeText(context,"Service is running!! Stopping...",Toast.LENGTH_LONG).show();
+                        Intent serviceIntent = new Intent(getCtx(),SensorService.class);
+                        context.stopService(serviceIntent);
+                    }
+                    else {
+                        mSensorService = new SensorService(context);
+                        mServiceIntent = new Intent(context, mSensorService.getClass());
+                        if (!isMyServiceRunning(mSensorService.getClass())) {
+                            startService(mServiceIntent);
+                        }
+                    }
+
+            }
+        });
+
         //Acces au store
         Button store = (Button) findViewById(R.id.button_store);
         assert store != null;
@@ -220,6 +247,10 @@ public class MainActivity extends BasicActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             counter = intent.getIntExtra(SensorService.COUNTER, 0);
+            if(counter==10) {//Envoie une notif après 10 secondes d'écoulées
+                context=getApplicationContext();
+                NotificationsSys.sendNotif(context,"TIME OUT","plus de 10sec",MainActivity.class);
+            }
             UpdateGUI();
         }
     }

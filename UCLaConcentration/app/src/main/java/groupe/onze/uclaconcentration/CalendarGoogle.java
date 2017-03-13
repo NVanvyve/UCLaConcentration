@@ -1,5 +1,7 @@
 package groupe.onze.uclaconcentration;
 
+import groupe.onze.uclaconcentration.dataBaseMan.*;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -10,8 +12,6 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecovera
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.util.ExponentialBackOff;
-import com.google.api.client.util.Strings;
 import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.client.util.DateTime;
 
@@ -19,7 +19,6 @@ import com.google.api.services.calendar.model.*;
 
 import android.Manifest;
 import android.accounts.AccountManager;
-import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -33,7 +32,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
-import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -42,29 +40,22 @@ import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Hashtable;
 
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
+import groupe.onze.uclaconcentration.objetPerso.EventPerso;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 /**
@@ -92,7 +83,7 @@ public class CalendarGoogle extends AppCompatActivity implements EasyPermissions
     private CaldroidFragment dialogCaldroidFragment;
     private int daysBefore=-7;
     private int daysAfter=45;
-    private static ArrayList<EventObject>[] EventList;
+    private static ArrayList<EventPerso> EventList;
 
 
     /* Autre variables */
@@ -111,10 +102,7 @@ public class CalendarGoogle extends AppCompatActivity implements EasyPermissions
         super.onCreate(savedInstanceState);
         //mPrefs = getSharedPreferences("label", 0);
         //boolean test = mPrefs.getBoolean("GoogleLinkedAccount", false);
-        EventList=(ArrayList<EventObject>[]) new Object[(daysAfter-daysBefore)];
-        for(int i=0; i<(daysAfter-daysBefore);i++){
-            EventList[i]=new ArrayList<EventObject>();
-        }
+
         /**
         if (!test) {
             setContentView(R.layout.activity_calendar_first_launch);
@@ -179,16 +167,34 @@ public class CalendarGoogle extends AppCompatActivity implements EasyPermissions
         */
         @Override
         public void onSelectDate(Date date, View view) {
+            /* Création d'un layout custom */
+
+            /*
+            ViewGroup eventLayout =new ViewGroup(this) {
+                @Override
+                protected void onLayout(boolean changed, int l, int t, int r, int b) {
+
+                }
+            };
+
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+            eventLayout.setLayoutParams(lp);
+            eventLayout.setOrientation(LinearLayout.HORIZONTAL);
+            */
+
+            /* Création dialog */
             context=getApplicationContext();
             Calendar calM = Calendar.getInstance();
-            final int compare= date.compareTo(calM.getTime()); //TODO Vérifier que la date renvoyée est la bonne
-            final ArrayList<EventObject> tempList=EventList[compare-daysBefore];// Linker la list associer a la date
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            final dayEventListDB dEL=new dayEventListDB(context);
+            final ArrayList<EventPerso> tempList=dEL.getCalendrier(date);// Linker la list associer a la date
+            final AlertDialog.Builder builder = new AlertDialog.Builder(context);
 // Add the buttons
             builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
-                    EventList[compare-daysBefore]=tempList;
-                    // User clicked OK button
+            dEL.updateDate(tempList);
+
                 }
             });
             builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -197,7 +203,7 @@ public class CalendarGoogle extends AppCompatActivity implements EasyPermissions
                 }
             });
 // Set other dialog properties
-
+            builder.setTitle(EventPerso.dateToString(date));
 // Create the AlertDialog
             AlertDialog dialog = builder.create();
         }

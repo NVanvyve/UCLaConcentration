@@ -48,8 +48,6 @@ public class SensorService extends Service {
     public void onDestroy() {
         super.onDestroy();
         Log.i("EXIT", "ondestroy!");
-        Intent broadcastIntent = new Intent("groupe.onze.uclaconcentration.RestartSensor");
-        sendBroadcast(broadcastIntent);
         stoptimertask();
     }
 
