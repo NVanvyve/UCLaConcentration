@@ -33,7 +33,9 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -165,14 +167,33 @@ public class CalendarGoogle extends AppCompatActivity implements EasyPermissions
         */
         @Override
         public void onSelectDate(Date date, View view) {
+            /* Création d'un layout custom */
+
+            /*
+            ViewGroup eventLayout =new ViewGroup(this) {
+                @Override
+                protected void onLayout(boolean changed, int l, int t, int r, int b) {
+
+                }
+            };
+
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+            eventLayout.setLayoutParams(lp);
+            eventLayout.setOrientation(LinearLayout.HORIZONTAL);
+            */
+
+            /* Création dialog */
             context=getApplicationContext();
             Calendar calM = Calendar.getInstance();
-            dayEventListDB dEL=new dayEventListDB(context);
+            final dayEventListDB dEL=new dayEventListDB(context);
             final ArrayList<EventPerso> tempList=dEL.getCalendrier(date);// Linker la list associer a la date
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            final AlertDialog.Builder builder = new AlertDialog.Builder(context);
 // Add the buttons
             builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
+            dEL.updateDate(tempList);
 
                 }
             });
@@ -182,7 +203,7 @@ public class CalendarGoogle extends AppCompatActivity implements EasyPermissions
                 }
             });
 // Set other dialog properties
-
+            builder.setTitle(EventPerso.dateToString(date));
 // Create the AlertDialog
             AlertDialog dialog = builder.create();
         }

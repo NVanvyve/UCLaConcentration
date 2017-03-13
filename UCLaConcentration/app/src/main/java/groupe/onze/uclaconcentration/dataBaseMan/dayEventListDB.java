@@ -47,6 +47,7 @@ public class dayEventListDB extends DAOB {
         db.rawQuery(" INSERT INTO CALENDRIER VALUES ( ?, ?,?,?,?);",new String[]{dateS,titre,descr,dep.toString(),fin.toString()});
         close();
     }
+    /* Renvoie tout les évenement associés a une date */
     public ArrayList<EventPerso> getCalendrier(Date date){
         open();
         SQLiteDatabase db = getDatabase();
@@ -54,29 +55,39 @@ public class dayEventListDB extends DAOB {
         Cursor cursor=db.rawQuery(" SELECT * FROM CALENDRIER WHERE JOUR=?;",new String[]{date.toString()});
         while ( cursor.moveToNext()){
             EventPerso event;
-            try {
-                Date nwDate = dateFormat.parse(cursor.getString(0));
-                String titre= cursor.getString(1);
-                String desc= cursor.getString(2);
-                String []hdepTemp=cursor.getString(3).split(":");
+                int id=cursor.getInt(0);
+                Date nwDate = EventPerso.StringToDate(cursor.getString(1));
+                String titre= cursor.getString(2);
+                String desc= cursor.getString(3);
+                String []hdepTemp=cursor.getString(4).split(":");
                 eventTime hdep=new eventTime(parseInt(hdepTemp[0]),parseInt(hdepTemp[1]));
-                String []hfinTemp=cursor.getString(4).split(":");
+                String []hfinTemp=cursor.getString(5).split(":");
                 eventTime hfin=new eventTime(parseInt(hfinTemp[0]),parseInt(hfinTemp[1]));
-                event=new EventPerso(nwDate,titre,desc,hdep,hfin);
+                event=new EventPerso(id,nwDate,titre,desc,hdep,hfin);
                 list.add(event);
-            }catch (ParseException e) { /* TODO Mettre un code pour gérer l'exception  */}
         }
         cursor.close();
         close();
         return list;
 
     }
-    public void removeDateDispo(Date date,String titre){
+    /* On retire l'event avec l'id fournis en argment de la base de donnée */
+    public void removeDateDispo(int id){
         open();
         SQLiteDatabase db = getDatabase();
-        String dateS=dateFormat.format(date);
-        db.rawQuery(" DELETE FROM CALENDRIER WHERE JOUR=? and TITRE=? ;",new String[]{dateS,titre});
+        db.rawQuery(" DELETE FROM CALENDRIER WHERE ID="+id,null);
         close();
+    }
+    /* On met a jour un évenement dans la base de données */
+    public void updateDate(ArrayList<EventPerso> list){
+        int size=list.size();
+        for (int i =0;i<size;i++){
+            EventPerso current=list.get(i);
+            SQLiteDatabase db = getDatabase();
+            db.rawQuery("UPDATE CALENDRIER SET JOUR=?,TITRE=?,DESCR=?, HEUREDEP=?,HEUREFIN=? WHERE ID="+current.getId(),
+                    new String[]{current.getDateToString(),current.getEventName(),current.getEventDescr(), current.getHeureDeb().toString(),current.getHeureFin().toString()}); // On récupère tout les champs et on les met en texte
+
+        }
     }
 
 }

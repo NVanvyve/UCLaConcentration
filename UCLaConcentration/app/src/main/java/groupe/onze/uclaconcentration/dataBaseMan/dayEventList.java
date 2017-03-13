@@ -34,9 +34,9 @@ public class dayEventList {
         dayEventListDB DAO = new dayEventListDB(context);
         DAO.insertEvent(date,titre,descr,heureDeb,heureFin);
     }
-    public void removeEvent(Context context,Date date,String titre){
+    public void removeEvent(Context context,int id){
         dayEventListDB DAO = new dayEventListDB(context);
-        DAO.removeDateDispo(date,titre);
+        DAO.removeDateDispo(id);
     }
     public ArrayList<EventPerso> getDateFromDatabase(Context context,Date date){
         dayEventListDB DAO = new dayEventListDB(context);
