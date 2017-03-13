@@ -13,7 +13,7 @@
         android:name="com.facebook.sdk.ApplicationId"
         android:value="@string/facebook_app_id" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -24,31 +24,40 @@
         <activity
             android:name=".AdeActivity"
             android:label="@string/title_activity_ade"
+            android:launchMode="singleInstance"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".Facebook_Activity"
             android:label="Facebook"
+            android:launchMode="singleInstance"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".Connexion"
+            android:launchMode="singleInstance"
             android:label="Connexion à Facebook"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".PrefsActivity"
+            android:launchMode="singleInstance"
             android:label="@string/title_activity_prefs"
             android:theme="@style/AppTheme" />
         <service
             android:name=".TimerService"
+            android:launchMode="singleInstance"
             android:enabled="true"
             android:exported="true" />
         <activity
-            android:name=".TestActivity" />
+            android:name=".TestActivity"
+        android:launchMode="singleInstance"/>
         <activity
-            android:name=".StoreActivity"/>
+            android:name=".StoreActivity"
+            android:launchMode="singleInstance"/>
+
         <service
             android:name=".SensorService"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true"
+            android:launchMode="singleInstance">
         </service>
     </application>
 </manifest>
