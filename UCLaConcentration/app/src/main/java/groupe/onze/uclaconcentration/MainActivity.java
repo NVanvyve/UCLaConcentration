@@ -17,6 +17,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import junit.framework.Test;
+
 public class MainActivity extends BasicActivity {
     TimerServiceReceiver timerReceiver;
     int counter;
@@ -75,6 +77,15 @@ public class MainActivity extends BasicActivity {
                 startActivity(s);
             }
         });
+        /*  Ca marche pas pour l'instant
+        Button calendar=(Button)findViewById(R.id.button_calendar);
+        calendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent s = new Intent(MainActivity.this, CalendarGoogle.class);
+                startActivity(s);
+            }
+        }); */
 
         Button face = (Button) findViewById(R.id.connexion_button);
         assert face != null;
@@ -224,4 +235,5 @@ public class MainActivity extends BasicActivity {
             UpdateGUI();
         }
     }
-}
+
+    }

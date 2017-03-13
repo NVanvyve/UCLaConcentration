@@ -20,12 +20,12 @@
             android:id="@+id/action_favorite"
             android:icon="@drawable/car"
             android:title="@string/action_favorite"
-            app:showAsAction="ifRoom"/>
+            android:showAsAction="ifRoom"/>
 
         <!-- Settings, should always be in the overflow -->
         <item android:id="@+id/action_settings"
             android:title="@string/action_settings"
-            app:showAsAction="never"/>
+            android:showAsAction="never"/>
 
     </menu>
     <android.support.v7.widget.Toolbar

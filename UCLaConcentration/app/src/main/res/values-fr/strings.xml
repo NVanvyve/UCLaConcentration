@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name"></string>
+    <string name="NoNetworkConnection">Aucun réseau disponible</string>
+    <string name="StartTime">"Cette application a été crée par "</string>
+    <string name="back">Retour</string>
+    <string name="description">Cette application a été crée par</string>
+    <string name="serie20">Episode : 20 min</string>
+    <string name="serie40">Episode : 40 min</string>
+    <string name="serie60">Episode : 60min</string>
+    <string name="title_activity_calendar">Calendrier</string>
+    <string name="title_activity_store">Magasin</string>
+    <string name="title_activity_timer">Chronomètre</string>
+</resources>
