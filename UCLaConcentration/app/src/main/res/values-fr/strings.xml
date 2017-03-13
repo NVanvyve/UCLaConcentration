@@ -11,4 +11,8 @@
     <string name="title_activity_calendar">Calendrier</string>
     <string name="title_activity_store">Magasin</string>
     <string name="title_activity_timer">Chronomètre</string>
+    <string name="title_activity_settings">Paramètres</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="welcome_param">Bienvenue dans les paramètres</string>
+    <string name="already_param">Vous êtes déja dans les paramètres</string>
 </resources>

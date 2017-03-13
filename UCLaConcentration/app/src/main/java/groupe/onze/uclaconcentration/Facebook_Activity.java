@@ -36,8 +36,7 @@ public class Facebook_Activity extends BasicActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent s = new Intent(Facebook_Activity.this, MainActivity.class);
-                startActivity(s);
+                finish();
             }
         });
 
@@ -113,6 +112,12 @@ public class Facebook_Activity extends BasicActivity {
     @Override
     public int getLayoutResource() {
         return R.layout.activity_main;
+    }
+
+    @Override
+    public void finish(){
+        Intent s = new Intent(Facebook_Activity.this, MainActivity.class);
+        startActivity(s);
     }
 
 

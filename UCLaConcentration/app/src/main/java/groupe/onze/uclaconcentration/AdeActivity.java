@@ -66,7 +66,8 @@ public class AdeActivity extends BasicActivity {
                 finish(); // close this activity and return to preview activity (if there is any)
 
             case R.id.action_settings:
-                // User chose the "Settings" item, show the app settings UI...
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
                 return true;
 
             case R.id.action_home:

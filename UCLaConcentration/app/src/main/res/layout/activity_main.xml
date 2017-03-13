@@ -28,36 +28,36 @@
             android:weightSum="1">
 
             <TextView
-                android:text="@string/description"
+                android:id="@+id/tv1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/tv1"
+                android:text="@string/description"
+                android:textAlignment="center"
                 android:textAllCaps="false"
-                android:textSize="24sp"
-                android:textAlignment="center" />
+                android:textSize="24sp" />
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="30sp" />
 
             <Button
-                android:text="Store"
-                android:layout_width="match_parent"
                 android:id="@+id/button_store"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.96"
-                android:layout_height="wrap_content" />
+                android:text="Store" />
 
             <Button
-                android:text="ADE"
+                android:id="@+id/ade_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/ade_button" />
+                android:text="ADE" />
 
             <Button
-                android:text="Prefs"
+                android:id="@+id/prefs_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/prefs_button" />
+                android:text="Prefs" />
 
             <Button
                 android:id="@+id/connexion_button"

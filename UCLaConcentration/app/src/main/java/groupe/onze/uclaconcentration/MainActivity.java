@@ -129,11 +129,13 @@ public class MainActivity extends BasicActivity {
                 finish(); // close this activity and return to preview activity (if there is any)
 
             case R.id.action_settings:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
                 // User chose the "Settings" item, show the app settings UI...
                 return true;
 
             case R.id.action_home:
-
+                Toast.makeText(this, "Coucou", Toast.LENGTH_LONG).show();
                 return true;
 
             case R.id.action_recompense:
