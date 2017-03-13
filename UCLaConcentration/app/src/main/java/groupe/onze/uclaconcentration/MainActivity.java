@@ -33,10 +33,6 @@ public class MainActivity extends BasicActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-
         //Acces au store
         Button store = (Button) findViewById(R.id.button_store);
         assert store != null;
@@ -45,16 +41,6 @@ public class MainActivity extends BasicActivity {
             public void onClick(View v) {
                 Intent s = new Intent(MainActivity.this, StoreActivity.class);
                 startActivity(s);
-            }
-        });
-
-        Button timer = (Button) findViewById(R.id.testSophie);
-        timer.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent k = new Intent(MainActivity.this, TestActivity.class);
-                startActivity(k);
             }
         });
 
@@ -132,13 +118,6 @@ public class MainActivity extends BasicActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -169,6 +148,13 @@ public class MainActivity extends BasicActivity {
                 return super.onOptionsItemSelected(item);
 
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
 
