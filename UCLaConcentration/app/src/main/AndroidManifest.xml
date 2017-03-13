@@ -43,11 +43,14 @@
             android:launchMode="singleTask"
             android:label="@string/title_activity_prefs"
             android:theme="@style/AppTheme.NoActionBar" />
-        <service
-            android:launchMode="singleTask"
-            android:name=".TimerService"
-            android:enabled="true"
-            android:exported="true" />
+
+        <receiver android:name=".TestReceiver">
+            <intent-filter>
+                <action android:name="STOP_TEST_SERVICE" />
+                <action android:name="START_TEST_SERVICE" />
+
+            </intent-filter>
+        </receiver>
 
         <activity
             android:launchMode="singleTask"

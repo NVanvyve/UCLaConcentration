@@ -92,7 +92,7 @@ public class TimerActivity extends AppCompatActivity {
 
 
 /////////////////////
-        startService(new Intent(context, TimerService.class));
+
         registerReceiver(uiUpdated, new IntentFilter("COUNTDOWN_UPDATED"));
 //Log.d("SERVICE", "STARTED!");
 
