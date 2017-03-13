@@ -33,9 +33,32 @@ public class MainActivity extends BasicActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Button play = (Button) findViewById(R.id.button_play);
+        assert play!= null;
+        play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+
+
+
+                Context context= getCtx();
+                    if (isMyServiceRunning(SensorService.class)) {
+
+                        Toast.makeText(context,"Service is running!! Stopping...",Toast.LENGTH_LONG).show();
+                        Intent serviceIntent = new Intent(getCtx(),SensorService.class);
+                        context.stopService(serviceIntent);
+                    }
+                    else {
+                        mSensorService = new SensorService(context);
+                        mServiceIntent = new Intent(context, mSensorService.getClass());
+                        if (!isMyServiceRunning(mSensorService.getClass())) {
+                            startService(mServiceIntent);
+                        }
+                    }
+
+            }
+        });
 
         //Acces au store
         Button store = (Button) findViewById(R.id.button_store);
@@ -45,16 +68,6 @@ public class MainActivity extends BasicActivity {
             public void onClick(View v) {
                 Intent s = new Intent(MainActivity.this, StoreActivity.class);
                 startActivity(s);
-            }
-        });
-
-        Button timer = (Button) findViewById(R.id.testSophie);
-        timer.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent k = new Intent(MainActivity.this, TestActivity.class);
-                startActivity(k);
             }
         });
 
@@ -132,13 +145,6 @@ public class MainActivity extends BasicActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -169,6 +175,13 @@ public class MainActivity extends BasicActivity {
                 return super.onOptionsItemSelected(item);
 
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
 
@@ -232,6 +245,10 @@ public class MainActivity extends BasicActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             counter = intent.getIntExtra(SensorService.COUNTER, 0);
+            if(counter==10) {//Envoie une notif après 10 secondes d'écoulées
+                context=getApplicationContext();
+                NotificationsSys.sendNotif(context,"TIME OUT","plus de 10sec",MainActivity.class);
+            }
             UpdateGUI();
         }
     }

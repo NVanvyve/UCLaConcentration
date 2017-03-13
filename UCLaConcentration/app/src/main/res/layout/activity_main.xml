@@ -41,10 +41,11 @@
                 android:layout_height="30sp" />
 
             <Button
-                android:text="Timer"
+                android:text="Play"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/testSophie" />
+                android:id="@+id/button_play"
+                android:layout_weight="0.96"
+                android:layout_height="wrap_content" />
 
             <Button
                 android:text="Store"
