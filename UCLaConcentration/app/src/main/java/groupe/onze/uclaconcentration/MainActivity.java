@@ -81,15 +81,6 @@ public class MainActivity extends BasicActivity {
             }
         });
 
-        Button prefs = (Button) findViewById(R.id.prefs_button);
-        assert prefs != null;
-        prefs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent s = new Intent(MainActivity.this, PrefsActivity.class);
-                startActivity(s);
-            }
-        });
         /*  Ca marche pas pour l'instant
         Button calendar=(Button)findViewById(R.id.button_calendar);
         calendar.setOnClickListener(new View.OnClickListener() {

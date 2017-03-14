@@ -42,8 +42,7 @@ public class PrefsActivity extends BasicActivity {
             public void onClick(View v) {
                 SharedPreferences.Editor mEditor = mPrefs.edit();
                 mEditor.putString("codes_cours", ed_codes.getText().toString()).commit();
-                Intent s = new Intent(PrefsActivity.this, MainActivity.class);
-                startActivity(s);
+                finish();
             }
         });
 

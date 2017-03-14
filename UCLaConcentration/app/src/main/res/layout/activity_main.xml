@@ -61,12 +61,6 @@
                 android:text="ADE" />
 
             <Button
-                android:id="@+id/prefs_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Prefs" />
-
-            <Button
                 android:id="@+id/connexion_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

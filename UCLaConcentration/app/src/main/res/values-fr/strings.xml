@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name"></string>
+    <string name="app_name">UCLaConcentration</string>
     <string name="NoNetworkConnection">Aucun réseau disponible</string>
     <string name="StartTime">"Cette application a été crée par "</string>
     <string name="back">Retour</string>
@@ -24,4 +24,5 @@
         <item>MAF</item>
         <item>Guerrier</item>
     </string-array>
+    <string name="cursus_button">Liste de cours</string>
 </resources>

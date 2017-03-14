@@ -36,4 +36,5 @@
         <item>MAF</item>
         <item>Warrior</item>
     </string-array>
+    <string name="cursus_button">Cursus list</string>
 </resources>

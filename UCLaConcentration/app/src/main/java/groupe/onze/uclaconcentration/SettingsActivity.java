@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -58,6 +59,18 @@ public class SettingsActivity extends BasicActivity {
                         .setAction("Action", null).show();
             }
         });*/
+
+
+
+        Button prefs = (Button) findViewById(R.id.cursus_button);
+        assert prefs != null;
+        prefs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent s = new Intent(SettingsActivity.this, PrefsActivity.class);
+                startActivity(s);
+            }
+        });
     }
 
     public class CustomOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
