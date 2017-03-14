@@ -15,4 +15,15 @@
         android:elevation="4dp"
         />
 
+    <TextView
+        android:id="@+id/sport_level"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sport_level" />
+
+    <Spinner
+        android:id="@+id/sport_spin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>

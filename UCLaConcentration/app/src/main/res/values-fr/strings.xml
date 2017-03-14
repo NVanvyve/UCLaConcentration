@@ -15,4 +15,13 @@
     <string name="action_settings">Paramètres</string>
     <string name="welcome_param">Bienvenue dans les paramètres</string>
     <string name="already_param">Vous êtes déja dans les paramètres</string>
+    <string name="sport_level">Niveau de sportivité</string>
+    <string-array name="sport_level_array">
+        <item>Informaticien</item>
+        <item>Romaniste</item>
+        <item>Agro</item>
+        <item>Kiné</item>
+        <item>MAF</item>
+        <item>Guerrier</item>
+    </string-array>
 </resources>

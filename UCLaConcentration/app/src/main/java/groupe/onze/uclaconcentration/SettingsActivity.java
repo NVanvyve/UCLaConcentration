@@ -1,6 +1,7 @@
 package groupe.onze.uclaconcentration;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,8 +10,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 public class SettingsActivity extends BasicActivity {
+
+    SharedPreferences mPrefs;
+    int sportLevel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +31,23 @@ public class SettingsActivity extends BasicActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.welcome_param), Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        /*Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.welcome_param), Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();*/
+
+
+        mPrefs = getSharedPreferences("label", 0);
+        sportLevel = mPrefs.getInt("sport_level",0);
+
+        Spinner spinner = (Spinner) findViewById(R.id.sport_spin);
+// Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.sport_level_array, android.R.layout.simple_spinner_item);
+// Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+// Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+        spinner.setSelection(sportLevel);
+        spinner.setOnItemSelectedListener(new CustomOnItemSelectedListener());
 
         /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -35,6 +58,25 @@ public class SettingsActivity extends BasicActivity {
                         .setAction("Action", null).show();
             }
         });*/
+    }
+
+    public class CustomOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
+
+        public void onItemSelected(AdapterView<?> parent, View view, int pos,
+                                   long id) {
+
+
+            SharedPreferences.Editor mEditor = mPrefs.edit();
+            sportLevel = pos;
+            mEditor.putInt("sport_level", pos).commit();
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> arg0) {
+            // TODO Auto-generated method stub
+
+        }
+
     }
 
     @Override
