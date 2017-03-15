@@ -15,25 +15,38 @@
         android:elevation="4dp"
         />
 
-    <TextView
-        android:id="@+id/sport_level"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/sport_level" />
+        android:layout_height="match_parent">
 
-    <Spinner
-        android:id="@+id/sport_spin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_marginRight="@dimen/margin"
+            android:orientation="vertical" >
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="20pt" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20pt" />
 
-    <Button
-        android:id="@+id/cursus_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/cursus_button" />
+            <Spinner
+                android:id="@+id/sport_spin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/sport_level"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sport_level" />
+
+            <Button
+                android:id="@+id/cursus_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/cursus_button" />
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
