@@ -35,20 +35,35 @@ public class AdeActivity extends BasicActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         SharedPreferences mPrefs = getSharedPreferences("label", 0);
-        String codes = mPrefs.getString("codes_cours","");
 
+        String codes = "";
+        String intitules [] = {"programme","majeure","mineure"};
 
-        if (codes.equals("")) {
-            Context context = getApplicationContext();
-            String text = getString(R.string.Avertissement_pas_de_decours);
-            Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
-            toast.show();
+        for (int i = 0;i<intitules.length;i++){
+            String ref = mPrefs.getString(intitules[i],"");
+            if (i==0 && ref.equals("")){
+                Context context = getApplicationContext();
+                String text = getString(R.string.Avertissement_pas_de_cours);
+                Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+                toast.show();
+                break;
+            }
+            if (!ref.equals("")) {
+                if (codes.equals("")) {
+                    codes = ref;
+                } else {
+                    codes = codes + "," + ref;
+                }
+            }
+        }
 
-            //Intent s = new Intent(AdeActivity.this, MainActivity.class);
-            //startActivity(s);
-        } else {
+        String cours_supp = mPrefs.getString("cours_supp","");
+        if (!cours_supp.equals("")){
+            codes = codes+","+cours_supp;
+        }
+
+        if(!codes.equals("")) {
             WebView browser = (WebView) findViewById(R.id.ade_view);
-
             browser.getSettings().setJavaScriptEnabled(true);
             String url = "http://horairev6.uclouvain.be/direct/index.jsp?displayConfName=webEtudiant&showTree=false&showOptions=false&login=etudiant&password=student&projectId=21&code=" + codes + "&weeks=";
             browser.loadUrl(url);
