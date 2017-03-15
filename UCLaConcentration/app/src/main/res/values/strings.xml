@@ -61,4 +61,5 @@
         <item>To set your sport level, go in the Settings</item>
         <item>To link your ap with your facebook account, push FACEBOOK</item>
     </string-array>
+    <string name="log_in">Logging in …</string>
 </resources>

@@ -98,7 +98,7 @@ public class Connexion extends BasicActivity {
                 AccessToken accessToken = loginResult.getAccessToken();
                 Profile profile = Profile.getCurrentProfile();
                 nextActivity(profile);
-                Toast.makeText(getApplicationContext(), "Logging in...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.log_in), Toast.LENGTH_SHORT).show();
             }
 
             @Override
