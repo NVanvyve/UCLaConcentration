@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Handler;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -157,6 +158,16 @@ public class MainActivity extends BasicActivity {
             case R.id.action_recompense:
                 Intent s = new Intent(MainActivity.this, StoreActivity.class);
                 startActivity(s);
+                return true;
+
+            case R.id.help:
+                String help[] = getResources().getStringArray(R.array.help_main);
+                for (int i = 0; i < help.length; i ++)
+                {
+                    Toast.makeText(this, help[i], Toast.LENGTH_LONG).show();
+                    //Snackbar.make(findViewById(android.R.id.content), help[i],
+                      //      Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                }
                 return true;
 
             default:

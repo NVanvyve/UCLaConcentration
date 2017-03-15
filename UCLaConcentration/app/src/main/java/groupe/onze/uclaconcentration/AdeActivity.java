@@ -43,7 +43,7 @@ public class AdeActivity extends BasicActivity {
             String ref = mPrefs.getString(intitules[i],"");
             if (i==0 && ref.equals("")){
                 Context context = getApplicationContext();
-                String text = getString(R.string.Avertissement_pas_de_cours);
+                String text = getString(R.string.avertissement_pas_de_cours);
                 Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
                 toast.show();
                 break;

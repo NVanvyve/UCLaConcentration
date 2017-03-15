@@ -37,7 +37,7 @@
     <string name="title_activity_ade">ADE</string>
     <string name="title_activity_prefs">Préférences</string>
     <string name="text_codes_cours">Codes des cours :</string>
-    <string name="Avertissement_pas_de_decours">Vous n\'avez pas défini vos cours. Rendez vous dans les paramètres afin de les saisir</string>
+    <string name="avertissement_pas_de_cours">Vous n\'avez pas défini vos cours. Rendez vous dans les paramètres afin de les saisir</string>
     <string name="action_favorite">Favoris</string>
     <string name="lack_money">Vous n\'avez pas assez d\'argent</string>
     <string name="wait_purchase">Vous devez attendre 10 secondes entre 2 achats</string>
@@ -50,4 +50,14 @@
     <string name="programme">Programme (FSA13BA)</string>
     <string name="majeure">Majeure (MajInfo13)</string>
     <string name="mineure">Mineure (Minmap13)</string>
+    <string name="help">Aide</string>
+    <string-array name="help_main">
+        <item>Pour lancer le chrono, appuyez sur le bouton Start/Stop.</item>
+        <item>Si vous voulez prendre une pause, appuyez sur le bouton Pause.</item>
+        <item>Pour dépenser le crédit que vous avez acquis, allez dans la boutique via le bouton magasin.</item>
+        <item>Pour consulter votre agenda, allez dans l\'onglet ADE, si vous avez déjà enregistré votre liste de cours.</item>
+        <item>Si non, allez dans les paramètres et entrez vos cours dans la liste de cours.</item>
+        <item>Vous pouvez aussi régler votre niveau de sportivité dans les paramètres.</item>
+        <item>Pour lier votre compte Facebook avec l\'app, appuyez sur Facebook.</item>
+    </string-array>
 </resources>
