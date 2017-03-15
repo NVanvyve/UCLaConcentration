@@ -5,16 +5,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+
+import java.util.LinkedList;
+
 
 public class PrefsActivity extends BasicActivity {
-
 
     @Override
     public int getLayoutResource() {
@@ -32,21 +35,68 @@ public class PrefsActivity extends BasicActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        FloatingActionButton add = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        final LinearLayout lc = (LinearLayout) findViewById(R.id.layout_cours);
+
+        final LinkedList<EditText> memory = new LinkedList<>();
         final SharedPreferences mPrefs = getSharedPreferences("label", 0);
-        final EditText ed_codes = (EditText) findViewById(R.id.ed_codes);
 
-        ed_codes.setText(mPrefs.getString("codes_cours", null));
+        // Les 3 de base que on a toujours
+        final EditText programme = (EditText) findViewById(R.id.ed_programme);
+        final EditText majeure = (EditText) findViewById(R.id.ed_maj);
+        final EditText mineure = (EditText) findViewById(R.id.ed_min);
 
+        // On charge ce qui était en mémoire
+        programme.setText(mPrefs.getString("programme", null));
+        majeure.setText(mPrefs.getString("majeure", null));
+        mineure.setText(mPrefs.getString("mineure", null));
+
+        //Chargement des cours supplémentaires précedement enregistrés
+        String save_string = mPrefs.getString("cours_supp",null);
+        if (save_string!=null) {
+            String delim = ",";
+            String[] codes = save_string.split(delim);
+            for (int i = 0; i < codes.length; i++) {
+                EditText ed = new EditText(getApplicationContext());
+                ed.setText(codes[i]);
+                lc.addView(ed);
+                memory.add(ed);
+            }
+        }
+
+        //Rajout de cours
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final EditText ed = new EditText(getApplicationContext());
+                ed.setHint(R.string.autre_cours);
+                lc.addView(ed);
+                memory.add(ed);
+            }
+        });
+
+        //Bouton Save&Back sauvegarde la liste des cours supplémentaire qui ont été utilisé
         Button save = (Button) findViewById(R.id.save_button);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SharedPreferences.Editor mEditor = mPrefs.edit();
-                mEditor.putString("codes_cours", ed_codes.getText().toString()).commit();
+                mEditor.putString("programme", programme.getText().toString()).commit();
+                mEditor.putString("majeure", majeure.getText().toString()).commit();
+                mEditor.putString("mineure", mineure.getText().toString()).commit();
+                String cours_supp = "";
+                while (!memory.isEmpty()) {
+                    EditText temp = memory.pop();
+                    if (!temp.getText().toString().equals("")) {
+                        cours_supp += temp.getText().toString() + ",";
+                    }
+                }
+                cours_supp = cours_supp.substring(0,cours_supp.length()-1);
+                mEditor.putString("cours_supp",cours_supp).commit();
+
                 finish();
             }
         });
-
     }
 
     @Override

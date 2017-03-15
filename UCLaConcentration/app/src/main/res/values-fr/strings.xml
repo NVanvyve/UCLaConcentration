@@ -46,4 +46,8 @@
     <string name="ade">ADE</string>
     <string name="save_back">Sauvegarder et Quitter</string>
     <string name="log_out">Déconnection</string>
+    <string name="autre_cours">Autre cours (LFSA1106)</string>
+    <string name="programme">Programme (FSA13BA)</string>
+    <string name="majeure">Majeure (MajInfo13)</string>
+    <string name="mineure">Mineure (Minmap13)</string>
 </resources>
