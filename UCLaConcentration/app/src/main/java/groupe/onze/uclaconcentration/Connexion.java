@@ -2,7 +2,11 @@ package groupe.onze.uclaconcentration;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -23,7 +27,7 @@ import com.facebook.login.widget.LoginButton;
  */
 
 
-public class Connexion extends AppCompatActivity {
+public class Connexion extends BasicActivity {
 
 
     private LoginButton loginButton;
@@ -48,9 +52,14 @@ public class Connexion extends AppCompatActivity {
         }
     };
 
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate(Bundle savedInstanceState) {super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_connexion);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         Button back = (Button) findViewById(R.id.connexion_back);
         back.setOnClickListener(new View.OnClickListener() {
@@ -141,7 +150,52 @@ public class Connexion extends AppCompatActivity {
             face.putExtra("name", profile.getFirstName());
             face.putExtra("surname", profile.getLastName());
             face.putExtra("imageUrl", profile.getProfilePictureUri(200, 200).toString());
+            finish();
             startActivity(face);
+        }
+    }
+
+    @Override
+    public int getLayoutResource() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        switch (item.getItemId()) {
+            case R.id.home :
+                finish(); // close this activity and return to preview activity (if there is any)
+
+            case R.id.action_settings:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                finish();
+                startActivity(intent);
+
+            case R.id.action_home:
+                finish();
+
+            case R.id.action_recompense:
+                Intent intent1 = new Intent(this, StoreActivity.class);
+                finish();
+                startActivity(intent1);
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
         }
     }
 }

@@ -15,6 +15,8 @@ import com.facebook.FacebookActivity;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 
+import java.util.Set;
+
 /**
  * Created by nicolasvanvyve on 12/03/17.
  */
@@ -87,16 +89,18 @@ public class Facebook_Activity extends BasicActivity {
                 finish(); // close this activity and return to preview activity (if there is any)
 
             case R.id.action_settings:
-                // User chose the "Settings" item, show the app settings UI...
+                Intent intent = new Intent(this, SettingsActivity.class);
+                finish();
+                startActivity(intent);
                 return true;
 
             case R.id.action_home:
-                Intent t = new Intent(Facebook_Activity.this, MainActivity.class);
-                startActivity(t);
+                finish();
                 return true;
 
             case R.id.action_recompense:
                 Intent s = new Intent(Facebook_Activity.this, StoreActivity.class);
+                finish();
                 startActivity(s);
 
                 return true;

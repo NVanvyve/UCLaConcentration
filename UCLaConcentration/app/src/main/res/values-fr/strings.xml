@@ -13,7 +13,7 @@
     <string name="title_activity_timer">Chronomètre</string>
     <string name="title_activity_settings">Paramètres</string>
     <string name="action_settings">Paramètres</string>
-    <string name="welcome_param">Bienvenue dans les paramètres</string>
+    <string name="welcome_param">Bienvenue dans la jungle</string>
     <string name="already_param">Vous êtes déja dans les paramètres</string>
     <string name="sport_level">Niveau de sportivité</string>
     <string-array name="sport_level_array">
@@ -25,4 +25,25 @@
         <item>Guerrier</item>
     </string-array>
     <string name="cursus_button">Liste de cours</string>
+    <string name="stopping_chrono">Le service est en cours !! Arrêt du chrono</string>
+    <string name="TIME_OUT">TIME OUT</string>
+    <string name="more_10">Plus de 10 secondes </string>
+
+    <string name="Initcalendar">Initialise le calendrier</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Annuler</string>
+
+    <string name="coin_name">ProcrastinaCoins :</string>
+    <string name="title_activity_ade">ADE</string>
+    <string name="title_activity_prefs">Préférences</string>
+    <string name="text_codes_cours">Codes des cours :</string>
+    <string name="Avertissement_pas_de_decours">Vous n\'avez pas défini vos cours. Rendez vous dans les paramètres afin de les saisir</string>
+    <string name="action_favorite">Favoris</string>
+    <string name="lack_money">Vous n\'avez pas assez d\'argent</string>
+    <string name="wait_purchase">Vous devez attendre 10 secondes entre 2 achats</string>
+    <string name="play">Play</string>
+    <string name="store">Magasin</string>
+    <string name="ade">ADE</string>
+    <string name="save_back">Sauvegarder et Quitter</string>
+    <string name="log_out">Déconnection</string>
 </resources>

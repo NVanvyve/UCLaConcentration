@@ -50,7 +50,8 @@ public class AdeActivity extends BasicActivity {
             WebView browser = (WebView) findViewById(R.id.ade_view);
 
             browser.getSettings().setJavaScriptEnabled(true);
-            String url = "http://horairev6.uclouvain.be/direct/index.jsp?displayConfName=webEtudiant&showTree=false&showOptions=false&login=etudiant&password=student&projectId=21&code=" + codes + "&weeks=";
+            String url = "http://horairev6.uclouvain.be/direct/index.jsp?displayConfName=webEtudiant&showTree=false&showOptions=false&login=etudiant&password=student&projectId=21&code="
+                    + codes + "&weeks=";
             browser.loadUrl(url);
         }
     }
@@ -67,24 +68,20 @@ public class AdeActivity extends BasicActivity {
 
             case R.id.action_settings:
                 Intent intent = new Intent(this, SettingsActivity.class);
+                finish();
                 startActivity(intent);
-                return true;
 
             case R.id.action_home:
                 Intent t = new Intent(AdeActivity.this, MainActivity.class);
+                finish();
                 startActivity(t);
-
-                return true;
 
             case R.id.action_recompense:
                 Intent s = new Intent(AdeActivity.this, StoreActivity.class);
+                finish();
                 startActivity(s);
 
-                return true;
-
             default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
 
         }

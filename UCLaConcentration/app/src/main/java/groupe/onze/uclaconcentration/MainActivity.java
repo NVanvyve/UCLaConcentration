@@ -45,7 +45,7 @@ public class MainActivity extends BasicActivity {
                 Context context= getCtx();
                     if (isMyServiceRunning(SensorService.class)) {
 
-                        Toast.makeText(context,"Service is running!! Stopping...",Toast.LENGTH_LONG).show();
+                        Toast.makeText(context,getResources().getString(R.string.stopping_chrono),Toast.LENGTH_LONG).show();
                         Intent serviceIntent = new Intent(getCtx(),SensorService.class);
                         context.stopService(serviceIntent);
                     }
@@ -149,22 +149,17 @@ public class MainActivity extends BasicActivity {
             case R.id.action_settings:
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
-                // User chose the "Settings" item, show the app settings UI...
                 return true;
 
             case R.id.action_home:
-                Toast.makeText(this, "Coucou", Toast.LENGTH_LONG).show();
                 return true;
 
             case R.id.action_recompense:
                 Intent s = new Intent(MainActivity.this, StoreActivity.class);
                 startActivity(s);
-
                 return true;
 
             default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
 
         }
@@ -240,7 +235,8 @@ public class MainActivity extends BasicActivity {
             counter = intent.getIntExtra(SensorService.COUNTER, 0);
             if(counter==10) {//Envoie une notif après 10 secondes d'écoulées
                 context=getApplicationContext();
-                NotificationsSys.sendNotif(context,"TIME OUT","plus de 10sec",MainActivity.class);
+                NotificationsSys.sendNotif(context,getResources().getString(R.string.TIME_OUT)
+                        ,getResources().getString(R.string.more_10),MainActivity.class);
             }
             UpdateGUI();
         }

@@ -35,14 +35,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="FSA13BA,MajInfo,LFSAB1106"
+                android:hint="@string/hint"
                 android:inputType="textPersonName" />
 
             <Button
                 android:id="@+id/save_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Save and Back" />
+                android:text="@string/save_back" />
 
         </LinearLayout>
     </ScrollView>

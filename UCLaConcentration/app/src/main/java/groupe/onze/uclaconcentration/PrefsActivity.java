@@ -4,6 +4,7 @@ package groupe.onze.uclaconcentration;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -58,16 +59,19 @@ public class PrefsActivity extends BasicActivity {
         switch (item.getItemId()) {
 
             case R.id.action_settings:
-                // User chose the "Settings" item, show the app settings UI...
+                Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.already_param), Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
                 return true;
 
             case R.id.action_home:
                 Intent t = new Intent(PrefsActivity.this, MainActivity.class);
+                finish();
                 startActivity(t);
                 return true;
 
             case R.id.action_recompense:
                 Intent s = new Intent(PrefsActivity.this, StoreActivity.class);
+                finish();
                 startActivity(s);
 
                 return true;

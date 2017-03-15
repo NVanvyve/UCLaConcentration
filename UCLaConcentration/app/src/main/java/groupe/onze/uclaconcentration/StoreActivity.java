@@ -23,8 +23,8 @@ public class StoreActivity extends BasicActivity {
     TextView money;
     Context context;
 
-    CharSequence text = "You don't have enough money";
-    CharSequence text2 = "You must wait 10 seconds between 2 purchases";
+    CharSequence text;
+    CharSequence text2;
     int duration = Toast.LENGTH_SHORT;
     int waiting;
     long last_purchase;
@@ -60,6 +60,8 @@ public class StoreActivity extends BasicActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        text = getResources().getString(R.string.lack_money);
+        text2 = getResources().getString(R.string.wait_purchase);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store);
 

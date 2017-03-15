@@ -41,7 +41,7 @@
                 android:layout_height="30sp" />
 
             <Button
-                android:text="Play"
+                android:text="@string/play"
                 android:layout_width="match_parent"
                 android:id="@+id/button_play"
                 android:layout_weight="0.96"
@@ -52,19 +52,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.96"
-                android:text="Store" />
+                android:text="@string/store" />
 
             <Button
                 android:id="@+id/ade_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ADE" />
+                android:text="@string/ade" />
 
             <Button
                 android:id="@+id/connexion_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Facebook" />
+                android:text="@string/fb" />
 
         </LinearLayout>
     </ScrollView>
