@@ -52,7 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.96"
-                android:text="@string/store" />
+                android:text="@string/title_activity_store" />
 
             <Button
                 android:id="@+id/ade_button"
