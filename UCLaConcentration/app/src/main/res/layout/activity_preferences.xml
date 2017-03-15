@@ -75,8 +75,8 @@
                 android:id="@+id/layout_cours"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
+                android:layout_marginLeft="@dimen/margin"
+                android:layout_marginRight="@dimen/margin"
                 android:orientation="vertical" />
 
             <android.support.design.widget.FloatingActionButton
