@@ -14,7 +14,7 @@
     <string name="action_settings">Paramètres</string>
     <string name="welcome_param">Bienvenue dans la jungle</string>
     <string name="already_param">Vous êtes déja dans les paramètres</string>
-    <string name="sport_level">Niveau de sportivité</string>
+    <string name="sport_level">Sportif de niveau :</string>
     <string-array name="sport_level_array">
         <item>Informaticien</item>
         <item>Romaniste</item>
