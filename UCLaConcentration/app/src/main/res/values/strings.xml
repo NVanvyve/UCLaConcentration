@@ -62,4 +62,6 @@
         <item>To link your ap with your facebook account, push FACEBOOK</item>
     </string-array>
     <string name="log_in">Logging in …</string>
+    <string name="sport_menu">Sport</string>
+    <string name="sport_activity">Sport</string>
 </resources>

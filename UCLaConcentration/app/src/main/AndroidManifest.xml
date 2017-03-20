@@ -2,8 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="groupe.onze.uclaconcentration">
     import com.facebook.FacebookSdk;
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_school_black_24dp"
@@ -51,11 +52,19 @@
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity
+            android:name=".Sport"
+            android:label="@string/sport_activity"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <service
             android:name=".SensorService"
             android:enabled="true"
             android:exported="true"
             android:launchMode="singleTask" />
+
+        <service android:name=".GPSTracker"/>
 
         <activity
             android:name=".SettingsActivity"

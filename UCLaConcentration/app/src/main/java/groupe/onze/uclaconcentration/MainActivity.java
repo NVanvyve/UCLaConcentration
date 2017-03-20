@@ -102,6 +102,16 @@ public class MainActivity extends BasicActivity {
             }
         });
 
+        Button sport = (Button) findViewById(R.id.sport_button);
+        assert sport != null;
+        sport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent s = new Intent(MainActivity.this,Sport.class);
+                startActivity(s);
+            }
+        });
+
 
         /** Lance le service de timer */
         ctx = this;

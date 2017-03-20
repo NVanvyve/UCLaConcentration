@@ -2,7 +2,6 @@ package groupe.onze.uclaconcentration;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,11 +10,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.FacebookActivity;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
-
-import java.util.Set;
 
 /**
  * Created by nicolasvanvyve on 12/03/17.
@@ -26,7 +22,7 @@ public class Facebook_Activity extends BasicActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.facebook_layout);
+        setContentView(R.layout.layout_facebook);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
