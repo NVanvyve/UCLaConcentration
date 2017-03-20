@@ -4,8 +4,8 @@ package groupe.onze.uclaconcentration;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,8 +52,8 @@ public class PrefsActivity extends BasicActivity {
         mineure.setText(mPrefs.getString("mineure", null));
 
         //Chargement des cours supplémentaires précedement enregistrés
-        String save_string = mPrefs.getString("cours_supp",null);
-        if (save_string!=null) {
+        String save_string = mPrefs.getString("cours_supp", null);
+        if (save_string != null) {
             String delim = ",";
             String[] codes = save_string.split(delim);
             for (int i = 0; i < codes.length; i++) {
@@ -81,18 +81,36 @@ public class PrefsActivity extends BasicActivity {
             @Override
             public void onClick(View v) {
                 SharedPreferences.Editor mEditor = mPrefs.edit();
-                mEditor.putString("programme", programme.getText().toString()).commit();
-                mEditor.putString("majeure", majeure.getText().toString()).commit();
-                mEditor.putString("mineure", mineure.getText().toString()).commit();
+                String p = programme.getText().toString();
+                String ma = majeure.getText().toString();
+                String mi = mineure.getText().toString();
+
+                // verif pas de virgule etc
+                if (p.matches("^[a-zA-Z0-9_]+$")) {
+                    mEditor.putString("programme", p).commit();
+                }
+                if (ma.matches("^[a-zA-Z0-9_]+$")) {
+                    mEditor.putString("majeure", ma).commit();
+                }
+                if (mi.matches("^[a-zA-Z0-9_]+$")) {
+                    mEditor.putString("mineure", mi).commit();
+                }
+
+                
                 String cours_supp = "";
                 while (!memory.isEmpty()) {
                     EditText temp = memory.pop();
-                    if (!temp.getText().toString().equals("")) {
-                        cours_supp += temp.getText().toString() + ",";
+                    String content = temp.getText().toString();
+                    if (content.matches("^[a-zA-Z0-9_]+$")) {
+                        //Toast.makeText(getApplicationContext(), R.string.alpha_numeric_avertissement, Toast.LENGTH_SHORT);
+                        if (!temp.getText().toString().equals("")) {
+                            cours_supp += temp.getText().toString() + ",";
+                        }
                     }
+
                 }
-                cours_supp = cours_supp.substring(0,cours_supp.length()-1);
-                mEditor.putString("cours_supp",cours_supp).commit();
+                cours_supp = cours_supp.substring(0, cours_supp.length() - 1);
+                mEditor.putString("cours_supp", cours_supp).commit();
 
                 finish();
             }
