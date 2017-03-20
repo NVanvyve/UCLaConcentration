@@ -40,15 +40,12 @@ public class MainActivity extends BasicActivity {
             @Override
             public void onClick(View v) {
 
-
-
-
                 Context context= getCtx();
                     if (isMyServiceRunning(SensorService.class)) {
 
-                        Toast.makeText(context,getResources().getString(R.string.stopping_chrono),Toast.LENGTH_LONG).show();
-                        Intent serviceIntent = new Intent(getCtx(),SensorService.class);
-                        context.stopService(serviceIntent);
+                            Toast.makeText(context, getResources().getString(R.string.stopping_chrono), Toast.LENGTH_LONG).show();
+                            Intent serviceIntent = new Intent(getCtx(), SensorService.class);
+                            context.stopService(serviceIntent);
                     }
                     else {
                         mSensorService = new SensorService(context);
@@ -111,16 +108,6 @@ public class MainActivity extends BasicActivity {
                 startActivity(s);
             }
         });
-
-
-        /** Lance le service de timer */
-        ctx = this;
-
-        mSensorService = new SensorService(getCtx());
-        mServiceIntent = new Intent(getCtx(), mSensorService.getClass());
-        if (!isMyServiceRunning(mSensorService.getClass())) {
-            startService(mServiceIntent);
-        }
     }
 
     /**
@@ -216,18 +203,9 @@ public class MainActivity extends BasicActivity {
         movementFilter = new IntentFilter(SensorService.TIMER_UPDATE);
         timerReceiver = new TimerServiceReceiver();
         registerReceiver(timerReceiver, movementFilter);
-        startTimerService();
 
         super.onResume();
     }
-
-    /**
-     * Démarre le timer
-     */
-    private void startTimerService() {
-        startService(new Intent(this, SensorService.class));
-    }
-
     /**
      * Update le TimeViewer
      */
