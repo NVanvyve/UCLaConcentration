@@ -108,6 +108,7 @@ public class MainActivity extends BasicActivity {
                 startActivity(s);
             }
         });
+        ctx=this;
     }
 
     /**
