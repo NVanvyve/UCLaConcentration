@@ -77,13 +77,13 @@ public class CalendarGoogle extends AppCompatActivity implements EasyPermissions
 
     /* Variable Caldroid */
 
-    final SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy 'from' HH:mm 'to' HH:mm");//TODO Utiliser les res Strings
+    final SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy 'from' HH:mm 'to' HH:mm");//TODO Utiliser les res Strings // donne le format des dates
     final ColorDrawable blue = new ColorDrawable(Color.parseColor("#4169E1"));
-    private CaldroidFragment caldroidFragment;
+    private CaldroidFragment caldroidFragment; // Variables du caldroid
     private CaldroidFragment dialogCaldroidFragment;
-    private int daysBefore=-7;
-    private int daysAfter=45;
-    private static ArrayList<EventPerso> EventList;
+    private int daysBefore=-7;// definis le jour initial du calendrier par rapport a la date d'ajd
+    private int daysAfter=45;// definis le jour final du calendrier par rapport a la date d'ajd
+    private static ArrayList<EventPerso> EventList;// Arraylist pour récuper tout les évents d'une date
 
 
     /* Autre variables */

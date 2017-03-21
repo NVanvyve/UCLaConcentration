@@ -10,7 +10,11 @@ import java.util.Date;
 /**
  * Created by alexis on 11-03-17.
  */
-
+/*
+* Objet Event perso permet de créer un objet qui contient l'id de l'objet dans la DB, la date de
+* l'event au format yyyy-MM-dd , le titre de l'event, la description de l'event, une heure de début
+* et une heure de fin
+ */
 public class EventPerso {
     /* variable de classe */
     private int id;
@@ -22,12 +26,17 @@ public class EventPerso {
 
     public static final String DATE_FORMAT_NOW = "yyyy-MM-dd";
     public static final DateFormat dateFormat= new SimpleDateFormat(DATE_FORMAT_NOW);
-
+ /*
+constructeur vide
+  */
     public EventPerso(){
         eventDate=null;
         eventName=" Not defined";
         eventDescr=" Not defined";
     }
+    /*
+    constructeur sans description
+     */
     public EventPerso(int id,Date date, String name, eventTime deb, eventTime fin){
         this.id=id;
         eventDate=date;
@@ -36,6 +45,9 @@ public class EventPerso {
         heureDeb=deb;
         heureFin=fin;
     }
+    /*
+    constructeur avec description
+     */
     public EventPerso(int id,Date date, String name, String descr, eventTime deb, eventTime fin){
         this.id=id;
         eventDate=date;
