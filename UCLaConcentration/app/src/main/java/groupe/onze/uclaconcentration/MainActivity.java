@@ -31,6 +31,7 @@ public class MainActivity extends BasicActivity {
         setContentView(R.layout.activity_main);
         tv = (TextView) findViewById(R.id.tv1);
 
+
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 

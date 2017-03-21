@@ -13,18 +13,18 @@ import java.util.TimerTask;
 /**
  * Created by Sophie on 12/03/2017.
  */
-public class SensorService extends IntentService {
+public class SensorService extends Service {
     public int counter=0;// Compteur
     String serviceName;
     public static final String TIMER_UPDATE = "com.client.gaitlink.AccelerationService.action.MOVEMENT_UPDATE";
     public static final String COUNTER = "com.client.gaitlink.AccelerationService.ACCELERATION_X";
 
-
+/*
     @Override
     protected void onHandleIntent(Intent workIntent) {
         startTimer();
     }
-
+*/
     /** Méthode pour broadcast les messages aux activités */
     private void announceTimerChanges()//this method sends broadcast messages
     {
@@ -35,12 +35,12 @@ public class SensorService extends IntentService {
 
     /* Initialisation du Service de timer */
     public SensorService(Context context) {
-        super("SensorActivity");
+        super();
         Log.i("HERE", "here I am!");
     }
 
     public SensorService() {
-        super("SensorActivity");
+        super();
     }
 
     @Override
