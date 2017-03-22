@@ -108,6 +108,17 @@ public class MainActivity extends BasicActivity {
                 startActivity(s);
             }
         });
+
+        Button maps = (Button) findViewById(R.id.maps_button);
+        assert maps != null;
+        maps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent s = new Intent(MainActivity.this,MapsActivity.class);
+                startActivity(s);
+            }
+        });
+
         ctx=this;
     }
 

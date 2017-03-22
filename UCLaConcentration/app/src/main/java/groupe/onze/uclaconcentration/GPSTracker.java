@@ -231,4 +231,34 @@ public class GPSTracker extends Service {
     public IBinder onBind(Intent arg0) {
         return null;
     }
+    
+    public double[] giveMeLatLong(){
+        double la = 0;
+        double lo = 0;
+        
+        if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            // TODO : Recharger la page
+
+        } else {
+
+            // Check if GPS enabled
+            if (canGetLocation()) {
+
+                la = latitude;
+                lo = longitude;
+
+            } else {
+                // Can't get location.
+                // GPS or network is not enabled.
+                // Ask user to enable GPS/network in settings.
+                showSettingsAlert();
+            }
+        }
+        double tab [] = {la,lo};
+        return tab;
+    }
+
+
+
 }

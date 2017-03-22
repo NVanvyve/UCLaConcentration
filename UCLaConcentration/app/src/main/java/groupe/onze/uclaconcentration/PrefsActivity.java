@@ -86,17 +86,17 @@ public class PrefsActivity extends BasicActivity {
                 String mi = mineure.getText().toString();
 
                 // verif pas de virgule etc
-                if (p.matches("^[a-zA-Z0-9_]+$")) {
+                if (p.matches("^[a-zA-Z0-9_]+$")||p.equals("")) {
                     mEditor.putString("programme", p).commit();
                 }
-                if (ma.matches("^[a-zA-Z0-9_]+$")) {
+                if (ma.matches("^[a-zA-Z0-9_]+$")||ma.equals("")) {
                     mEditor.putString("majeure", ma).commit();
                 }
-                if (mi.matches("^[a-zA-Z0-9_]+$")) {
+                if (mi.matches("^[a-zA-Z0-9_]+$")||mi.equals("")) {
                     mEditor.putString("mineure", mi).commit();
                 }
 
-                
+
                 String cours_supp = "";
                 while (!memory.isEmpty()) {
                     EditText temp = memory.pop();

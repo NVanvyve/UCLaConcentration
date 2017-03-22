@@ -29,7 +29,13 @@
                 android:id="@+id/textView1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="Coord"
                 android:textSize="30sp" />
+<!--        <fragment
+                android:id="@+id/map_frag"
+                android:name="com.google.android.gms.maps.MapFragment"
+                android:layout_width="match_parent" />
+-->
 
         </LinearLayout>
     </ScrollView>

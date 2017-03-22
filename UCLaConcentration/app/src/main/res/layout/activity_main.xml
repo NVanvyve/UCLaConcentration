@@ -74,6 +74,12 @@
                 android:layout_height="wrap_content"
                 android:text="@string/sport_menu" />
 
+            <Button
+                android:id="@+id/maps_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Maps" />
+
         </LinearLayout>
     </ScrollView>
 

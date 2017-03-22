@@ -13,7 +13,9 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
-
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBOoprP_Ju0VAvfptNFGk9fp0M_aoNIEZ8"/>
         <activity
             android:name=".MainActivity"
             android:label="UCLaConcentration"
@@ -57,6 +59,12 @@
             android:label="@string/sport_activity"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".MapsActivity"
+            android:label="Maps"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <service
             android:name=".SensorService"

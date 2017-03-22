@@ -1,7 +1,6 @@
 package groupe.onze.uclaconcentration;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -10,8 +9,6 @@ import android.support.v4.content.ContextCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
-
 
 /**
  * Created by nicolasvanvyve on 19/03/17.
@@ -21,82 +18,23 @@ public class Sport extends BasicActivity {
 
     //GPSTRACKER
 
-    Context mContext;
+    double latitude;
+    double longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_sport);
 
-        mContext = this;
+        GPSTracker gps = new GPSTracker(this,Sport.this);
+        double latlong [] = gps.giveMeLatLong();
+        latitude = latlong[0];
+        longitude = latlong[1];
 
-        if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(Sport.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-
-        } else {
-            Toast.makeText(mContext, "You need have granted permission", Toast.LENGTH_SHORT).show();
-            GPSTracker gps = new GPSTracker(mContext, Sport.this);
-
-            // Check if GPS enabled
-            if (gps.canGetLocation()) {
-
-                double latitude = gps.getLatitude();
-                double longitude = gps.getLongitude();
-
-                TextView coord = (TextView) findViewById(R.id.textView1);
-                coord.setText("Your Location is - \nLat: " + latitude + "\nLong: " + longitude);
-            } else {
-                // Can't get location.
-                // GPS or network is not enabled.
-                // Ask user to enable GPS/network in settings.
-                gps.showSettingsAlert();
-            }
-        }
+        TextView coord = (TextView) findViewById(R.id.textView1);
+        coord.setText("Your Location is - \nLat: " + latitude + "\nLong: " + longitude);
     }
 
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        switch (requestCode) {
-            case 1: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    // permission was granted, yay! Do the
-
-                    // contacts-related task you need to do.
-
-                    GPSTracker gps = new GPSTracker(mContext, Sport.this);
-
-                    // Check if GPS enabled
-                    if (gps.canGetLocation()) {
-
-                        double latitude = gps.getLatitude();
-                        double longitude = gps.getLongitude();
-
-                        // \n is for new line
-                        Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
-                    } else {
-                        // Can't get location.
-                        // GPS or network is not enabled.
-                        // Ask user to enable GPS/network in settings.
-                        gps.showSettingsAlert();
-                    }
-
-                } else {
-
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-
-                    Toast.makeText(mContext, "You need to grant permission", Toast.LENGTH_SHORT).show();
-                }
-                return;
-            }
-        }
-    }
 
     // TOOLBAR
     @Override
@@ -142,6 +80,9 @@ public class Sport extends BasicActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
+
+
 
 
 }
