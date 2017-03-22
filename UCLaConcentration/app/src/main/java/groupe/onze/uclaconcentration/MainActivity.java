@@ -24,17 +24,20 @@ public class MainActivity extends BasicActivity {
     TimerServiceReceiver timerReceiver;
     int counter;
     TextView tv;
+    public static boolean onPause=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tv = (TextView) findViewById(R.id.tv1);
+         final TextView typeTimer=(TextView)findViewById(R.id.type_of_timer);
+
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-        Button play = (Button) findViewById(R.id.button_play);
+        final Button play = (Button) findViewById(R.id.button_play);
         assert play!= null;
         play.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +49,7 @@ public class MainActivity extends BasicActivity {
                             Toast.makeText(context, getResources().getString(R.string.stopping_chrono), Toast.LENGTH_LONG).show();
                             Intent serviceIntent = new Intent(getCtx(), SensorService.class);
                             context.stopService(serviceIntent);
+                         play.setText(R.string.play);
                     }
                     else {
                         mSensorService = new SensorService(context);
@@ -53,7 +57,39 @@ public class MainActivity extends BasicActivity {
                         if (!isMyServiceRunning(mSensorService.getClass())) {
                             startService(mServiceIntent);
                         }
+                        typeTimer.setText(R.string.timer_timer);
+                        tv.setText("0");
+                        play.setText(R.string.stop);
                     }
+
+            }
+        });
+        final Button pause = (Button) findViewById(R.id.button_pause);
+        assert pause!= null;
+        pause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Context context= getCtx();
+                if (isMyServiceRunning(SensorService.class)) {
+                    if (onPause==false) {
+                        Toast.makeText(context, getResources().getString(R.string.pausing_chrono), Toast.LENGTH_LONG).show();
+                        onPause=true;
+                        typeTimer.setText(R.string.pause_timer);
+                        tv.setText(" ");
+                        pause.setText(R.string.resume);
+                    }
+                    else{
+                        Toast.makeText(context, getResources().getString(R.string.resuming_chrono), Toast.LENGTH_LONG).show();
+                        onPause=false;
+                        tv.setText(" ");
+                        typeTimer.setText(R.string.timer_timer);
+                        pause.setText(R.string.pause);
+                    }
+                }
+                else {
+                    Toast.makeText(context, getResources().getString(R.string.no_timer_active), Toast.LENGTH_LONG).show();
+                }
 
             }
         });

@@ -12,7 +12,14 @@
     <string name="Initcalendar">Initialise calendar</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
-
+    <string name="pause">Pause</string>
+    <string name="pausing_chrono">Timer on pause</string>
+    <string name="resuming_chrono">Resume Timer</string>
+    <string name="no_timer_active">No timer running</string>
+    <string name="resume">Resume</string>
+    <string name="stop">Stop</string>
+    <string name="pause_timer">Pause:</string>
+    <string name="timer_timer">Timer:</string>
     <string name="coin_name">ProcrastinaCoins :</string>
     <string name="serie20">Serie : 20 min  </string>
     <string name="serie40">Serie : 40 min  </string>

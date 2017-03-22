@@ -30,9 +30,11 @@ public class dayEventListDB extends DAOB {
     private final static String  HEUREFIN= "HEUREFIN";
     private final String DATE_FORMAT_NOW = "yyyy-MM-dd";
     private final DateFormat dateFormat= new SimpleDateFormat(DATE_FORMAT_NOW);
-
+/* constructeur */
     public dayEventListDB(Context context){super(context);}
-
+/* Permet d'ajouter un evenement à la data base
+* Celui ci possède une date, un titre , une heure de début et une heure de fin
+*/
     public void insertEvent(Date date, String titre, eventTime dep, eventTime fin){
         open();
         SQLiteDatabase db = getDatabase();
@@ -40,6 +42,9 @@ public class dayEventListDB extends DAOB {
         db.rawQuery(" INSERT INTO CALENDRIER VALUES ( ?, ?,NULL,?,?);",new String[]{dateS,titre,dep.toString(),fin.toString()});
         close();
     }
+    /* Permet d'ajouter un evenement à la data base
+    * Celui ci possède une date, un titre ,une description, une heure de début et une heure de fin
+    */
     public void insertEvent(Date date, String titre,String descr, eventTime dep, eventTime fin){
         open();
         SQLiteDatabase db = getDatabase();
@@ -47,7 +52,7 @@ public class dayEventListDB extends DAOB {
         db.rawQuery(" INSERT INTO CALENDRIER VALUES ( ?, ?,?,?,?);",new String[]{dateS,titre,descr,dep.toString(),fin.toString()});
         close();
     }
-    /* Renvoie tout les évenement associés a une date */
+    /* Renvoie tout les évenement associés a une date sous fomre d'un arraylist d'eventPerso*/
     public ArrayList<EventPerso> getCalendrier(Date date){
         open();
         SQLiteDatabase db = getDatabase();

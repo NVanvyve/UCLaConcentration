@@ -13,34 +13,30 @@ import java.util.TimerTask;
 /**
  * Created by Sophie on 12/03/2017.
  */
-public class SensorService extends IntentService {
+public class SensorService extends Service {
     public int counter=0;// Compteur
+    public int pauseCounter=0;// compteur pour la pause
     String serviceName;
     public static final String TIMER_UPDATE = "com.client.gaitlink.AccelerationService.action.MOVEMENT_UPDATE";
     public static final String COUNTER = "com.client.gaitlink.AccelerationService.ACCELERATION_X";
-
-
-    @Override
-    protected void onHandleIntent(Intent workIntent) {
-        startTimer();
-    }
+    public boolean onPause= false;
 
     /** Méthode pour broadcast les messages aux activités */
-    private void announceTimerChanges()//this method sends broadcast messages
+    private void announceTimerChanges(int time)//this method sends broadcast messages
     {
         Intent intent = new Intent(TIMER_UPDATE);
-        intent.putExtra(COUNTER, counter); // Ajout de la donnée compteur actuel
+        intent.putExtra(COUNTER, time); // Ajout de la donnée compteur actuel
         sendBroadcast(intent);// Broadcast la donnée
     }
 
     /* Initialisation du Service de timer */
     public SensorService(Context context) {
-        super("SensorActivity");
+        super();
         Log.i("HERE", "here I am!");
     }
 
     public SensorService() {
-        super("SensorActivity");
+        super();
     }
 
     @Override
@@ -72,9 +68,18 @@ public class SensorService extends IntentService {
     public void initializeTimerTask() {
         timerTask = new TimerTask() {
             public void run() {
-                Log.i("in timer", "in timer ++++  "+ counter);
-                announceTimerChanges();//Envoie à l'activité l'état du compteur
-                counter++;//Incrémentation du compteur
+                if(!MainActivity.onPause){
+                    Log.i("in timer", "in timer ++++  " + counter);
+                    announceTimerChanges(counter);//Envoie à l'activité l'état du compteur
+                    counter++;//Incrémentation du compteur
+                    pauseCounter=0;
+                }
+                else{
+                    Log.i("in pause", "in pause ++++  " + pauseCounter);
+                    announceTimerChanges(pauseCounter);//Envoie à l'activité l'état du compteur
+                    pauseCounter++;//Incrémentation du compteur
+
+                }
 
             }
         };
@@ -87,6 +92,26 @@ public class SensorService extends IntentService {
             timer.cancel();
             timer = null;
         }
+    }
+    public void pauseTimer(){
+        Log.i("Pause", "pause 1");
+        onPause=true;
+        Log.i("Pause", "pause 2");
+        while (this.onPause) {
+            Log.i("Pause", "pause 3");
+            try {
+                Log.i("Pause", "pause 4");
+                this.wait();
+            }catch (InterruptedException e){
+                Log.i("Pause", "pause erreur");
+                onPause=false;
+                return;
+            }
+        }
+        Log.i("Pause", "sortie");
+    }
+    public void resumeTimer(){
+        onPause=false;
     }
 
     @Nullable
