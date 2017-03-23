@@ -19,6 +19,12 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
+import java.util.Random;
+
+import static java.lang.Math.acos;
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
+
 public class GPSTracker extends Service {
 
     private Context mContext;
@@ -231,7 +237,38 @@ public class GPSTracker extends Service {
     public IBinder onBind(Intent arg0) {
         return null;
     }
-    
+
+
+
+    public double distance(double LatA, double LongA, double LatB, double LongB){
+        double R = 6371000; // Rayon de la Terre en mètres
+        double a = Math.toRadians(LatA); //latitude du point A (en radians)
+        double b = Math.toRadians(LatB); //latitude du point B (en radians)
+        double c = Math.toRadians(LongA); //longitude du point A (en radians)
+        double d = Math.toRadians(LongB); //longitude du point B (en radians)
+
+        double Dist = R*acos(cos(a)*cos(b)*cos(c-d)+sin(a)*sin(b)); //Distance en metre
+        return Dist;
+    }
+
+    public double[] newLocation(int distance){
+        double la = 0;
+        double lo = 0;
+
+        Random rand = new Random();
+
+        getLocation();
+        double alpha = rand.nextDouble()*2*Math.PI;
+
+        //Approximation Terre plate
+        // TODO : Donner les coordonnées d'un point qui se trouve sur un cercle à une distance donnée du point d'origine
+        la = latitude ;  //+ distance * cos(alpha);
+        lo = longitude ; //+ distance * sin(alpha);
+
+        double tab [] = {la,lo};
+        return tab;
+    }
+
     public double[] giveMeLatLong(){
         double la = 0;
         double lo = 0;
@@ -241,13 +278,10 @@ public class GPSTracker extends Service {
             // TODO : Recharger la page
 
         } else {
-
             // Check if GPS enabled
             if (canGetLocation()) {
-
                 la = latitude;
                 lo = longitude;
-
             } else {
                 // Can't get location.
                 // GPS or network is not enabled.

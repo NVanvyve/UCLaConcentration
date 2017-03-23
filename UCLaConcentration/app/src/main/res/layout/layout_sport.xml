@@ -10,9 +10,10 @@
         style="@style/HeaderBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:background="@color/ToolBarColor"
         android:elevation="4dp"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -31,11 +32,17 @@
                 android:layout_height="wrap_content"
                 android:text="Coord"
                 android:textSize="30sp" />
-<!--        <fragment
-                android:id="@+id/map_frag"
-                android:name="com.google.android.gms.maps.MapFragment"
-                android:layout_width="match_parent" />
--->
+
+            <Button
+                android:id="@+id/new_position"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Give me new position"/>
+            <!--        <fragment
+                            android:id="@+id/map_frag"
+                            android:name="com.google.android.gms.maps.MapFragment"
+                            android:layout_width="match_parent" />
+            -->
 
         </LinearLayout>
     </ScrollView>

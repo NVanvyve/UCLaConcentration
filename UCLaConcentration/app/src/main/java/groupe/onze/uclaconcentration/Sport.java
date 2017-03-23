@@ -1,14 +1,13 @@
 package groupe.onze.uclaconcentration;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by nicolasvanvyve on 19/03/17.
@@ -16,24 +15,43 @@ import android.widget.TextView;
 
 public class Sport extends BasicActivity {
 
-    //GPSTRACKER
 
     double latitude;
     double longitude;
+    GPSTracker gps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_sport);
 
-        GPSTracker gps = new GPSTracker(this,Sport.this);
-        double latlong [] = gps.giveMeLatLong();
+        //GPS
+
+        gps = new GPSTracker(this,Sport.this);
+        final double latlong [] = gps.giveMeLatLong();
         latitude = latlong[0];
         longitude = latlong[1];
 
         TextView coord = (TextView) findViewById(R.id.textView1);
         coord.setText("Your Location is - \nLat: " + latitude + "\nLong: " + longitude);
+
+        // "SPORT"
+
+        Button newPosition = (Button) findViewById(R.id.new_position);
+        assert newPosition != null;
+        newPosition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                double np[] = gps.newLocation(100);
+                int dist = (int) gps.distance(latitude, longitude, np[0],np[1]);
+                Toast.makeText(getApplicationContext(),"Distance = "+dist+" m" ,Toast.LENGTH_LONG).show();
+
+            }
+        });
+
     }
+
+
 
 
     // TOOLBAR
