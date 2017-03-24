@@ -17,6 +17,9 @@ public class SensorService extends Service {
     public int counter = 0;// Compteur
     public int pauseCounter = 0;// compteur pour la pause
     String serviceName;
+
+    /** Quid de ces Strings?? :) */
+
     public static final String TIMER_UPDATE = "com.client.gaitlink.AccelerationService.action.MOVEMENT_UPDATE";
     public static final String COUNTER = "com.client.gaitlink.AccelerationService.ACCELERATION_X";
     public boolean onPause = false;

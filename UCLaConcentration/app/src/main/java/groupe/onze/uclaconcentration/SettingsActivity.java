@@ -37,12 +37,15 @@ public class SettingsActivity extends BasicActivity {
         sportLevel = mPrefs.getInt("sport_level",0);
 
         Spinner spinner = (Spinner) findViewById(R.id.sport_spin);
-// Create an ArrayAdapter using the string array and a default spinner layout
+
+        // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.sport_level_array,android.R.layout.simple_spinner_item);
-// Specify the layout to use when the list of choices appears
+
+        // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
+
+        // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
         spinner.setSelection(sportLevel);
         spinner.setOnItemSelectedListener(new CustomOnItemSelectedListener());
@@ -63,7 +66,7 @@ public class SettingsActivity extends BasicActivity {
         prefs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent s = new Intent(SettingsActivity.this,PrefsActivity.class);
+                Intent s = new Intent(SettingsActivity.this,AdePrefs.class);
                 startActivity(s);
             }
         });

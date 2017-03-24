@@ -86,12 +86,12 @@ public class AdeActivity extends BasicActivity {
                 startActivity(intent);
 
             case R.id.action_home:
-                Intent t = new Intent(AdeActivity.this, MainActivity.class);
+                Intent t = new Intent(this, MainActivity.class);
                 finish();
                 startActivity(t);
 
             case R.id.action_recompense:
-                Intent s = new Intent(AdeActivity.this, StoreActivity.class);
+                Intent s = new Intent(this, StoreActivity.class);
                 finish();
                 startActivity(s);
 

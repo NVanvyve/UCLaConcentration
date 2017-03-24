@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -13,11 +14,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import java.util.Random;
+import android.widget.Toast;
 
 /**
- * Created by nicolasvanvyve on 19/03/17.
+ * Created by Nicolas on 19/03/17.
  */
 
 public class Sport extends BasicActivity {
@@ -32,25 +32,41 @@ public class Sport extends BasicActivity {
     private TimerServiceReceiver timerReceiver;
     private Intent mServiceIntent;
 
+    SharedPreferences mPrefs;
+    int lvl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_sport);
 
+        mPrefs = getSharedPreferences("label",0);
         mContext = this;
         coord = (TextView) findViewById(R.id.coord_sport);
 
         //GPS
-
         gps = new GPSTracker(mContext,Sport.this);
         mServiceIntent = new Intent(mContext,gps.getClass());
-        startService(mServiceIntent);
+        //startService(mServiceIntent);
 
 
-        // "SPORT"
-
+        //"SPORT"
         tv_dist = (TextView) findViewById(R.id.dist);
+        lvl = mPrefs.getInt("sport_level",0);
+
+
+        TextView level = (TextView) findViewById(R.id.sport_level);
+        String tab_level[] = getResources().getStringArray(R.array.sport_level_array);
+        level.setText(getString(R.string.your_sport_level) + tab_level[lvl]);
+
+        final int dist_tab[] = {30,70,100,150,200,500};
+        final int recompence_tab[] = {30,70,100,150,200,500};
+
+        if (lvl>dist_tab.length || dist_tab.length != recompence_tab.length){
+            lvl = 0;
+            Toast.makeText(getApplicationContext(),"PROBLEME D'IMPLEMENTATION!!!",Toast.LENGTH_LONG).show();
+        }
+
         Button newPosition = (Button) findViewById(R.id.new_position);
         assert newPosition != null;
         newPosition.setOnClickListener(new View.OnClickListener() {
@@ -58,19 +74,20 @@ public class Sport extends BasicActivity {
             public void onClick(View v) {
                 latitude = gps.giveMeLatLong()[0];
                 longitude = gps.giveMeLatLong()[1];
-                Random rand = new Random();
-                int d = rand.nextInt(2000);
-                double nl[] = gps.newLocation(d);
+                double nl[] = gps.newLocation(dist_tab[lvl]);
                 int dist = (int) gps.distance(latitude,longitude,nl[0],nl[1]);
-                tv_dist.setText("Distance demandée = " + d + " m\nDistance réelle= " + dist + " m");
-
+                tv_dist.setText("Destination a atteindre pour gagner " + recompence_tab[lvl]
+                        + " " + getString(R.string.coin_name)
+                        + " :\nLat : " + nl[0] + "\nLong : " + nl[1]
+                        + "\nDistance demandée = " + dist_tab[lvl]
+                        + " m\nDistance réelle= " + dist + " m");
             }
         });
+
 
     }
 
     //SERVICE
-/*
     private boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
@@ -82,7 +99,7 @@ public class Sport extends BasicActivity {
         Log.i("isMyServiceRunning?",false + "");
         return false;
     }
-*/
+
 
     /**
      * Initialise le récepteur de message broadcast
@@ -153,12 +170,12 @@ public class Sport extends BasicActivity {
                 startActivity(intent);
 
             case R.id.action_home:
-                Intent t = new Intent(Sport.this,MainActivity.class);
+                Intent t = new Intent(this,MainActivity.class);
                 finish();
                 startActivity(t);
 
             case R.id.action_recompense:
-                Intent s = new Intent(Sport.this,StoreActivity.class);
+                Intent s = new Intent(this,StoreActivity.class);
                 finish();
                 startActivity(s);
 

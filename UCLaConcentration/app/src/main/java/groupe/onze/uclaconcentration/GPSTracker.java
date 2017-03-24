@@ -269,6 +269,15 @@ public class GPSTracker extends Service {
         timer.schedule(timerTask,1000,1000); // Tâche à faire toutes les x
     }
 
+
+    /* Relance le timer en cas d'arrêt non-voulu */
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i("EXIT","ondestroy!");
+        stoptimertask();
+    }
+
     /**
      * A faire toutes les x secondes
      */
@@ -283,7 +292,7 @@ public class GPSTracker extends Service {
 
     /**
      * Stoppe le timer
-     */ /*
+     */
     public void stoptimertask() {
         //stop the timer, if it's not already null
         if (timer != null) {
@@ -291,7 +300,6 @@ public class GPSTracker extends Service {
             timer = null;
         }
     }
-    */
 
 
     public double distance(double LatA,double LongA,double LatB,double LongB) {

@@ -17,7 +17,7 @@ import android.widget.LinearLayout;
 import java.util.LinkedList;
 
 
-public class PrefsActivity extends BasicActivity {
+public class AdePrefs extends BasicActivity {
 
     @Override
     public int getLayoutResource() {
@@ -132,13 +132,13 @@ public class PrefsActivity extends BasicActivity {
                 return true;
 
             case R.id.action_home:
-                Intent t = new Intent(PrefsActivity.this,MainActivity.class);
+                Intent t = new Intent(AdePrefs.this,MainActivity.class);
                 finish();
                 startActivity(t);
                 return true;
 
             case R.id.action_recompense:
-                Intent s = new Intent(PrefsActivity.this,StoreActivity.class);
+                Intent s = new Intent(AdePrefs.this,StoreActivity.class);
                 finish();
                 startActivity(s);
 
