@@ -38,6 +38,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Give me new position"/>
+
+            <TextView
+                android:id="@+id/dist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
             <!--        <fragment
                             android:id="@+id/map_frag"
                             android:name="com.google.android.gms.maps.MapFragment"

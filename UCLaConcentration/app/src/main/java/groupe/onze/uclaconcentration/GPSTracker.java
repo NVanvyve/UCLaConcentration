@@ -18,10 +18,13 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.Random;
 
 import static java.lang.Math.acos;
+import static java.lang.Math.asin;
+import static java.lang.Math.atan2;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 
@@ -251,22 +254,44 @@ public class GPSTracker extends Service {
         return Dist;
     }
 
-    public double[] newLocation(int distance){
-        double la = 0;
-        double lo = 0;
+    /*
+        @pre  : distance est une distance en mettre
+        @post : retourne un tableau contenant lune latitude et une longitude d'une nouvelle position se situant une distance x de la position actuelle.
+                x etant un nombre compris entre [0.9 x ; 1.1 x] && [x-100m ; x+100m]
+     */
+    public double[] newLocation(int distance,Context ctx){
 
         Random rand = new Random();
 
+        if(distance<1000){
+            double m = rand.nextDouble() * 0.2;
+            distance = (int)Math.floor(distance * (0.9 + m));
+        }
+        else{
+            int m = rand.nextInt(200);
+            distance = distance - 100 + m;
+        }
+
         getLocation();
-        double alpha = rand.nextDouble()*2*Math.PI;
 
-        //Approximation Terre plate
-        // TODO : Donner les coordonnées d'un point qui se trouve sur un cercle à une distance donnée du point d'origine
-        la = latitude ;  //+ distance * cos(alpha);
-        lo = longitude ; //+ distance * sin(alpha);
+        double lat1 = Math.toRadians(latitude);
+        double lon1 = Math.toRadians(longitude);
 
-        double tab [] = {la,lo};
+        double sigma = distance / 6371000.0;
+        double theta = rand.nextDouble()*2*Math.PI;
+        theta = theta%(2*Math.PI);
+
+        double lat2 = Math.asin( Math.sin(lat1)*Math.cos(sigma) + Math.cos(lat1)*Math.sin(sigma)*Math.cos(theta) );
+        double lon2 =lon1 +  Math.atan2(Math.sin(theta)*Math.sin(sigma)*Math.cos(lat1), Math.cos(sigma)-Math.sin(lat1)*Math.sin(lat2));
+
+        lon2 = (lon2+ 3*Math.PI) % (2*Math.PI) - Math.PI;
+
+        lat2 = Math.toDegrees(lat2);
+        lon2 = Math.toDegrees(lon2);
+
+        double tab [] = {lat2,lon2};
         return tab;
+
     }
 
     public double[] giveMeLatLong(){

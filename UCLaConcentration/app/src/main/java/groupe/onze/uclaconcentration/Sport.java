@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Random;
+
 /**
  * Created by nicolasvanvyve on 19/03/17.
  */
@@ -37,14 +39,18 @@ public class Sport extends BasicActivity {
 
         // "SPORT"
 
+        final TextView tv_dist = (TextView) findViewById(R.id.dist);
+
         Button newPosition = (Button) findViewById(R.id.new_position);
         assert newPosition != null;
         newPosition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                double np[] = gps.newLocation(100);
-                int dist = (int) gps.distance(latitude, longitude, np[0],np[1]);
-                Toast.makeText(getApplicationContext(),"Distance = "+dist+" m" ,Toast.LENGTH_LONG).show();
+                Random rand = new Random();
+                int d = rand.nextInt(2000);
+                double nl[] = gps.newLocation(d,getApplicationContext());
+                int dist = (int) gps.distance(latitude, longitude, nl[0],nl[1]);
+                tv_dist.setText("Distance demandée = "+ d +" m\nDistance réelle= "+dist+" m" );
 
             }
         });
