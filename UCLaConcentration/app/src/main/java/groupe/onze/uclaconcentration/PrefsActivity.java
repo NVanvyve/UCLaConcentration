@@ -39,7 +39,7 @@ public class PrefsActivity extends BasicActivity {
         final LinearLayout lc = (LinearLayout) findViewById(R.id.layout_cours);
 
         final LinkedList<EditText> memory = new LinkedList<>();
-        final SharedPreferences mPrefs = getSharedPreferences("label", 0);
+        final SharedPreferences mPrefs = getSharedPreferences("label",0);
 
         // Les 3 de base que on a toujours
         final EditText programme = (EditText) findViewById(R.id.ed_programme);
@@ -47,12 +47,12 @@ public class PrefsActivity extends BasicActivity {
         final EditText mineure = (EditText) findViewById(R.id.ed_min);
 
         // On charge ce qui était en mémoire
-        programme.setText(mPrefs.getString("programme", null));
-        majeure.setText(mPrefs.getString("majeure", null));
-        mineure.setText(mPrefs.getString("mineure", null));
+        programme.setText(mPrefs.getString("programme",null));
+        majeure.setText(mPrefs.getString("majeure",null));
+        mineure.setText(mPrefs.getString("mineure",null));
 
         //Chargement des cours supplémentaires précedement enregistrés
-        String save_string = mPrefs.getString("cours_supp", null);
+        String save_string = mPrefs.getString("cours_supp",null);
         if (save_string != null) {
             String delim = ",";
             String[] codes = save_string.split(delim);
@@ -86,14 +86,14 @@ public class PrefsActivity extends BasicActivity {
                 String mi = mineure.getText().toString();
 
                 // verif pas de virgule etc
-                if (p.matches("^[a-zA-Z0-9_]+$")||p.equals("")) {
-                    mEditor.putString("programme", p).commit();
+                if (p.matches("^[a-zA-Z0-9_]+$") || p.equals("")) {
+                    mEditor.putString("programme",p).commit();
                 }
-                if (ma.matches("^[a-zA-Z0-9_]+$")||ma.equals("")) {
-                    mEditor.putString("majeure", ma).commit();
+                if (ma.matches("^[a-zA-Z0-9_]+$") || ma.equals("")) {
+                    mEditor.putString("majeure",ma).commit();
                 }
-                if (mi.matches("^[a-zA-Z0-9_]+$")||mi.equals("")) {
-                    mEditor.putString("mineure", mi).commit();
+                if (mi.matches("^[a-zA-Z0-9_]+$") || mi.equals("")) {
+                    mEditor.putString("mineure",mi).commit();
                 }
 
 
@@ -109,8 +109,8 @@ public class PrefsActivity extends BasicActivity {
                     }
 
                 }
-                cours_supp = cours_supp.substring(0, cours_supp.length() - 1);
-                mEditor.putString("cours_supp", cours_supp).commit();
+                cours_supp = cours_supp.substring(0,cours_supp.length() - 1);
+                mEditor.putString("cours_supp",cours_supp).commit();
 
                 finish();
             }
@@ -127,18 +127,18 @@ public class PrefsActivity extends BasicActivity {
         switch (item.getItemId()) {
 
             case R.id.action_settings:
-                Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.already_param), Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Snackbar.make(findViewById(android.R.id.content),getResources().getString(R.string.already_param),Snackbar.LENGTH_LONG)
+                        .setAction("Action",null).show();
                 return true;
 
             case R.id.action_home:
-                Intent t = new Intent(PrefsActivity.this, MainActivity.class);
+                Intent t = new Intent(PrefsActivity.this,MainActivity.class);
                 finish();
                 startActivity(t);
                 return true;
 
             case R.id.action_recompense:
-                Intent s = new Intent(PrefsActivity.this, StoreActivity.class);
+                Intent s = new Intent(PrefsActivity.this,StoreActivity.class);
                 finish();
                 startActivity(s);
 
@@ -155,7 +155,7 @@ public class PrefsActivity extends BasicActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_main,menu);
         return true;
     }
 

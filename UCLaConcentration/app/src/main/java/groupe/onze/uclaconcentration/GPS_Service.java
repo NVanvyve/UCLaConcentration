@@ -1,5 +1,6 @@
 package groupe.onze.uclaconcentration;
 
+import android.app.Activity;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -10,41 +11,50 @@ import android.util.Log;
 import java.util.Timer;
 import java.util.TimerTask;
 
+
 /**
- * Created by Sophie on 12/03/2017.
+ * Created by Nicolas on  24/03/2017.
  */
-public class SensorService extends Service {
-    public int counter = 0;// Compteur
-    public int pauseCounter = 0;// compteur pour la pause
-    String serviceName;
-    public static final String TIMER_UPDATE = "com.client.gaitlink.AccelerationService.action.MOVEMENT_UPDATE";
-    public static final String COUNTER = "com.client.gaitlink.AccelerationService.ACCELERATION_X";
-    public boolean onPause = false;
+public class GPS_Service extends Service {
+
+
+    //public boolean onPause = false;
+    public GPSTracker gps;
+    private double latitude;
+    private double longitude;
+
+    public static final String service_name = "GPS";
+    public static final String latitude_string = "LAT";
+    public static final String longitude_string = "LONG";
 
     /**
      * Méthode pour broadcast les messages aux activités
      */
-    private void announceTimerChanges(int time)//this method sends broadcast messages
+    private void announceTimerChanges(double lat, double lon)//this method sends broadcast messages
     {
-        Intent intent = new Intent(TIMER_UPDATE);
-        intent.putExtra(COUNTER,time); // Ajout de la donnée compteur actuel
+        Intent intent = new Intent(service_name);
+        intent.putExtra(latitude_string,lat);
+        intent.putExtra(longitude_string,lon);
         sendBroadcast(intent);// Broadcast la donnée
     }
 
     /* Initialisation du Service de timer */
-    public SensorService(Context context) {
+    public GPS_Service(Context context,Activity activity) {
         super();
-        Log.i("HERE","here I am!");
+        gps = new GPSTracker(context,activity);
+
     }
 
-    public SensorService() {
+    public GPS_Service() {
         super();
     }
 
     @Override
     public int onStartCommand(Intent intent,int flags,int startId) {
         super.onStartCommand(intent,flags,startId);
+
         startTimer();
+
         return START_STICKY;
     }
 
@@ -61,9 +71,7 @@ public class SensorService extends Service {
 
     public void startTimer() {
         timer = new Timer();
-
         initializeTimerTask();// Initialisation du timer
-
         timer.schedule(timerTask,1000,1000); // Tâche à faire toutes les x
     }
 
@@ -73,18 +81,11 @@ public class SensorService extends Service {
     public void initializeTimerTask() {
         timerTask = new TimerTask() {
             public void run() {
-                if (!MainActivity.onPause) {
-                    Log.i("in timer","in timer ++++  " + counter);
-                    announceTimerChanges(counter);//Envoie à l'activité l'état du compteur
-                    counter++;//Incrémentation du compteur
-                    pauseCounter = 0;
-                } else {
-                    Log.i("in pause","in pause ++++  " + pauseCounter);
-                    announceTimerChanges(pauseCounter);//Envoie à l'activité l'état du compteur
-                    pauseCounter++;//Incrémentation du compteur
-
-                }
-
+                double location [] = gps.giveMeLatLong();
+                latitude = location[0];
+                longitude = location [1];
+                Log.i("Mise à jour du timer","Lat : "+latitude+" Longitude : "+longitude);
+                announceTimerChanges(latitude,longitude);//Envoie à l'activité
             }
         };
     }
@@ -99,7 +100,7 @@ public class SensorService extends Service {
             timer = null;
         }
     }
-
+/*
     public void pauseTimer() {
         Log.i("Pause","pause 1");
         onPause = true;
@@ -121,7 +122,7 @@ public class SensorService extends Service {
     public void resumeTimer() {
         onPause = false;
     }
-
+*/
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {

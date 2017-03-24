@@ -1,11 +1,7 @@
 package groupe.onze.uclaconcentration;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -36,7 +32,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
         GPSTracker gps = new GPSTracker(this,MapsActivity.this);
-        double latlong [] = gps.giveMeLatLong();
+        double latlong[] = gps.giveMeLatLong();
         latitude = latlong[0];
         longitude = latlong[1];
     }
@@ -54,7 +50,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        LatLng here = new LatLng(latitude, longitude);
+        LatLng here = new LatLng(latitude,longitude);
         mMap.addMarker(new MarkerOptions()
                 .position(here)
                 .flat(true));

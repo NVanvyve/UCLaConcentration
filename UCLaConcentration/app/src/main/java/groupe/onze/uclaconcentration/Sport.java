@@ -1,13 +1,18 @@
 package groupe.onze.uclaconcentration;
 
+import android.app.ActivityManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Random;
 
@@ -18,45 +23,111 @@ import java.util.Random;
 public class Sport extends BasicActivity {
 
 
-    double latitude;
-    double longitude;
-    GPSTracker gps;
+    private double latitude;
+    private double longitude;
+    private GPS_Service gps_service;
+    private GPSTracker gps;
+    private Context mContext;
+    private TextView coord;
+    private TextView tv_dist;
+    private TimerServiceReceiver timerReceiver;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_sport);
 
+        mContext = this;
+        coord = (TextView) findViewById(R.id.coord_sport);
+
         //GPS
 
-        gps = new GPSTracker(this,Sport.this);
-        final double latlong [] = gps.giveMeLatLong();
-        latitude = latlong[0];
-        longitude = latlong[1];
-
-        TextView coord = (TextView) findViewById(R.id.textView1);
-        coord.setText("Your Location is - \nLat: " + latitude + "\nLong: " + longitude);
+        gps_service = new GPS_Service(mContext,Sport.this);
+        gps = new GPSTracker(mContext,Sport.this);
 
         // "SPORT"
 
-        final TextView tv_dist = (TextView) findViewById(R.id.dist);
-
+        tv_dist = (TextView) findViewById(R.id.dist);
         Button newPosition = (Button) findViewById(R.id.new_position);
         assert newPosition != null;
-        newPosition.setOnClickListener(new View.OnClickListener() {
+        newPosition.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v) {
+                latitude = gps.giveMeLatLong()[0];
+                longitude = gps.giveMeLatLong()[1];
                 Random rand = new Random();
                 int d = rand.nextInt(2000);
-                double nl[] = gps.newLocation(d,getApplicationContext());
-                int dist = (int) gps.distance(latitude, longitude, nl[0],nl[1]);
-                tv_dist.setText("Distance demandée = "+ d +" m\nDistance réelle= "+dist+" m" );
+                double nl[] = gps.newLocation(d);
+                int dist = (int) gps.distance(latitude,longitude,nl[0],nl[1]);
+                tv_dist.setText("Distance demandée = " + d + " m\nDistance réelle= " + dist + " m");
 
             }
         });
 
     }
 
+    //SERVICE
+
+    Intent mService;
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                Log.i("isMyServiceRunning?",true + "");
+                return true;
+            }
+        }
+        Log.i("isMyServiceRunning?",false + "");
+        return false;
+    }
+
+    /**
+     * Initialise le récepteur de message broadcast
+     */
+    @Override
+    public void onResume() {
+        IntentFilter movementFilter;
+        movementFilter = new IntentFilter(GPS_Service.service_name);
+        timerReceiver = new Sport.TimerServiceReceiver();
+        registerReceiver(timerReceiver,movementFilter);
+
+        super.onResume();
+    }
+
+
+    /**
+     * Update le TimeViewer
+     */
+    final Runnable myRunnable = new Runnable() {
+        public void run() {
+            coord.setText("Your position : \nLat : "+latitude+"\nLong : "+longitude);
+        }
+    };
+
+    final Handler myHandler = new Handler();
+
+    /**
+     * Update TimeView grâce au Runnable
+     */
+    private void UpdateGUI() {
+        myHandler.post(myRunnable);
+    }
+
+
+    public class TimerServiceReceiver extends BroadcastReceiver {
+        /**
+         * Reçoit les messages broadcast par les services
+         */
+        @Override
+        public void onReceive(Context context,Intent intent) {
+            latitude = intent.getIntExtra(GPS_Service.latitude_string,0);
+            longitude = intent.getIntExtra(GPS_Service.longitude_string,0);
+            UpdateGUI();
+        }
+    }
 
 
 
@@ -78,17 +149,17 @@ public class Sport extends BasicActivity {
                 finish(); // close this activity and return to preview activity (if there is any)
 
             case R.id.action_settings:
-                Intent intent = new Intent(this, SettingsActivity.class);
+                Intent intent = new Intent(this,SettingsActivity.class);
                 finish();
                 startActivity(intent);
 
             case R.id.action_home:
-                Intent t = new Intent(Sport.this, MainActivity.class);
+                Intent t = new Intent(Sport.this,MainActivity.class);
                 finish();
                 startActivity(t);
 
             case R.id.action_recompense:
-                Intent s = new Intent(Sport.this, StoreActivity.class);
+                Intent s = new Intent(Sport.this,StoreActivity.class);
                 finish();
                 startActivity(s);
 
@@ -101,10 +172,9 @@ public class Sport extends BasicActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_main,menu);
         return true;
     }
-
 
 
 

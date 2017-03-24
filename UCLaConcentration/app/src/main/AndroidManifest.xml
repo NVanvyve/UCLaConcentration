@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="groupe.onze.uclaconcentration">
+          package="groupe.onze.uclaconcentration">
     import com.facebook.FacebookSdk;
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_school_black_24dp"
@@ -12,53 +13,54 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
+            android:value="@string/facebook_app_id"/>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBOoprP_Ju0VAvfptNFGk9fp0M_aoNIEZ8"/>
+
         <activity
             android:name=".MainActivity"
             android:label="UCLaConcentration"
             android:launchMode="singleTask">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
 
-                <action android:name="groupe.onze.uclaconcentration.CommunicationService.action.ACTIVITY_STATUS_UPDATE" />
+                <action android:name="groupe.onze.uclaconcentration.CommunicationService.action.ACTIVITY_STATUS_UPDATE"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".AdeActivity"
             android:label="@string/title_activity_ade"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".Facebook_Activity"
             android:label="Facebook"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".Connexion"
             android:label="Connexion à Facebook"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".PrefsActivity"
             android:label="@string/title_activity_prefs"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
             android:name=".StoreActivity"
             android:label="@string/title_activity_store"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
             android:name=".Sport"
             android:label="@string/sport_activity"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
             android:name=".MapsActivity"
@@ -70,7 +72,13 @@
             android:name=".SensorService"
             android:enabled="true"
             android:exported="true"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"/>
+
+        <service
+            android:name=".GPS_Service"
+            android:enabled="true"
+            android:exported="true"
+            android:launchMode="singleTask"/>
 
         <service android:name=".GPSTracker"/>
 
@@ -81,7 +89,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="groupe.onze.uclaconcentration.MainActivity" />
+                android:value="groupe.onze.uclaconcentration.MainActivity"/>
         </activity>
     </application>
 
