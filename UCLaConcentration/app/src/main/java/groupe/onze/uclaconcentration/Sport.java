@@ -25,12 +25,12 @@ public class Sport extends BasicActivity {
 
     private double latitude;
     private double longitude;
-    private GPS_Service gps_service;
     private GPSTracker gps;
     private Context mContext;
     private TextView coord;
     private TextView tv_dist;
     private TimerServiceReceiver timerReceiver;
+    private Intent mServiceIntent;
 
 
     @Override
@@ -43,16 +43,17 @@ public class Sport extends BasicActivity {
 
         //GPS
 
-        //gps_service = new GPS_Service(mContext,Sport.this);
         gps = new GPSTracker(mContext,Sport.this);
+        mServiceIntent = new Intent(mContext,gps.getClass());
+        startService(mServiceIntent);
+
 
         // "SPORT"
 
         tv_dist = (TextView) findViewById(R.id.dist);
         Button newPosition = (Button) findViewById(R.id.new_position);
         assert newPosition != null;
-        newPosition.setOnClickListener(new View.OnClickListener()
-        {
+        newPosition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 latitude = gps.giveMeLatLong()[0];
@@ -69,9 +70,7 @@ public class Sport extends BasicActivity {
     }
 
     //SERVICE
-
-    Intent mService;
-
+/*
     private boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
@@ -83,6 +82,7 @@ public class Sport extends BasicActivity {
         Log.i("isMyServiceRunning?",false + "");
         return false;
     }
+*/
 
     /**
      * Initialise le récepteur de message broadcast
@@ -90,7 +90,7 @@ public class Sport extends BasicActivity {
     @Override
     public void onResume() {
         IntentFilter movementFilter;
-        movementFilter = new IntentFilter(GPS_Service.service_name);
+        movementFilter = new IntentFilter(GPSTracker.service_name);
         timerReceiver = new Sport.TimerServiceReceiver();
         registerReceiver(timerReceiver,movementFilter);
 
@@ -103,7 +103,7 @@ public class Sport extends BasicActivity {
      */
     final Runnable myRunnable = new Runnable() {
         public void run() {
-            coord.setText("Your position : \nLat : "+latitude+"\nLong : "+longitude);
+            coord.setText("Your position : \nLat : " + latitude + "\nLong : " + longitude);
         }
     };
 
@@ -123,12 +123,11 @@ public class Sport extends BasicActivity {
          */
         @Override
         public void onReceive(Context context,Intent intent) {
-            latitude = intent.getIntExtra(GPS_Service.latitude_string,0);
-            longitude = intent.getIntExtra(GPS_Service.longitude_string,0);
+            latitude = intent.getIntExtra(GPSTracker.latitude_string,0);
+            longitude = intent.getIntExtra(GPSTracker.longitude_string,0);
             UpdateGUI();
         }
     }
-
 
 
     // TOOLBAR
@@ -175,8 +174,6 @@ public class Sport extends BasicActivity {
         getMenuInflater().inflate(R.menu.menu_main,menu);
         return true;
     }
-
-
 
 
 }

@@ -75,7 +75,7 @@
             android:launchMode="singleTask"/>
 
         <service
-            android:name=".GPS_Service"
+            android:name=".GPS_Service_DONT_USE"
             android:enabled="true"
             android:exported="true"
             android:launchMode="singleTask"/>

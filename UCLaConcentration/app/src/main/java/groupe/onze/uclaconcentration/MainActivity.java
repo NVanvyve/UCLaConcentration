@@ -21,6 +21,7 @@ public class MainActivity extends BasicActivity {
     int counter;
     TextView tv;
     public static boolean onPause = false;
+    Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,16 +40,15 @@ public class MainActivity extends BasicActivity {
             @Override
             public void onClick(View v) {
 
-                Context context = getCtx();
                 if (isMyServiceRunning(SensorService.class)) {
 
-                    Toast.makeText(context,getResources().getString(R.string.stopping_chrono),Toast.LENGTH_LONG).show();
-                    Intent serviceIntent = new Intent(getCtx(),SensorService.class);
-                    context.stopService(serviceIntent);
+                    Toast.makeText(mContext,getResources().getString(R.string.stopping_chrono),Toast.LENGTH_LONG).show();
+                    Intent serviceIntent = new Intent(mContext,SensorService.class);
+                    mContext.stopService(serviceIntent);
                     play.setText(R.string.play);
                 } else {
-                    mSensorService = new SensorService(context);
-                    mServiceIntent = new Intent(context,mSensorService.getClass());
+                    mSensorService = new SensorService(mContext);
+                    mServiceIntent = new Intent(mContext,mSensorService.getClass());
                     if (!isMyServiceRunning(mSensorService.getClass())) {
                         startService(mServiceIntent);
                     }
@@ -65,23 +65,22 @@ public class MainActivity extends BasicActivity {
             @Override
             public void onClick(View v) {
 
-                Context context = getCtx();
                 if (isMyServiceRunning(SensorService.class)) {
                     if (onPause == false) {
-                        Toast.makeText(context,getResources().getString(R.string.pausing_chrono),Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext,getResources().getString(R.string.pausing_chrono),Toast.LENGTH_LONG).show();
                         onPause = true;
                         typeTimer.setText(R.string.pause_timer);
                         tv.setText(" ");
                         pause.setText(R.string.resume);
                     } else {
-                        Toast.makeText(context,getResources().getString(R.string.resuming_chrono),Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext,getResources().getString(R.string.resuming_chrono),Toast.LENGTH_LONG).show();
                         onPause = false;
                         tv.setText(" ");
                         typeTimer.setText(R.string.timer_timer);
                         pause.setText(R.string.pause);
                     }
                 } else {
-                    Toast.makeText(context,getResources().getString(R.string.no_timer_active),Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext,getResources().getString(R.string.no_timer_active),Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -148,7 +147,7 @@ public class MainActivity extends BasicActivity {
             }
         });
 
-        ctx = this;
+        mContext = this;
     }
 
     /**
@@ -156,11 +155,7 @@ public class MainActivity extends BasicActivity {
      */
     Intent mServiceIntent;
     private SensorService mSensorService;
-    Context ctx;
 
-    public Context getCtx() {
-        return ctx;
-    }
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
@@ -281,5 +276,4 @@ public class MainActivity extends BasicActivity {
             UpdateGUI();
         }
     }
-
 }

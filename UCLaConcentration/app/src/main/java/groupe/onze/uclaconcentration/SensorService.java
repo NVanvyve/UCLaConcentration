@@ -64,7 +64,7 @@ public class SensorService extends Service {
 
         initializeTimerTask();// Initialisation du timer
 
-        timer.schedule(timerTask,1000,1000); // Tâche à faire toutes les x
+        timer.schedule(timerTask,0,1000); // Tâche à faire toutes les x
     }
 
     /**

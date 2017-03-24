@@ -15,7 +15,7 @@ import java.util.TimerTask;
 /**
  * Created by Nicolas on  24/03/2017.
  */
-public class GPS_Service extends Service {
+public class GPS_Service_DONT_USE extends Service {
 
 
     //public boolean onPause = false;
@@ -39,13 +39,13 @@ public class GPS_Service extends Service {
     }
 
     /* Initialisation du Service de timer */
-    public GPS_Service(Context context,Activity activity) {
+    public GPS_Service_DONT_USE(Context context,Activity activity) {
         super();
         gps = new GPSTracker(context,activity);
 
     }
 
-    public GPS_Service() {
+    public GPS_Service_DONT_USE() {
         super();
     }
 
