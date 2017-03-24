@@ -43,7 +43,7 @@ public class Sport extends BasicActivity {
 
         //GPS
 
-        gps_service = new GPS_Service(mContext,Sport.this);
+        //gps_service = new GPS_Service(mContext,Sport.this);
         gps = new GPSTracker(mContext,Sport.this);
 
         // "SPORT"

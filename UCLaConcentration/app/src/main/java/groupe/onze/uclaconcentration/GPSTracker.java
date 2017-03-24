@@ -20,6 +20,8 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static java.lang.Math.acos;
 import static java.lang.Math.cos;
@@ -28,6 +30,12 @@ import static java.lang.Math.sin;
 public class GPSTracker extends Service {
 
     private Context mContext;
+    public static final String service_name = "GPS";
+    public static final String latitude_string = "LAT";
+    public static final String longitude_string = "LONG";
+
+    private Timer timer;
+    private TimerTask timerTask;
 
     // Flag for GPS status
     boolean isGPSEnabled = false;
@@ -237,6 +245,55 @@ public class GPSTracker extends Service {
     }
 
 
+    /**
+     * Méthode pour broadcast les messages aux activités
+     */
+    private void announceTimerChanges(double lat, double lon)//this method sends broadcast messages
+    {
+        Intent intent = new Intent(service_name);
+        intent.putExtra(latitude_string,lat);
+        intent.putExtra(longitude_string,lon);
+        sendBroadcast(intent);// Broadcast la donnée
+    }
+
+    @Override
+    public int onStartCommand(Intent intent,int flags,int startId) {
+        super.onStartCommand(intent,flags,startId);
+        startTimer();
+        return START_STICKY;
+    }
+
+    public void startTimer() {
+        timer = new Timer();
+        initializeTimerTask();// Initialisation du timer
+        timer.schedule(timerTask,1000,1000); // Tâche à faire toutes les x
+    }
+
+    /**
+     * A faire toutes les x secondes
+     */
+    public void initializeTimerTask() {
+        timerTask = new TimerTask() {
+            public void run() {
+                Log.i("Mise à jour du timer","Lat : "+latitude+" Longitude : "+longitude);
+                announceTimerChanges(latitude,longitude);//Envoie à l'activité
+            }
+        };
+    }
+
+    /**
+     * Stoppe le timer
+     */ /*
+    public void stoptimertask() {
+        //stop the timer, if it's not already null
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
+    }
+    */
+
+
     public double distance(double LatA,double LongA,double LatB,double LongB) {
         double R = 6371000; // Rayon de la Terre en mètres
         double a = Math.toRadians(LatA); //latitude du point A (en radians)
@@ -248,10 +305,10 @@ public class GPSTracker extends Service {
         return Dist;
     }
 
-    /*
-        @pre  : distance est une distance en mettre
-        @post : retourne un tableau contenant lune latitude et une longitude d'une nouvelle position se situant une distance x de la position actuelle.
-                x etant un nombre compris entre [0.9 x ; 1.1 x] && [x-100m ; x+100m]
+    /**
+     * @pre  : distance est une distance en mètre
+     * @post : retourne un tableau contenant lune latitude et une longitude d'une nouvelle position se situant une distance x de la position actuelle.
+     *         x etant un nombre compris entre [0.9 x ; 1.1 x] && [x-100m ; x+100m]
      */
     public double[] newLocation(int distance) {
 
