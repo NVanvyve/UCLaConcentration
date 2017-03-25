@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,30 +31,28 @@ public class StoreActivity extends BasicActivity {
 
     Random rand;
 
-    private void update(){
+    private void update() {
         SharedPreferences.Editor mEditor = mPrefs.edit();
-        mEditor.putInt("save_coins", procraCoins).commit();
+        mEditor.putInt("save_coins",procraCoins).commit();
     }
 
-    private void sell(int cost){
-        if(cost<=(procraCoins) && ((System.currentTimeMillis() - last_purchase) >= waiting)) {
+    private void sell(int cost) {
+        if (cost <= (procraCoins) && ((System.currentTimeMillis() - last_purchase) >= waiting)) {
             last_purchase = System.currentTimeMillis();
             procraCoins -= cost;
             update();
-            money.setText(procraCoins+" P");;
-        }
-        else if(cost>= procraCoins){
+            money.setText(procraCoins + " P");
+            ;
+        } else if (cost >= procraCoins) {
             context = getApplicationContext();
-            Toast toast = Toast.makeText(context, text, duration);
+            Toast toast = Toast.makeText(context,text,duration);
             toast.show();
-        }
-        else{
+        } else {
             context = getApplicationContext();
-            Toast toast = Toast.makeText(context, text2, duration);
+            Toast toast = Toast.makeText(context,text2,duration);
             toast.show();
         }
     }
-
 
 
     @Override
@@ -82,28 +79,28 @@ public class StoreActivity extends BasicActivity {
         Button reset = (Button) findViewById(R.id.reset_button);
 
         // Récupération de la mémoire
-        mPrefs = getSharedPreferences("label", 0);
+        mPrefs = getSharedPreferences("label",0);
         procraCoins = mPrefs.getInt("save_coins",0);
-        money.setText(procraCoins+" P");
+        money.setText(procraCoins + " P");
 
         // Récompenses 
         // Boutons et Prix associés
-        Button [] ButtonList = {
+        Button[] ButtonList = {
                 (Button) findViewById(R.id.button20min),
                 (Button) findViewById(R.id.button40min),
                 (Button) findViewById(R.id.button60min)};
 
-        final int [] CostList = {
+        final int[] CostList = {
                 150,
                 350,
                 600};
 
 
         // Initialisation des prix sur les boutons
-        for (int i = 0; i<ButtonList.length; i++){
-            ButtonList[i].setText(CostList[i]+ " P");
+        for (int i = 0; i < ButtonList.length; i++) {
+            ButtonList[i].setText(CostList[i] + " P");
         }
-        
+
         // "More" et "Reset" sont des boutons temporaire qui permettent de tester le fonctionemment du Store
         // A supprimer une fois qu'il existe un systeme pour générer des points
         more.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +108,7 @@ public class StoreActivity extends BasicActivity {
             public void onClick(View v) {
                 procraCoins += 20 + rand.nextInt(30);
                 update();
-                money.setText(procraCoins+" P");
+                money.setText(procraCoins + " P");
             }
         });
         reset.setOnClickListener(new View.OnClickListener() {
@@ -119,11 +116,11 @@ public class StoreActivity extends BasicActivity {
             public void onClick(View v) {
                 procraCoins = 0;
                 update();
-                money.setText(procraCoins+" P");
+                money.setText(procraCoins + " P");
             }
         });
 
-        
+
         // Méthode onClick() pour tous les boutons... Une solution plus compacte est la bien venue
         ButtonList[0].setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,7 +150,7 @@ public class StoreActivity extends BasicActivity {
             }
         });
         */
-        
+
     }
 
     @Override
@@ -164,7 +161,7 @@ public class StoreActivity extends BasicActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_main,menu);
         return true;
     }
 
@@ -176,16 +173,16 @@ public class StoreActivity extends BasicActivity {
         int id = item.getItemId();
 
         switch (item.getItemId()) {
-            case R.id.home :
+            case R.id.home:
                 finish(); // close this activity and return to preview activity (if there is any)
 
             case R.id.action_settings:
-                Intent intent = new Intent(this, SettingsActivity.class);
+                Intent intent = new Intent(this,SettingsActivity.class);
                 startActivity(intent);
                 return true;
 
             case R.id.action_home:
-                Intent s = new Intent(StoreActivity.this, MainActivity.class);
+                Intent s = new Intent(StoreActivity.this,MainActivity.class);
                 startActivity(s);
                 return true;
 

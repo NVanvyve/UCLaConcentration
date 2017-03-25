@@ -1,22 +1,5 @@
 package groupe.onze.uclaconcentration;
 
-import groupe.onze.uclaconcentration.dataBaseMan.*;
-
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.api.client.extensions.android.http.AndroidHttp;
-import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
-import com.google.api.client.googleapis.extensions.android.gms.auth.GooglePlayServicesAvailabilityIOException;
-import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
-
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.json.JsonFactory;
-import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.services.calendar.CalendarScopes;
-import com.google.api.client.util.DateTime;
-
-import com.google.api.services.calendar.model.*;
-
 import android.Manifest;
 import android.accounts.AccountManager;
 import android.app.Dialog;
@@ -25,39 +8,50 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
+import com.google.api.client.googleapis.extensions.android.gms.auth.GooglePlayServicesAvailabilityIOException;
+import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.DateTime;
+import com.google.api.services.calendar.CalendarScopes;
+import com.google.api.services.calendar.model.Event;
+import com.google.api.services.calendar.model.Events;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import groupe.onze.uclaconcentration.dataBaseMan.dayEventListDB;
 import groupe.onze.uclaconcentration.objetPerso.EventPerso;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
+
 /**
  * Created by alexis on 28-02-17.
  */
@@ -81,8 +75,8 @@ public class CalendarGoogle extends AppCompatActivity implements EasyPermissions
     final ColorDrawable blue = new ColorDrawable(Color.parseColor("#4169E1"));
     private CaldroidFragment caldroidFragment; // Variables du caldroid
     private CaldroidFragment dialogCaldroidFragment;
-    private int daysBefore=-7;// definis le jour initial du calendrier par rapport a la date d'ajd
-    private int daysAfter=45;// definis le jour final du calendrier par rapport a la date d'ajd
+    private int daysBefore = -7;// definis le jour initial du calendrier par rapport a la date d'ajd
+    private int daysAfter = 45;// definis le jour final du calendrier par rapport a la date d'ajd
     private static ArrayList<EventPerso> EventList;// Arraylist pour récuper tout les évents d'une date
 
 
@@ -104,29 +98,28 @@ public class CalendarGoogle extends AppCompatActivity implements EasyPermissions
         //boolean test = mPrefs.getBoolean("GoogleLinkedAccount", false);
 
         /**
-        if (!test) {
-            setContentView(R.layout.activity_calendar_first_launch);
-            mCallApiButton = (Button) findViewById(R.id.CalendarInit);
-            mCallApiButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mCallApiButton.setEnabled(false);
-                    mOutputText.setText("");
-                    getResultsFromApi();
-                    mCallApiButton.setEnabled(true);
-                }
+         if (!test) {
+         setContentView(R.layout.activity_calendar_first_launch);
+         mCallApiButton = (Button) findViewById(R.id.CalendarInit);
+         mCallApiButton.setOnClickListener(new View.OnClickListener() {
+        @Override public void onClick(View v) {
+        mCallApiButton.setEnabled(false);
+        mOutputText.setText("");
+        getResultsFromApi();
+        mCallApiButton.setEnabled(true);
+        }
 
-            });
+        });
 
-            mProgress = new ProgressDialog(this);
-            mProgress.setMessage("Connecting");
-            SharedPreferences.Editor mEditor = mPrefs.edit();
-            mEditor.putBoolean("GoogleLinkedAccount", true).apply();
-        }//Fin du if !test
+         mProgress = new ProgressDialog(this);
+         mProgress.setMessage("Connecting");
+         SharedPreferences.Editor mEditor = mPrefs.edit();
+         mEditor.putBoolean("GoogleLinkedAccount", true).apply();
+         }//Fin du if !test
 
-        mCredential = GoogleAccountCredential.usingOAuth2(
-                getApplicationContext(), Arrays.asList(SCOPES))
-                .setBackOff(new ExponentialBackOff());
+         mCredential = GoogleAccountCredential.usingOAuth2(
+         getApplicationContext(), Arrays.asList(SCOPES))
+         .setBackOff(new ExponentialBackOff());
          */
         // Initialize credentials and service object.
 
@@ -135,26 +128,26 @@ public class CalendarGoogle extends AppCompatActivity implements EasyPermissions
         //seting the mindate 1 days before the current day
         Calendar calM = Calendar.getInstance();
         calM.setTime(new Date());
-        calM.add(Calendar.DATE, 0);
+        calM.add(Calendar.DATE,0);
         caldroidFragment.setMinDate(calM.getTime());
 
         //Créer cal
 
         Bundle args = new Bundle();
         Calendar cal = Calendar.getInstance();
-        args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
-        args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
-        args.putBoolean(CaldroidFragment.ENABLE_SWIPE, true);
-        args.putBoolean(CaldroidFragment.SIX_WEEKS_IN_CALENDAR, true);
+        args.putInt(CaldroidFragment.MONTH,cal.get(Calendar.MONTH) + 1);
+        args.putInt(CaldroidFragment.YEAR,cal.get(Calendar.YEAR));
+        args.putBoolean(CaldroidFragment.ENABLE_SWIPE,true);
+        args.putBoolean(CaldroidFragment.SIX_WEEKS_IN_CALENDAR,true);
 
         // Uncomment this to customize startDayOfWeek
-        args.putInt(CaldroidFragment.START_DAY_OF_WEEK, CaldroidFragment.MONDAY);
+        args.putInt(CaldroidFragment.START_DAY_OF_WEEK,CaldroidFragment.MONDAY);
 
         caldroidFragment.setArguments(args);
         // setCustomResourceForDates(); // TODO Comprendre ca
         // Attach to the activity
         FragmentTransaction t = getSupportFragmentManager().beginTransaction();
-        t.replace(R.id.calendrier, caldroidFragment);
+        t.replace(R.id.calendrier,caldroidFragment);
         t.commit();
 
 
@@ -166,7 +159,7 @@ public class CalendarGoogle extends AppCompatActivity implements EasyPermissions
         * On actualise la vue and fonction des dates que l'utilisateur sélectionne
         */
         @Override
-        public void onSelectDate(Date date, View view) {
+        public void onSelectDate(Date date,View view) {
             /* Création d'un layout custom */
 
             /*
@@ -185,20 +178,20 @@ public class CalendarGoogle extends AppCompatActivity implements EasyPermissions
             */
 
             /* Création dialog */
-            context=getApplicationContext();
+            context = getApplicationContext();
             Calendar calM = Calendar.getInstance();
-            final dayEventListDB dEL=new dayEventListDB(context);
-            final ArrayList<EventPerso> tempList=dEL.getCalendrier(date);// Linker la list associer a la date
+            final dayEventListDB dEL = new dayEventListDB(context);
+            final ArrayList<EventPerso> tempList = dEL.getCalendrier(date);// Linker la list associer a la date
             final AlertDialog.Builder builder = new AlertDialog.Builder(context);
 // Add the buttons
-            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-            dEL.updateDate(tempList);
+            builder.setPositiveButton(R.string.ok,new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog,int id) {
+                    dEL.updateDate(tempList);
 
                 }
             });
-            builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
+            builder.setNegativeButton(R.string.cancel,new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog,int id) {
                     // User cancelled the dialog
                 }
             });
@@ -209,14 +202,14 @@ public class CalendarGoogle extends AppCompatActivity implements EasyPermissions
         }
 
         @Override
-        public void onChangeMonth(int month, int year) {
+        public void onChangeMonth(int month,int year) {
             String text = "month: " + month + " year: " + year;
-            Toast.makeText(getApplicationContext(), text,
+            Toast.makeText(getApplicationContext(),text,
                     Toast.LENGTH_SHORT).show();
         }
 
         @Override
-        public void onLongClickDate(Date date, View view) {
+        public void onLongClickDate(Date date,View view) {
             Toast.makeText(getApplicationContext(),
                     "Long click " + formatter.format(date),
                     Toast.LENGTH_SHORT).show();
@@ -228,17 +221,17 @@ public class CalendarGoogle extends AppCompatActivity implements EasyPermissions
         //caldroidFragment.refreshView(); //TODO
     };
 
-/*
-Definis les limites du calendrier
- */
+    /*
+    Definis les limites du calendrier
+     */
     private void setCustomResourceForDates() {
         Calendar cal = Calendar.getInstance();
 
         // Min date is last daysBefore days
-        cal.add(Calendar.DATE,daysBefore );
+        cal.add(Calendar.DATE,daysBefore);
 
         // Max date is next daysAfter days
-        cal.add(Calendar.DATE, daysAfter);
+        cal.add(Calendar.DATE,daysAfter);
     }
 /*
 
@@ -252,19 +245,20 @@ ATTENTION CI DESSOUS SE TROUVE LES METHODES GOOGLE
 
 
  */
-        /**
-         * Attempt to call the API, after verifying that all the preconditions are
-         * satisfied. The preconditions are: Google Play Services installed, an
-         * account was selected and the device currently has online access. If any
-         * of the preconditions are not satisfied, the app will prompt the user as
-         * appropriate.
-         */
+
+    /**
+     * Attempt to call the API, after verifying that all the preconditions are
+     * satisfied. The preconditions are: Google Play Services installed, an
+     * account was selected and the device currently has online access. If any
+     * of the preconditions are not satisfied, the app will prompt the user as
+     * appropriate.
+     */
     private void getResultsFromApi() {
-        if (! isGooglePlayServicesAvailable()) {
+        if (!isGooglePlayServicesAvailable()) {
             acquireGooglePlayServices();
         } else if (mCredential.getSelectedAccountName() == null) {
             chooseAccount();
-        } else if (! isDeviceOnline()) {
+        } else if (!isDeviceOnline()) {
             mOutputText.setText(R.string.NoNetworkConnection);
         } else {
             new MakeRequestTask(mCredential).execute();
@@ -284,9 +278,9 @@ ATTENTION CI DESSOUS SE TROUVE LES METHODES GOOGLE
     @AfterPermissionGranted(REQUEST_PERMISSION_GET_ACCOUNTS)
     private void chooseAccount() {
         if (EasyPermissions.hasPermissions(
-                this, Manifest.permission.GET_ACCOUNTS)) {
+                this,Manifest.permission.GET_ACCOUNTS)) {
             String accountName = getPreferences(Context.MODE_PRIVATE)
-                    .getString(PREF_ACCOUNT_NAME, null);
+                    .getString(PREF_ACCOUNT_NAME,null);
             if (accountName != null) {
                 mCredential.setSelectedAccountName(accountName);
                 getResultsFromApi();
@@ -310,17 +304,18 @@ ATTENTION CI DESSOUS SE TROUVE LES METHODES GOOGLE
      * Called when an activity launched here (specifically, AccountPicker
      * and authorization) exits, giving you the requestCode you started it with,
      * the resultCode it returned, and any additional data from it.
+     *
      * @param requestCode code indicating which activity result is incoming.
-     * @param resultCode code indicating the result of the incoming
-     *     activity result.
-     * @param data Intent (containing result data) returned by incoming
-     *     activity result.
+     * @param resultCode  code indicating the result of the incoming
+     *                    activity result.
+     * @param data        Intent (containing result data) returned by incoming
+     *                    activity result.
      */
     @Override
     protected void onActivityResult(
-            int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch(requestCode) {
+            int requestCode,int resultCode,Intent data) {
+        super.onActivityResult(requestCode,resultCode,data);
+        switch (requestCode) {
             case REQUEST_GOOGLE_PLAY_SERVICES:
                 if (resultCode != RESULT_OK) {
                     mOutputText.setText(
@@ -339,7 +334,7 @@ ATTENTION CI DESSOUS SE TROUVE LES METHODES GOOGLE
                         SharedPreferences settings =
                                 getPreferences(Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = settings.edit();
-                        editor.putString(PREF_ACCOUNT_NAME, accountName);
+                        editor.putString(PREF_ACCOUNT_NAME,accountName);
                         editor.apply();
                         mCredential.setSelectedAccountName(accountName);
                         getResultsFromApi();
@@ -356,47 +351,51 @@ ATTENTION CI DESSOUS SE TROUVE LES METHODES GOOGLE
 
     /**
      * Respond to requests for permissions at runtime for API 23 and above.
-     * @param requestCode The request code passed in
-     *     requestPermissions(android.app.Activity, String, int, String[])
-     * @param permissions The requested permissions. Never null.
+     *
+     * @param requestCode  The request code passed in
+     *                     requestPermissions(android.app.Activity, String, int, String[])
+     * @param permissions  The requested permissions. Never null.
      * @param grantResults The grant results for the corresponding permissions
-     *     which is either PERMISSION_GRANTED or PERMISSION_DENIED. Never null.
+     *                     which is either PERMISSION_GRANTED or PERMISSION_DENIED. Never null.
      */
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        super.onRequestPermissionsResult(requestCode,permissions,grantResults);
         EasyPermissions.onRequestPermissionsResult(
-                requestCode, permissions, grantResults, this);
+                requestCode,permissions,grantResults,this);
     }
 
     /**
      * Callback for when a permission is granted using the EasyPermissions
      * library.
+     *
      * @param requestCode The request code associated with the requested
-     *         permission
-     * @param list The requested permission list. Never null.
+     *                    permission
+     * @param list        The requested permission list. Never null.
      */
     @Override
-    public void onPermissionsGranted(int requestCode, List<String> list) {
+    public void onPermissionsGranted(int requestCode,List<String> list) {
         // Do nothing.
     }
 
     /**
      * Callback for when a permission is denied using the EasyPermissions
      * library.
+     *
      * @param requestCode The request code associated with the requested
-     *         permission
-     * @param list The requested permission list. Never null.
+     *                    permission
+     * @param list        The requested permission list. Never null.
      */
     @Override
-    public void onPermissionsDenied(int requestCode, List<String> list) {
+    public void onPermissionsDenied(int requestCode,List<String> list) {
         // Do nothing.
     }
 
     /**
      * Checks whether the device currently has a network connection.
+     *
      * @return true if the device has a network connection, false otherwise.
      */
     private boolean isDeviceOnline() {
@@ -408,8 +407,9 @@ ATTENTION CI DESSOUS SE TROUVE LES METHODES GOOGLE
 
     /**
      * Check that Google Play services APK is installed and up to date.
+     *
      * @return true if Google Play Services is available and up to
-     *     date on this device; false otherwise.
+     * date on this device; false otherwise.
      */
     private boolean isGooglePlayServicesAvailable() {
         GoogleApiAvailability apiAvailability =
@@ -437,8 +437,9 @@ ATTENTION CI DESSOUS SE TROUVE LES METHODES GOOGLE
     /**
      * Display an error dialog showing that Google Play Services is missing
      * or out of date.
+     *
      * @param connectionStatusCode code describing the presence (or lack of)
-     *     Google Play Services on this device.
+     *                             Google Play Services on this device.
      */
     void showGooglePlayServicesAvailabilityErrorDialog(
             final int connectionStatusCode) {
@@ -462,19 +463,20 @@ ATTENTION CI DESSOUS SE TROUVE LES METHODES GOOGLE
             HttpTransport transport = AndroidHttp.newCompatibleTransport();
             JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
             mService = new com.google.api.services.calendar.Calendar.Builder(
-                    transport, jsonFactory, credential)
+                    transport,jsonFactory,credential)
                     .setApplicationName("Google Calendar API Android Quickstart")
                     .build();
         }
 
         /**
          * Background task to call Google Calendar API.
+         *
          * @param params no parameters needed for this task.
          */
         @Override
         protected List<String> doInBackground(Void... params) {
             try {
-                return null ; // getDataFromApi(); TODO NE PAS LAISSER CA COMME CA SINON CA VA BUGGER
+                return null; // getDataFromApi(); TODO NE PAS LAISSER CA COMME CA SINON CA VA BUGGER
             } catch (Exception e) {
                 mLastError = e;
                 cancel(true);
@@ -484,6 +486,7 @@ ATTENTION CI DESSOUS SE TROUVE LES METHODES GOOGLE
 
         /**
          * Fetch a list of the next 10 events from the primary calendar.
+         *
          * @return List of Strings describing returned events.
          * @throws IOException
          */
@@ -507,7 +510,7 @@ ATTENTION CI DESSOUS SE TROUVE LES METHODES GOOGLE
                     start = event.getStart().getDate();
                 }
                 eventStrings.add(
-                        String.format("%s (%s)", event.getSummary(), start));
+                        String.format("%s (%s)",event.getSummary(),start));
             }
             return eventStrings;
         }
@@ -525,8 +528,8 @@ ATTENTION CI DESSOUS SE TROUVE LES METHODES GOOGLE
             if (output == null || output.size() == 0) {
                 mOutputText.setText("No results returned.");
             } else {
-                output.add(0, "Data retrieved using the Google Calendar API:");
-                mOutputText.setText(TextUtils.join("\n", output));
+                output.add(0,"Data retrieved using the Google Calendar API:");
+                mOutputText.setText(TextUtils.join("\n",output));
             }
         }
 

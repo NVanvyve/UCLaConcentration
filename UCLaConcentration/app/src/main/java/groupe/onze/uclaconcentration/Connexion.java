@@ -2,8 +2,6 @@ package groupe.onze.uclaconcentration;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,7 +50,8 @@ public class Connexion extends BasicActivity {
         }
     };
 
-    public void onCreate(Bundle savedInstanceState) {super.onCreate(savedInstanceState);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_connexion);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -65,7 +64,7 @@ public class Connexion extends BasicActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent s = new Intent(Connexion.this, MainActivity.class);
+                Intent s = new Intent(Connexion.this,MainActivity.class);
                 startActivity(s);
             }
         });
@@ -75,13 +74,13 @@ public class Connexion extends BasicActivity {
         callbackManager = CallbackManager.Factory.create();
         accessTokenTracker = new AccessTokenTracker() {
             @Override
-            protected void onCurrentAccessTokenChanged(AccessToken oldToken, AccessToken newToken) {
+            protected void onCurrentAccessTokenChanged(AccessToken oldToken,AccessToken newToken) {
             }
         };
 
         profileTracker = new ProfileTracker() {
             @Override
-            protected void onCurrentProfileChanged(Profile oldProfile, Profile newProfile) {
+            protected void onCurrentProfileChanged(Profile oldProfile,Profile newProfile) {
                 nextActivity(newProfile);
             }
         };
@@ -98,7 +97,7 @@ public class Connexion extends BasicActivity {
                 AccessToken accessToken = loginResult.getAccessToken();
                 Profile profile = Profile.getCurrentProfile();
                 nextActivity(profile);
-                Toast.makeText(getApplicationContext(), getResources().getString(R.string.log_in), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),getResources().getString(R.string.log_in),Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -110,7 +109,7 @@ public class Connexion extends BasicActivity {
             }
         };
         loginButton.setReadPermissions("user_friends");
-        loginButton.registerCallback(callbackManager, callback);
+        loginButton.registerCallback(callbackManager,callback);
 
 
     }
@@ -137,19 +136,19 @@ public class Connexion extends BasicActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int responseCode, Intent intent) {
-        super.onActivityResult(requestCode, responseCode, intent);
+    protected void onActivityResult(int requestCode,int responseCode,Intent intent) {
+        super.onActivityResult(requestCode,responseCode,intent);
         //Facebook login
-        callbackManager.onActivityResult(requestCode, responseCode, intent);
+        callbackManager.onActivityResult(requestCode,responseCode,intent);
 
     }
 
     private void nextActivity(Profile profile) {
         if (profile != null) {
-            Intent face = new Intent(Connexion.this, Facebook_Activity.class);
-            face.putExtra("name", profile.getFirstName());
-            face.putExtra("surname", profile.getLastName());
-            face.putExtra("imageUrl", profile.getProfilePictureUri(200, 200).toString());
+            Intent face = new Intent(Connexion.this,Facebook_Activity.class);
+            face.putExtra("name",profile.getFirstName());
+            face.putExtra("surname",profile.getLastName());
+            face.putExtra("imageUrl",profile.getProfilePictureUri(200,200).toString());
             finish();
             startActivity(face);
         }
@@ -163,7 +162,7 @@ public class Connexion extends BasicActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_main,menu);
         return true;
     }
 
@@ -175,11 +174,11 @@ public class Connexion extends BasicActivity {
         int id = item.getItemId();
 
         switch (item.getItemId()) {
-            case R.id.home :
+            case R.id.home:
                 finish(); // close this activity and return to preview activity (if there is any)
 
             case R.id.action_settings:
-                Intent intent = new Intent(this, SettingsActivity.class);
+                Intent intent = new Intent(this,SettingsActivity.class);
                 finish();
                 startActivity(intent);
 
@@ -187,7 +186,7 @@ public class Connexion extends BasicActivity {
                 finish();
 
             case R.id.action_recompense:
-                Intent intent1 = new Intent(this, StoreActivity.class);
+                Intent intent1 = new Intent(this,StoreActivity.class);
                 finish();
                 startActivity(intent1);
 

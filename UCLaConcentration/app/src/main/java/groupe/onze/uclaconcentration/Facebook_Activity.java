@@ -57,7 +57,7 @@ public class Facebook_Activity extends BasicActivity {
             @Override
             public void onClick(View view) {
                 LoginManager.getInstance().logOut();
-                Intent login = new Intent(Facebook_Activity.this, Connexion.class);
+                Intent login = new Intent(Facebook_Activity.this,Connexion.class);
                 startActivity(login);
                 finish();
             }
@@ -69,7 +69,7 @@ public class Facebook_Activity extends BasicActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_main,menu);
         return true;
     }
 
@@ -81,11 +81,11 @@ public class Facebook_Activity extends BasicActivity {
         int id = item.getItemId();
 
         switch (item.getItemId()) {
-            case R.id.home :
+            case R.id.home:
                 finish(); // close this activity and return to preview activity (if there is any)
 
             case R.id.action_settings:
-                Intent intent = new Intent(this, SettingsActivity.class);
+                Intent intent = new Intent(this,SettingsActivity.class);
                 finish();
                 startActivity(intent);
                 return true;
@@ -95,7 +95,7 @@ public class Facebook_Activity extends BasicActivity {
                 return true;
 
             case R.id.action_recompense:
-                Intent s = new Intent(Facebook_Activity.this, StoreActivity.class);
+                Intent s = new Intent(Facebook_Activity.this,StoreActivity.class);
                 finish();
                 startActivity(s);
 
@@ -115,11 +115,10 @@ public class Facebook_Activity extends BasicActivity {
     }
 
     @Override
-    public void finish(){
-        Intent s = new Intent(Facebook_Activity.this, MainActivity.class);
+    public void finish() {
+        Intent s = new Intent(Facebook_Activity.this,MainActivity.class);
         startActivity(s);
     }
-
 
 
 }

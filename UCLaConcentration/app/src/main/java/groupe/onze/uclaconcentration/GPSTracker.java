@@ -18,19 +18,24 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static java.lang.Math.acos;
-import static java.lang.Math.asin;
-import static java.lang.Math.atan2;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 
 public class GPSTracker extends Service {
 
     private Context mContext;
+    public static final String service_name = "GPS";
+    public static final String latitude_string = "LAT";
+    public static final String longitude_string = "LONG";
+
+    private Timer timer;
+    private TimerTask timerTask;
 
     // Flag for GPS status
     boolean isGPSEnabled = false;
@@ -56,10 +61,7 @@ public class GPSTracker extends Service {
 
     Activity activity;
 
-    public GPSTracker() {
-    }
-
-    public GPSTracker(Context context, Activity activity) {
+    public GPSTracker(Context context,Activity activity) {
         this.mContext = context;
         this.activity = activity;
         getLocation();
@@ -89,8 +91,8 @@ public class GPSTracker extends Service {
                     locationManager.requestLocationUpdates(
                             LocationManager.NETWORK_PROVIDER,
                             MIN_TIME_BW_UPDATES,
-                            MIN_DISTANCE_CHANGE_FOR_UPDATES, mLocationListener);
-                    Log.d("Network", "Network");
+                            MIN_DISTANCE_CHANGE_FOR_UPDATES,mLocationListener);
+                    Log.d("Network","Network");
                     if (locationManager != null) {
                         location = locationManager
                                 .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
@@ -104,15 +106,15 @@ public class GPSTracker extends Service {
             // If GPS enabled, get latitude/longitude using GPS Services
             if (isGPSEnabled) {
                 if (location == null) {
-                    if (ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 50);
+                    if (ContextCompat.checkSelfPermission(activity,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity,Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(activity,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},50);
 
                     } else {
                         locationManager.requestLocationUpdates(
                                 LocationManager.GPS_PROVIDER,
                                 MIN_TIME_BW_UPDATES,
-                                MIN_DISTANCE_CHANGE_FOR_UPDATES, mLocationListener);
-                        Log.d("GPS Enabled", "GPS Enabled");
+                                MIN_DISTANCE_CHANGE_FOR_UPDATES,mLocationListener);
+                        Log.d("GPS Enabled","GPS Enabled");
                         if (locationManager != null) {
 
                             location = locationManager
@@ -137,7 +139,7 @@ public class GPSTracker extends Service {
     /**
      * Stop using GPS listener
      * Calling this function will stop using GPS in your app.
-     * */
+     */
     public void stopUsingGPS() {
 
     }
@@ -154,7 +156,7 @@ public class GPSTracker extends Service {
         }
 
         @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
+        public void onStatusChanged(String provider,int status,Bundle extras) {
 
         }
 
@@ -171,9 +173,9 @@ public class GPSTracker extends Service {
 
     /**
      * Function to get latitude
-     * */
-    public double getLatitude(){
-        if(location != null){
+     */
+    public double getLatitude() {
+        if (location != null) {
             latitude = location.getLatitude();
         }
 
@@ -184,9 +186,9 @@ public class GPSTracker extends Service {
 
     /**
      * Function to get longitude
-     * */
-    public double getLongitude(){
-        if(location != null){
+     */
+    public double getLongitude() {
+        if (location != null) {
             longitude = location.getLongitude();
         }
 
@@ -196,8 +198,9 @@ public class GPSTracker extends Service {
 
     /**
      * Function to check GPS/Wi-Fi enabled
+     *
      * @return boolean
-     * */
+     */
     public boolean canGetLocation() {
         return this.canGetLocation;
     }
@@ -206,7 +209,7 @@ public class GPSTracker extends Service {
     /**
      * Function to show settings alert dialog.
      * On pressing the Settings button it will launch Settings Options.
-     * */
+     */
     public void showSettingsAlert() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
 
@@ -217,16 +220,16 @@ public class GPSTracker extends Service {
         alertDialog.setMessage("GPS is not enabled. Do you want to go to settings menu?");
 
         // On pressing the Settings button.
-        alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
+        alertDialog.setPositiveButton("Settings",new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int which) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 mContext.startActivity(intent);
             }
         });
 
         // On pressing the cancel button
-        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
+        alertDialog.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int which) {
                 dialog.cancel();
             }
         });
@@ -242,32 +245,87 @@ public class GPSTracker extends Service {
     }
 
 
+    /**
+     * Méthode pour broadcast les messages aux activités
+     */
+    private void announceTimerChanges(double lat, double lon)//this method sends broadcast messages
+    {
+        Intent intent = new Intent(service_name);
+        intent.putExtra(latitude_string,lat);
+        intent.putExtra(longitude_string,lon);
+        sendBroadcast(intent);// Broadcast la donnée
+    }
 
-    public double distance(double LatA, double LongA, double LatB, double LongB){
+    @Override
+    public int onStartCommand(Intent intent,int flags,int startId) {
+        super.onStartCommand(intent,flags,startId);
+        startTimer();
+        return START_STICKY;
+    }
+
+    public void startTimer() {
+        timer = new Timer();
+        initializeTimerTask();// Initialisation du timer
+        timer.schedule(timerTask,1000,1000); // Tâche à faire toutes les x
+    }
+
+
+    /* Relance le timer en cas d'arrêt non-voulu */
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i("EXIT","ondestroy!");
+        stoptimertask();
+    }
+
+    /**
+     * A faire toutes les x secondes
+     */
+    public void initializeTimerTask() {
+        timerTask = new TimerTask() {
+            public void run() {
+                Log.i("Mise à jour du timer","Lat : "+latitude+" Longitude : "+longitude);
+                announceTimerChanges(latitude,longitude);//Envoie à l'activité
+            }
+        };
+    }
+
+    /**
+     * Stoppe le timer
+     */
+    public void stoptimertask() {
+        //stop the timer, if it's not already null
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
+    }
+
+
+    public double distance(double LatA,double LongA,double LatB,double LongB) {
         double R = 6371000; // Rayon de la Terre en mètres
         double a = Math.toRadians(LatA); //latitude du point A (en radians)
         double b = Math.toRadians(LatB); //latitude du point B (en radians)
         double c = Math.toRadians(LongA); //longitude du point A (en radians)
         double d = Math.toRadians(LongB); //longitude du point B (en radians)
 
-        double Dist = R*acos(cos(a)*cos(b)*cos(c-d)+sin(a)*sin(b)); //Distance en metre
+        double Dist = R * acos(cos(a) * cos(b) * cos(c - d) + sin(a) * sin(b)); //Distance en metre
         return Dist;
     }
 
-    /*
-        @pre  : distance est une distance en mettre
-        @post : retourne un tableau contenant lune latitude et une longitude d'une nouvelle position se situant une distance x de la position actuelle.
-                x etant un nombre compris entre [0.9 x ; 1.1 x] && [x-100m ; x+100m]
+    /**
+     * @pre  : distance est une distance en mètre
+     * @post : retourne un tableau contenant lune latitude et une longitude d'une nouvelle position se situant une distance x de la position actuelle.
+     *         x etant un nombre compris entre [0.9 x ; 1.1 x] && [x-100m ; x+100m]
      */
-    public double[] newLocation(int distance,Context ctx){
+    public double[] newLocation(int distance) {
 
         Random rand = new Random();
 
-        if(distance<1000){
+        if (distance < 1000) {
             double m = rand.nextDouble() * 0.2;
-            distance = (int)Math.floor(distance * (0.9 + m));
-        }
-        else{
+            distance = (int) Math.floor(distance * (0.9 + m));
+        } else {
             int m = rand.nextInt(200);
             distance = distance - 100 + m;
         }
@@ -278,28 +336,30 @@ public class GPSTracker extends Service {
         double lon1 = Math.toRadians(longitude);
 
         double sigma = distance / 6371000.0;
-        double theta = rand.nextDouble()*2*Math.PI;
-        theta = theta%(2*Math.PI);
+        double theta = rand.nextDouble() * 2 * Math.PI;
+        theta = theta % (2 * Math.PI);
 
-        double lat2 = Math.asin( Math.sin(lat1)*Math.cos(sigma) + Math.cos(lat1)*Math.sin(sigma)*Math.cos(theta) );
-        double lon2 =lon1 +  Math.atan2(Math.sin(theta)*Math.sin(sigma)*Math.cos(lat1), Math.cos(sigma)-Math.sin(lat1)*Math.sin(lat2));
+        double lat2 = Math.asin(Math.sin(lat1) * Math.cos(sigma) + Math.cos(lat1) * Math.sin(sigma) * Math.cos(theta));
+        double lon2 = lon1 + Math.atan2(Math.sin(theta) * Math.sin(sigma) * Math.cos(lat1),Math.cos(sigma) - Math.sin(lat1) * Math.sin(lat2));
 
-        lon2 = (lon2+ 3*Math.PI) % (2*Math.PI) - Math.PI;
+        lon2 = (lon2 + 3 * Math.PI) % (2 * Math.PI) - Math.PI;
 
         lat2 = Math.toDegrees(lat2);
         lon2 = Math.toDegrees(lon2);
 
-        double tab [] = {lat2,lon2};
+        double tab[] = {lat2,lon2};
         return tab;
 
     }
 
-    public double[] giveMeLatLong(){
+    public double[] giveMeLatLong() {
         double la = 0;
         double lo = 0;
-        
-        if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+
+        getLocation();
+
+        if (ContextCompat.checkSelfPermission(mContext,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mContext,Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
             // TODO : Recharger la page
 
         } else {
@@ -314,10 +374,9 @@ public class GPSTracker extends Service {
                 showSettingsAlert();
             }
         }
-        double tab [] = {la,lo};
+        double tab[] = {la,lo};
         return tab;
     }
-
 
 
 }

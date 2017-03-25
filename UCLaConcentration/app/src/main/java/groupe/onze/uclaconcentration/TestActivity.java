@@ -1,12 +1,7 @@
 package groupe.onze.uclaconcentration;
 
-import android.app.ActivityManager;
-import android.content.Context;
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -19,14 +14,14 @@ public class TestActivity extends BasicActivity {
         setContentView(R.layout.activity_test);
 
 
-
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_main,menu);
         return true;
     }
 
@@ -39,7 +34,7 @@ public class TestActivity extends BasicActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_favorite) {
-            Toast.makeText(TestActivity.this, "Action clicked", Toast.LENGTH_LONG).show();
+            Toast.makeText(TestActivity.this,"Action clicked",Toast.LENGTH_LONG).show();
             return true;
         }
 

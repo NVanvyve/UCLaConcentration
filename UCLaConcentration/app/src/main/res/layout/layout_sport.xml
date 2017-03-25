@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
@@ -27,11 +27,17 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/coord_sport"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Coord"
-                android:textSize="30sp" />
+                android:text="Coordonées actuelles (Si ceci apparait ==> Service non fonctionel)"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/sport_level"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"/>
 
             <Button
                 android:id="@+id/new_position"
@@ -43,7 +49,7 @@
                 android:id="@+id/dist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                />
+                android:textSize="18sp"/>
 
             <fragment
                 android:id="@+id/map_frag"

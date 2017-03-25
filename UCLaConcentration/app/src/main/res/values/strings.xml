@@ -17,10 +17,10 @@
     <string name="resuming_chrono">Resume Timer</string>
     <string name="no_timer_active">No timer running</string>
     <string name="resume">Resume</string>
-    <string name="stop">Stop</string>
+    <string name="stop" translatable="false">Stop</string>
     <string name="pause_timer">Pause:</string>
-    <string name="timer_timer">Timer:</string>
-    <string name="coin_name">ProcrastinaCoins :</string>
+    <string name="timer_timer" translatable="false">Timer:</string>
+    <string name="coin_name">ProcrastinaCoins</string>
     <string name="serie20">Serie : 20 min  </string>
     <string name="serie40">Serie : 40 min  </string>
     <string name="serie60">Serie : 60 min  </string>
@@ -69,9 +69,7 @@
         <item>To link your ap with your facebook account, push FACEBOOK</item>
     </string-array>
     <string name="log_in">Logging in …</string>
-    <string name="sport_menu">Sport</string>
-    <string name="sport_activity">Sport</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sport_menu" translatable="false">Sport</string>
+    <string name="sport_activity" translatable="false">Sport</string>
+    <string name="your_sport_level">Your sport level is : </string>
 </resources>

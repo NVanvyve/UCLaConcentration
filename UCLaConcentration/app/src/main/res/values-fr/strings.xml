@@ -32,7 +32,7 @@
     <string name="ok">OK</string>
     <string name="cancel">Annuler</string>
 
-    <string name="coin_name">ProcrastinaCoins :</string>
+    <string name="coin_name">ProcrastinaCoins</string>
     <string name="title_activity_prefs">Préférences</string>
     <string name="text_codes_cours">Codes des cours :</string>
     <string name="avertissement_pas_de_cours">Vous n\'avez pas défini vos cours. Rendez vous dans les paramètres afin de les saisir</string>
@@ -59,4 +59,5 @@
     </string-array>
     <string name="log_in">Connexion …</string>
     <string name="alpha_numeric_avertissement">Les codes de cours ne peuvent contenir que des caractères alpha-numériques. Ceux ne correspondant pas à cette regle n\'ont pas été sauvegardé</string>
+    <string name="your_sport_level">"Votre niveau de sport est : "</string>
 </resources>
