@@ -44,11 +44,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
-            <!--        <fragment
-                            android:id="@+id/map_frag"
-                            android:name="com.google.android.gms.maps.MapFragment"
-                            android:layout_width="match_parent" />
-            -->
+
+            <fragment
+                android:id="@+id/map_frag"
+                android:name="groupe.onze.uclaconcentration.MapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="508dp"/>
 
         </LinearLayout>
     </ScrollView>
