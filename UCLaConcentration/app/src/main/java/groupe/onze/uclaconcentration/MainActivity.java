@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -27,12 +28,19 @@ public class MainActivity extends BasicActivity {
     public static boolean onPause = false;
     Context mContext;
 
+    public final int PERIOD = 10;
+    public final int RATE = 10;
+
+    private SharedPreferences mPrefs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tv = (TextView) findViewById(R.id.tv1);
         final TextView typeTimer = (TextView) findViewById(R.id.type_of_timer);
+
+        mPrefs = getSharedPreferences("label",0);
 
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -51,6 +59,9 @@ public class MainActivity extends BasicActivity {
                             Intent serviceIntent = new Intent(mContext, SensorService.class);
                             context.stopService(serviceIntent);
                          play.setText(R.string.play);
+                        mPrefs = getSharedPreferences("label",0);
+                        int time = mPrefs.getInt("counterSeconds",0);
+                        addCoins(time);
                     }
                     else {
                         mSensorService = new SensorService(context);
@@ -293,6 +304,14 @@ public class MainActivity extends BasicActivity {
             }
             UpdateGUI();
         }
+    }
+
+
+    private void addCoins(int time)
+    {
+        int procraCoins = (time / PERIOD) * RATE + mPrefs.getInt("save_coins",0);
+        SharedPreferences.Editor mEditor = mPrefs.edit();
+        mEditor.putInt("save_coins",procraCoins).commit();
     }
 
     }

@@ -41,7 +41,7 @@ public class StoreActivity extends BasicActivity {
             last_purchase = System.currentTimeMillis();
             procraCoins -= cost;
             update();
-            money.setText(procraCoins + " P");
+            money.setText(" " + procraCoins + " P");
             ;
         } else if (cost >= procraCoins) {
             context = getApplicationContext();

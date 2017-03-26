@@ -3,6 +3,7 @@ package groupe.onze.uclaconcentration;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -24,6 +25,8 @@ public class SensorService extends Service {
     public static final String COUNTER = "com.client.gaitlink.AccelerationService.ACCELERATION_X";
     public boolean onPause = false;
 
+    private SharedPreferences mPrefs;
+
     /**
      * Méthode pour broadcast les messages aux activités
      */
@@ -32,6 +35,13 @@ public class SensorService extends Service {
         Intent intent = new Intent(TIMER_UPDATE);
         intent.putExtra(COUNTER,time); // Ajout de la donnée compteur actuel
         sendBroadcast(intent);// Broadcast la donnée
+
+        if (!onPause)
+        {
+            mPrefs = getSharedPreferences("label",0);
+            SharedPreferences.Editor mEditor = mPrefs.edit();
+            mEditor.putInt("counterSeconds",time).commit();
+        }
     }
 
     /* Initialisation du Service de timer */
