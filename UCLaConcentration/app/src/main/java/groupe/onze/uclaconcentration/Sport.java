@@ -47,7 +47,7 @@ public class Sport extends BasicActivity {
         //GPS
         gps = new GPSTracker(mContext,Sport.this);
         mServiceIntent = new Intent(mContext,gps.getClass());
-        //startService(mServiceIntent);
+        startService(mServiceIntent);
 
 
         //"SPORT"

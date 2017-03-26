@@ -1,12 +1,14 @@
 package groupe.onze.uclaconcentration;
 
+import android.app.ActionBar;
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Bundle;
 import android.os.Handler;
+import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -15,6 +17,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import junit.framework.Test;
 
 public class MainActivity extends BasicActivity {
     TimerServiceReceiver timerReceiver;
@@ -35,52 +39,57 @@ public class MainActivity extends BasicActivity {
         setSupportActionBar(myToolbar);
 
         final Button play = (Button) findViewById(R.id.button_play);
-        assert play != null;
+        assert play!= null;
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (isMyServiceRunning(SensorService.class)) {
+                Context context= mContext;
+                    if (isMyServiceRunning(SensorService.class)) {
 
-                    Toast.makeText(mContext,getResources().getString(R.string.stopping_chrono),Toast.LENGTH_LONG).show();
-                    Intent serviceIntent = new Intent(mContext,SensorService.class);
-                    mContext.stopService(serviceIntent);
-                    play.setText(R.string.play);
-                } else {
-                    mSensorService = new SensorService(mContext);
-                    mServiceIntent = new Intent(mContext,mSensorService.getClass());
-                    if (!isMyServiceRunning(mSensorService.getClass())) {
-                        startService(mServiceIntent);
+                            Toast.makeText(context, getResources().getString(R.string.stopping_chrono), Toast.LENGTH_LONG).show();
+                            Intent serviceIntent = new Intent(mContext, SensorService.class);
+                            context.stopService(serviceIntent);
+                         play.setText(R.string.play);
                     }
-                    typeTimer.setText(R.string.timer_timer);
-                    tv.setText("0");
-                    play.setText(R.string.stop);
-                }
+                    else {
+                        mSensorService = new SensorService(context);
+                        mServiceIntent = new Intent(mContext, mSensorService.getClass());
+                        if (!isMyServiceRunning(mSensorService.getClass())) {
+                            startService(mServiceIntent);
+                        }
+                        typeTimer.setText(R.string.timer_timer);
+                        tv.setText("0");
+                        play.setText(R.string.stop);
+                    }
 
             }
         });
         final Button pause = (Button) findViewById(R.id.button_pause);
-        assert pause != null;
+        assert pause!= null;
         pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                Context context= mContext;
                 if (isMyServiceRunning(SensorService.class)) {
-                    if (onPause == false) {
-                        Toast.makeText(mContext,getResources().getString(R.string.pausing_chrono),Toast.LENGTH_LONG).show();
-                        onPause = true;
+                    if (onPause==false) {
+                        Toast.makeText(context, getResources().getString(R.string.pausing_chrono), Toast.LENGTH_LONG).show();
+                        onPause=true;
                         typeTimer.setText(R.string.pause_timer);
                         tv.setText(" ");
                         pause.setText(R.string.resume);
-                    } else {
-                        Toast.makeText(mContext,getResources().getString(R.string.resuming_chrono),Toast.LENGTH_LONG).show();
-                        onPause = false;
+                    }
+                    else{
+                        Toast.makeText(context, getResources().getString(R.string.resuming_chrono), Toast.LENGTH_LONG).show();
+                        onPause=false;
                         tv.setText(" ");
                         typeTimer.setText(R.string.timer_timer);
                         pause.setText(R.string.pause);
                     }
-                } else {
-                    Toast.makeText(mContext,getResources().getString(R.string.no_timer_active),Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Toast.makeText(context, getResources().getString(R.string.no_timer_active), Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -92,7 +101,7 @@ public class MainActivity extends BasicActivity {
         store.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent s = new Intent(MainActivity.this,StoreActivity.class);
+                Intent s = new Intent(MainActivity.this, StoreActivity.class);
                 startActivity(s);
             }
         });
@@ -102,7 +111,7 @@ public class MainActivity extends BasicActivity {
         ade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent s = new Intent(MainActivity.this,AdeActivity.class);
+                Intent s = new Intent(MainActivity.this, AdeActivity.class);
                 startActivity(s);
             }
         });
@@ -122,7 +131,7 @@ public class MainActivity extends BasicActivity {
         face.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent s = new Intent(MainActivity.this,Connexion.class);
+                Intent s = new Intent(MainActivity.this, Connexion.class);
                 startActivity(s);
             }
         });
@@ -155,17 +164,21 @@ public class MainActivity extends BasicActivity {
      */
     Intent mServiceIntent;
     private SensorService mSensorService;
+    Context ctx;
 
+    public Context getCtx() {
+        return ctx;
+    }
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.getName().equals(service.service.getClassName())) {
-                Log.i("isMyServiceRunning?",true + "");
+                Log.i("isMyServiceRunning?", true + "");
                 return true;
             }
         }
-        Log.i("isMyServiceRunning?",false + "");
+        Log.i("isMyServiceRunning?", false + "");
         return false;
     }
 
@@ -177,11 +190,11 @@ public class MainActivity extends BasicActivity {
         int id = item.getItemId();
 
         switch (item.getItemId()) {
-            case R.id.home:
+            case R.id.home :
                 finish(); // close this activity and return to preview activity (if there is any)
 
             case R.id.action_settings:
-                Intent intent = new Intent(this,SettingsActivity.class);
+                Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 return true;
 
@@ -189,7 +202,7 @@ public class MainActivity extends BasicActivity {
                 return true;
 
             case R.id.action_recompense:
-                Intent s = new Intent(MainActivity.this,StoreActivity.class);
+                Intent s = new Intent(MainActivity.this, StoreActivity.class);
                 startActivity(s);
                 return true;
 
@@ -198,7 +211,7 @@ public class MainActivity extends BasicActivity {
                 for (int i = 0; i < help.length; i++) {
                     Toast.makeText(this,help[i],Toast.LENGTH_LONG).show();
                     //Snackbar.make(findViewById(android.R.id.content), help[i],
-                    //      Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                      //      Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 }
                 return true;
 
@@ -211,7 +224,7 @@ public class MainActivity extends BasicActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main,menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -219,7 +232,7 @@ public class MainActivity extends BasicActivity {
     @Override
     protected void onDestroy() {
         stopService(mServiceIntent);
-        Log.i("MAINACT","onDestroy!");
+        Log.i("MAINACT", "onDestroy!");
         super.onDestroy();
 
     }
@@ -237,11 +250,10 @@ public class MainActivity extends BasicActivity {
         IntentFilter movementFilter;
         movementFilter = new IntentFilter(SensorService.TIMER_UPDATE);
         timerReceiver = new TimerServiceReceiver();
-        registerReceiver(timerReceiver,movementFilter);
+        registerReceiver(timerReceiver, movementFilter);
 
         super.onResume();
     }
-
     /**
      * Update le TimeViewer
      */
@@ -266,14 +278,21 @@ public class MainActivity extends BasicActivity {
          * Reçoit les messages broadcast par les services
          */
         @Override
-        public void onReceive(Context context,Intent intent) {
-            counter = intent.getIntExtra(SensorService.COUNTER,0);
-            if (counter == 10) {//Envoie une notif après 10 secondes d'écoulées
-                context = getApplicationContext();
-                NotificationsSys.sendNotif(context,getResources().getString(R.string.TIME_OUT)
-                        ,getResources().getString(R.string.more_10),MainActivity.class);
+        public void onReceive(Context context, Intent intent) {
+            counter = intent.getIntExtra(SensorService.COUNTER, 0);
+            if(counter==10) {//Envoie une notif après 10 secondes d'écoulées
+                context=getApplicationContext();
+                if (!onPause) {
+                    NotificationsSys.sendNotif(context, getResources().getString(R.string.TIME_OUT)
+                            , getResources().getString(R.string.more_10), MainActivity.class);
+                }else {
+                    NotificationsSys.sendNotif(context, getResources().getString(R.string.end_pause)
+                            , getResources().getString(R.string.more_10), MainActivity.class);
+
+                }
             }
             UpdateGUI();
         }
     }
-}
+
+    }

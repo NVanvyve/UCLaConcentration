@@ -36,6 +36,9 @@ public class GPSTracker extends Service {
 
     private Timer timer;
     private TimerTask timerTask;
+    public GPSTracker(){
+        super();
+    }
 
     // Flag for GPS status
     boolean isGPSEnabled = false;
