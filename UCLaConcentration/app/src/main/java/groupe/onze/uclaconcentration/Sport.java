@@ -1,6 +1,7 @@
 package groupe.onze.uclaconcentration;
 
 import android.app.ActivityManager;
+import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -30,11 +31,8 @@ public class Sport extends BasicActivity {
 
 
     private Context mContext;
-    //private TextView coord;
-    //private TextView tv_dist;
-    private TimerServiceReceiver timerReceiver;
-    private Intent mServiceIntent;
     double newLocation[];
+    boolean already_define;
 
     SharedPreferences mPrefs;
     int lvl;
@@ -51,30 +49,33 @@ public class Sport extends BasicActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         mPrefs = getSharedPreferences("label",0);
+        final SharedPreferences.Editor mEditor = mPrefs.edit();
         mContext = this;
-        //coord = (TextView) findViewById(R.id.coord_sport);
 
         //GPS
         gps = new GPSTracker(mContext,Sport.this);
-        mServiceIntent = new Intent(mContext,gps.getClass());
-        startService(mServiceIntent);
+        Intent mServiceIntent = new Intent(mContext,gps.getClass());
+        //startService(mServiceIntent);
 
 
         //"SPORT"
-        //tv_dist = (TextView) findViewById(R.id.dist);
         lvl = mPrefs.getInt("sport_level",0);
+        already_define = false;
 
         TextView level = (TextView) findViewById(R.id.sport_level);
         String tab_level[] = getResources().getStringArray(R.array.sport_level_array);
         level.setText(getString(R.string.your_sport_level) + tab_level[lvl]);
 
-        final int dist_tab[] = {30,70,100,150,200,500};
+        final int dist_tab[] = {50,90,120,170,210,500};
         final int recompence_tab[] = {30,70,100,150,200,500};
 
         if (lvl > dist_tab.length || dist_tab.length != recompence_tab.length) {
             lvl = 0;
             Toast.makeText(getApplicationContext(),"PROBLEME D'IMPLEMENTATION!!!",Toast.LENGTH_LONG).show();
         }
+
+
+        final Fragment frg = getFragmentManager().findFragmentById(R.id.map_frag);
 
         Button newPosition = (Button) findViewById(R.id.new_position);
         assert newPosition != null;
@@ -85,34 +86,55 @@ public class Sport extends BasicActivity {
                 longitude = gps.giveMeLatLong()[1];
                 newLocation = gps.newLocation(dist_tab[lvl]);
 
-                //int dist = (int) gps.distance(latitude,longitude,nl[0],nl[1]);
-                //tv_dist.setText("Destination a atteindre pour gagner " + recompence_tab[lvl]
-                //        + " " + getString(R.string.coin_name)
-                //        + " :\nLat : " + newLocation[0] + "\nLong : " + newLocation[1]
-                //        + "\nDistance demandée = " + dist_tab[lvl]
-                //        + " m\nDistance réelle= " + dist + " m");
+                String demo = "Votre position actuelle est : \nLat : "
+                        +latitude+
+                        "\nLong : "+longitude+
+                        "\nVotre cible à atteindre pour gagner "+recompence_tab[lvl]
+                        +" P. est : \nLat : "+newLocation[0]+"\nLong : "+newLocation[1]
+                        +"\nLa distance à parcourir est de : "+(int)gps.distance(latitude,longitude,newLocation[0],newLocation[1])+" m";
+
+
+                String text = "Atteignez la position indiquée pour gagner"+recompence_tab[lvl]+" P.";
+                Toast.makeText(mContext,demo,Toast.LENGTH_LONG).show();
+                already_define = true;
+
+                // TODO : Memoriser le point si jamais l'activité est fermée ET TRANSMETTRE les coordonées au fragments
+
+                //Bundle bundle = new Bundle();
+                //bundle.putDoubleArray("Position",newLocation);
             }
         });
+
 
         Button here_i_am = (Button) findViewById(R.id.jy_suis);
         assert here_i_am != null;
         here_i_am.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                latitude = gps.giveMeLatLong()[0];
-                longitude = gps.giveMeLatLong()[1];
-                double tolerance = 10;
-                double dist = gps.distance(latitude,longitude,newLocation[0],newLocation[1]);
-                if (dist <= tolerance) {
-                    String text = "Vous y etes!! Récompence : "+recompence_tab[lvl]+" "+getString(R.string.coin_name);
-                    Toast.makeText(mContext,text,Toast.LENGTH_SHORT).show();
-                    // TODO : Ajouter les points
-                    newLocation[0] = 0;
-                    newLocation[1] = 0;
+                if (!already_define) {
+                    String avert = "Vous n'avez pas encore defini de cible. Vous ne pouvez donc pas y etre.";
+                    Toast.makeText(mContext,avert,Toast.LENGTH_SHORT).show();
                 } else {
-                    String text = "Vous n'etes pas encore assez proche. Continuez à marcher";
-                    Toast.makeText(mContext,text,Toast.LENGTH_SHORT).show();
+                    latitude = gps.giveMeLatLong()[0];
+                    longitude = gps.giveMeLatLong()[1];
+                    double tolerance = 10;
+                    double dist = gps.distance(latitude,longitude,newLocation[0],newLocation[1]);
+                    if (dist <= tolerance) {
+                        String text = "Vous y etes!! Récompence : " + recompence_tab[lvl] + " " + getString(R.string.coin_name);
+                        Toast.makeText(mContext,text,Toast.LENGTH_SHORT).show();
+
+                        int coins = mPrefs.getInt("save_coins",0);
+                        mEditor.putInt("save_coins",coins + recompence_tab[lvl]).commit();
+
+                        newLocation[0] = 0;
+                        newLocation[1] = 0;
+                        already_define = false;
+                    } else {
+                        String text = "Vous n'etes pas encore assez proche. Continuez à marcher";
+                        Toast.makeText(mContext,text,Toast.LENGTH_SHORT).show();
+                    }
                 }
+
             }
         });
 
@@ -141,7 +163,7 @@ public class Sport extends BasicActivity {
     public void onResume() {
         IntentFilter movementFilter;
         movementFilter = new IntentFilter(GPSTracker.service_name);
-        timerReceiver = new Sport.TimerServiceReceiver();
+        TimerServiceReceiver timerReceiver = new TimerServiceReceiver();
         registerReceiver(timerReceiver,movementFilter);
 
         super.onResume();
@@ -173,8 +195,8 @@ public class Sport extends BasicActivity {
          */
         @Override
         public void onReceive(Context context,Intent intent) {
-            latitude = intent.getIntExtra(GPSTracker.latitude_string,0);
-            longitude = intent.getIntExtra(GPSTracker.longitude_string,0);
+            latitude = intent.getDoubleExtra(GPSTracker.latitude_string,42);
+            longitude = intent.getDoubleExtra(GPSTracker.longitude_string,42);
             UpdateGUI();
         }
     }
