@@ -87,7 +87,7 @@
                 android:layout_below="@+id/button_play"/>
 
 
-
+//bip
             <Button
                 android:id="@+id/ade_button"
                 android:layout_width="match_parent"
