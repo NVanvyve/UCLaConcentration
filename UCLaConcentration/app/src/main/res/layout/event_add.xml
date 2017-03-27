@@ -36,7 +36,7 @@
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:textColor="#FFFFFF"
-            android:text="AddEvent"
+            android:text="Ajouter un événement"
             android:id="@+id/buttoncalendar"
 
 
@@ -47,7 +47,7 @@
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:textColor="#FFFFFF"
-            android:text="Delete Event"
+            android:text="Liste des événements"
             android:id="@+id/deleteEvent"
 
             android:layout_below="@+id/button4"

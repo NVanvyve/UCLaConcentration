@@ -28,8 +28,8 @@ public class ListEventActivity extends Activity implements EventPersoAdapter.Dis
 
         //EXAMPLE
         //List<EventPerso> listeD = EventPerso.getAListOfEventPerso();
-        db.addEvent(new EventPerso(789,"1994-12-25" , "Volley",new eventTime(18,30) , new eventTime(20,30), "hihi"));
-        db.addEvent(new EventPerso(478,"1992-12-25" , "Volloy",new eventTime(18,30) , new eventTime(20,30), "haha"));
+       // db.addEvent(new EventPerso(789,"1994-12-25" , "Volley",new eventTime(18,30) , new eventTime(20,30), "hihi"));
+       // db.addEvent(new EventPerso(478,"1992-12-25" , "Volloy",new eventTime(18,30) , new eventTime(20,30), "haha"));
         List<EventPerso> listeD = db.getAllEvents();
 
         EventPersoAdapter adapter = new EventPersoAdapter(this, listeD);

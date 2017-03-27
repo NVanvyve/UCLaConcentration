@@ -79,17 +79,17 @@ public class NewEventActivity extends Activity {
             StringBuffer sb = new StringBuffer();
             sb.append(i);
             sb.append("-");
-            sb.append(i1);
+            sb.append(i1+1);
             sb.append("-");
             sb.append(i2);
             String str1= sb.toString();
             Log.v("ICIIIII",str1);
             String str2= "1994-06-22";
-            EventPerso newEvent = new EventPerso(1, str2, "bonjour", new eventTime(8,30), new eventTime(9,30), "hehe");
+            EventPerso newEvent = new EventPerso(1, str1, "bonjour", new eventTime(8,30), new eventTime(9,30), "hehe");
             db.addEvent(newEvent);
             Log.v("Added",newEvent.getEventDate());
             Log.v("Added",newEvent.getEventDescr());
-            Toast.makeText(NewEventActivity.this, year_x + " /" + month_x + "/" + day_x, Toast.LENGTH_LONG).show();
+            Toast.makeText(NewEventActivity.this, year_x + " /" + month_x+1 + "/" + day_x, Toast.LENGTH_LONG).show();
         }
     };
 

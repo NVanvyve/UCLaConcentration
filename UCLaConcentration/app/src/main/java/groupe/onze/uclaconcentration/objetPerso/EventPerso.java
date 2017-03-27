@@ -85,9 +85,9 @@ public class EventPerso {
     public static ArrayList<EventPerso> getAListOfEventPerso() {
         ArrayList<EventPerso> listEventPerso = new ArrayList<EventPerso>();
 
-        listEventPerso.add(new EventPerso(123,"1994-12-22", "Piscine",new eventTime(9,30) , new eventTime(10,30)));
-        listEventPerso.add(new EventPerso(456,"1994-12-22" , "Gym",new eventTime(14,30) , new eventTime(16,30)));
-        listEventPerso.add(new EventPerso(789,"1994-12-25" , "Volley",new eventTime(18,30) , new eventTime(20,30)));
+        listEventPerso.add(new EventPerso(123,"1994-12-22", "Piscine",new eventTime(9,30) , new eventTime(10,30),"yo"));
+        listEventPerso.add(new EventPerso(456,"1994-12-22" , "Gym",new eventTime(14,30) , new eventTime(16,30),"yi"));
+        listEventPerso.add(new EventPerso(789,"1994-12-25" , "Volley",new eventTime(18,30) , new eventTime(20,30),"yu"));
 
         return listEventPerso;
     }

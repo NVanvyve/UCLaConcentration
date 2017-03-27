@@ -36,8 +36,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //TABLE comptes name column
     private static final String KEY_ID="id";
-    private static final String KEY_EVENT_NAME ="event_name";
     private static final String KEY_DATEM="datem";
+    private static final String KEY_EVENT_NAME ="event_name";
+
     private static final String KEY_DEBUT="debut";
     private static final String KEY_FIN="fin";
     private static final String KEY_CONTENT="content";
@@ -59,7 +60,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String CREATE_EVENT_TABLE = "CREATE TABLE " + TABLE_EVENT + "(" +
-                KEY_ID + " TEXT," + KEY_EVENT_NAME + " TEXT," + KEY_DATEM + " TEXT,"
+                KEY_ID + " TEXT," + KEY_DATEM + " TEXT," + KEY_EVENT_NAME + " TEXT,"
                 + KEY_DEBUT + " TEXT," + KEY_FIN + " TEXT,"+ KEY_CONTENT+ ")"
                 ;
         db.execSQL(CREATE_EVENT_TABLE);
@@ -85,8 +86,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(KEY_ID, event.getId());
-        values.put(KEY_EVENT_NAME, event.getEventName());
         values.put(KEY_DATEM, event.getEventDate());
+        values.put(KEY_EVENT_NAME, event.getEventName());
+
 
         values.put(KEY_DEBUT, event.getHeureDeb().toString());
         values.put(KEY_FIN, event.getHeureFin().toString());

@@ -127,15 +127,7 @@ public class MainActivity extends BasicActivity {
             }
         });
 
-        Button calendar = (Button) findViewById(R.id.calendar_button);
-        assert calendar != null;
-        ade.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent s = new Intent(MainActivity.this, CalendarGoogle.class);
-                startActivity(s);
-            }
-        });
+
         Button event = (Button) findViewById(R.id.event_button);
         assert event != null;
         event.setOnClickListener(new View.OnClickListener() {
