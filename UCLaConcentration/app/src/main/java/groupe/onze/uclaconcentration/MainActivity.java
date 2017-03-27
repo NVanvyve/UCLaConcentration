@@ -28,8 +28,8 @@ public class MainActivity extends BasicActivity {
     public static boolean onPause = false;
     Context mContext;
 
-    public final int PERIOD = 10;
-    public final int RATE = 10;
+    public final int PERIOD = 1;
+    public final int RATE = 1000;
 
     private SharedPreferences mPrefs;
 

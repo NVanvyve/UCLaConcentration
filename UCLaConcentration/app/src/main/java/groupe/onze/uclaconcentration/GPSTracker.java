@@ -289,7 +289,7 @@ public class GPSTracker extends Service {
     public void initializeTimerTask() {
         timerTask = new TimerTask() {
             public void run() {
-                Log.i("Mise à jour du timer","Lat : "+latitude+" Longitude : "+longitude);
+                Log.i("Mise à jour de la position","Lat : "+latitude+" Longitude : "+longitude);
                 announceTimerChanges(latitude,longitude);//Envoie à l'activité
             }
         };

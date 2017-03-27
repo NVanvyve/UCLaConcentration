@@ -173,8 +173,8 @@ public class Sport extends BasicActivity {
          */
         @Override
         public void onReceive(Context context,Intent intent) {
-            latitude = intent.getIntExtra(GPSTracker.latitude_string,0);
-            longitude = intent.getIntExtra(GPSTracker.longitude_string,0);
+            latitude = intent.getDoubleExtra(GPSTracker.latitude_string,0);
+            longitude = intent.getDoubleExtra(GPSTracker.longitude_string,0);
             UpdateGUI();
         }
     }
