@@ -97,6 +97,19 @@
                 android:layout_below="@+id/button_store"/>
 
             <Button
+                android:id="@+id/calendar_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Calendar"
+                />
+
+            <Button
+                android:id="@+id/event_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Event" />
+
+            <Button
                 android:id="@+id/connexion_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

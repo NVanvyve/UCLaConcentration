@@ -6,6 +6,10 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET"/>
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_school_black_24dp"
@@ -50,6 +54,7 @@
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar"/>
 
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".StoreActivity"
             android:label="@string/title_activity_store"
@@ -91,6 +96,17 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="groupe.onze.uclaconcentration.MainActivity"/>
         </activity>
+        <activity android:name=".ListEventActivity"
+            android:label="listEvent"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            </activity>
+        <activity android:name=".NewEventActivity"
+            android:label="newEvent"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            ></activity>
+
     </application>
 
 </manifest>

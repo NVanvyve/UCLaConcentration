@@ -10,76 +10,66 @@ import java.util.Date;
 /**
  * Created by alexis on 11-03-17.
  */
-/*
-* Objet Event perso permet de créer un objet qui contient l'id de l'objet dans la DB, la date de
-* l'event au format yyyy-MM-dd , le titre de l'event, la description de l'event, une heure de début
-* et une heure de fin
- */
+
 public class EventPerso {
     /* variable de classe */
-    private int id;
-    private Date eventDate;
-    private String eventName;
-    private String eventDescr;
-    private eventTime heureDeb;
-    private eventTime heureFin;
+    int _id;
+     String _eventDate;
+     String _eventName;
+     String _eventDescr;
+     eventTime _heureDeb;
+    eventTime _heureFin;
 
     public static final String DATE_FORMAT_NOW = "yyyy-MM-dd";
     public static final DateFormat dateFormat= new SimpleDateFormat(DATE_FORMAT_NOW);
- /*
-constructeur vide
-  */
+
     public EventPerso(){
-        eventDate=null;
-        eventName=" Not defined";
-        eventDescr=" Not defined";
+        _eventDate=null;
+        _eventName=" Not defined";
+        _eventDescr=" Not defined";
     }
-    /*
-    constructeur sans description
-     */
-    public EventPerso(int id,Date date, String name, eventTime deb, eventTime fin){
-        this.id=id;
-        eventDate=date;
-        eventName=name;
-        eventDescr=" Not defined";
-        heureDeb=deb;
-        heureFin=fin;
+    public EventPerso(int id,String date, String name, eventTime deb, eventTime fin){
+        this._id=id;
+        this._eventDate=date;
+        this._eventName=name;
+        this._eventDescr=" Not defined";
+        this._heureDeb=deb;
+        this._heureFin=fin;
     }
-    /*
-    constructeur avec description
-     */
-    public EventPerso(int id,Date date, String name, String descr, eventTime deb, eventTime fin){
-        this.id=id;
-        eventDate=date;
-        eventName=name;
-        eventDescr=descr;
-        heureDeb=deb;
-        heureFin=fin;
+    public EventPerso(int id,String date, String name, eventTime deb, eventTime fin, String descr){
+        this._id=id;
+        this._eventDate=date;
+        this._eventName=name;
+        this._eventDescr=descr;
+        this._heureDeb=deb;
+        this._heureFin=fin;
     }
     /* Setter */
     public void setEventName(String name){
-        eventName=name;
+        this._eventName=name;
     }
     public void setEventDescr(String descr){
-        eventDescr=descr;
+        this._eventDescr=descr;
     }
-    public void setEventDate(Date date){eventDate=date;}
-    public void setId(int id) {this.id = id;}
+    public void setEventDate(String date){this._eventDate=date;}
+    public void set_heureDeb(eventTime heureDeb){this._heureDeb=heureDeb;}
+    public void set_heureFin(eventTime heureFin){this._heureFin=heureFin;}
+    public void setId(int id) {this._id = id;}
 
     /* getters */
     public String getEventName(){
-        return eventName;
+        return this._eventName;
     }
     public String getEventDescr(){
-        return eventDescr;
+        return this._eventDescr;
     }
-    public Date getEventDate(){ return eventDate;}
-    public eventTime getHeureDeb() { return heureDeb;}
-    public eventTime getHeureFin() { return heureFin;}
-    public int getId() {return id;}
+    public String getEventDate(){ return this._eventDate;}
+    public eventTime getHeureDeb() { return this._heureDeb;}
+    public eventTime getHeureFin() { return this._heureFin;}
+    public int getId() {return this._id;}
 
     public String getDateToString() {
-        return dateFormat.format(eventDate);
+        return dateFormat.format(_eventDate);
     }
     public static String dateToString(Date date) {
     return dateFormat.format(date);
@@ -90,5 +80,15 @@ constructeur vide
            date=dateFormat.parse(str);
         }catch(ParseException e) {/* TODO Gerer l'exception */}
         return  date;
+    }
+
+    public static ArrayList<EventPerso> getAListOfEventPerso() {
+        ArrayList<EventPerso> listEventPerso = new ArrayList<EventPerso>();
+
+        listEventPerso.add(new EventPerso(123,"1994-12-22", "Piscine",new eventTime(9,30) , new eventTime(10,30)));
+        listEventPerso.add(new EventPerso(456,"1994-12-22" , "Gym",new eventTime(14,30) , new eventTime(16,30)));
+        listEventPerso.add(new EventPerso(789,"1994-12-25" , "Volley",new eventTime(18,30) , new eventTime(20,30)));
+
+        return listEventPerso;
     }
 }
