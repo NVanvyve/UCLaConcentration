@@ -1,14 +1,13 @@
 package groupe.onze.uclaconcentration;
 
-import android.content.Context;
-import android.net.Uri;
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -27,15 +26,24 @@ public class MapFragment extends Fragment {
 
     MapView mMapView;
     private GoogleMap googleMap;
+    GPSTracker gps;
+    double latitude;
+    double longitude;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_map, container, false);
+    public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_map,container,false);
 
         mMapView = (MapView) rootView.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
 
         mMapView.onResume(); // needed to get the map to display immediately
+
+        gps = new GPSTracker(getActivity().getApplicationContext(),getActivity());
+
+        double loc[] = gps.giveMeLatLong();
+        latitude = loc[0];
+        longitude = loc[1];
 
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
@@ -48,15 +56,18 @@ public class MapFragment extends Fragment {
             public void onMapReady(GoogleMap mMap) {
                 googleMap = mMap;
 
-                // For showing a move to my location button
+                // NE JAMAIS SUPPRIMER !! :)
                 googleMap.setMyLocationEnabled(true);
 
                 // For dropping a marker at a point on the Map
-                LatLng sydney = new LatLng(-34, 151);
-                googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
+                LatLng myPosition = new LatLng(latitude,longitude);
+                //googleMap.addMarker(new MarkerOptions().position(myPosition).title("Marker Title").snippet("Marker Description"));
 
                 // For zooming automatically to the location of the marker
-                CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
+                CameraPosition cameraPosition = new CameraPosition.Builder()
+                        .target(myPosition)
+                        .zoom(17)
+                        .build();
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
         });

@@ -26,12 +26,11 @@
             android:layout_marginRight="@dimen/margin"
             android:orientation="vertical">
 
-            <TextView
+            <!--<TextView
                 android:id="@+id/coord_sport"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Coordonées actuelles (Si ceci apparait ==> Service non fonctionel)"
-                android:textSize="18sp"/>
+                android:textSize="18sp"/>-->
 
             <TextView
                 android:id="@+id/sport_level"
@@ -39,11 +38,27 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp"/>
 
-            <Button
-                android:id="@+id/new_position"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Give me new position"/>
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <Button
+                    android:text="Give me new position"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/new_position"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/jy_suis"
+                    android:text="J'y suis"
+                    android:layout_weight="0.5"
+                    />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/dist"
@@ -55,7 +70,7 @@
                 android:id="@+id/map_frag"
                 android:name="groupe.onze.uclaconcentration.MapFragment"
                 android:layout_width="match_parent"
-                android:layout_height="508dp"/>
+                android:layout_height="323dp"/>
 
         </LinearLayout>
     </ScrollView>

@@ -110,12 +110,6 @@
                 android:text="@string/sport_menu"
                 android:layout_below="@+id/connexion_button"/>
 
-            <Button
-                android:id="@+id/maps_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Maps" />
-
         </LinearLayout>
     </ScrollView>
 

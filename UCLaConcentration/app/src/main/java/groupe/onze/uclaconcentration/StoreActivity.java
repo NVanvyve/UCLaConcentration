@@ -34,6 +34,7 @@ public class StoreActivity extends BasicActivity {
     private void update() {
         SharedPreferences.Editor mEditor = mPrefs.edit();
         mEditor.putInt("save_coins",procraCoins).commit();
+        mEditor.putLong("last_purchase",last_purchase).commit();
     }
 
     private void sell(int cost) {
@@ -41,7 +42,7 @@ public class StoreActivity extends BasicActivity {
             last_purchase = System.currentTimeMillis();
             procraCoins -= cost;
             update();
-            money.setText(" " + procraCoins + " P");
+            money.setText(": " + procraCoins + " P");
             ;
         } else if (cost >= procraCoins) {
             context = getApplicationContext();
@@ -81,7 +82,8 @@ public class StoreActivity extends BasicActivity {
         // Récupération de la mémoire
         mPrefs = getSharedPreferences("label",0);
         procraCoins = mPrefs.getInt("save_coins",0);
-        money.setText(procraCoins + " P");
+        last_purchase = mPrefs.getLong("last_purchase",0);
+        money.setText(": "+procraCoins + " P");
 
         // Récompenses 
         // Boutons et Prix associés
@@ -108,7 +110,7 @@ public class StoreActivity extends BasicActivity {
             public void onClick(View v) {
                 procraCoins += 20 + rand.nextInt(30);
                 update();
-                money.setText(procraCoins + " P");
+                money.setText(": "+procraCoins + " P");
             }
         });
         reset.setOnClickListener(new View.OnClickListener() {
@@ -116,7 +118,7 @@ public class StoreActivity extends BasicActivity {
             public void onClick(View v) {
                 procraCoins = 0;
                 update();
-                money.setText(procraCoins + " P");
+                money.setText(": "+procraCoins + " P");
             }
         });
 

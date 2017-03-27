@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * Created by Nicolas on 19/03/17.
+ * Created by Nicolas in mars 2017.
  */
 
 public class Sport extends BasicActivity {
@@ -27,11 +27,14 @@ public class Sport extends BasicActivity {
     private double latitude;
     private double longitude;
     private GPSTracker gps;
+
+
     private Context mContext;
-    private TextView coord;
-    private TextView tv_dist;
+    //private TextView coord;
+    //private TextView tv_dist;
     private TimerServiceReceiver timerReceiver;
     private Intent mServiceIntent;
+    double newLocation[];
 
     SharedPreferences mPrefs;
     int lvl;
@@ -49,7 +52,7 @@ public class Sport extends BasicActivity {
 
         mPrefs = getSharedPreferences("label",0);
         mContext = this;
-        coord = (TextView) findViewById(R.id.coord_sport);
+        //coord = (TextView) findViewById(R.id.coord_sport);
 
         //GPS
         gps = new GPSTracker(mContext,Sport.this);
@@ -58,9 +61,8 @@ public class Sport extends BasicActivity {
 
 
         //"SPORT"
-        tv_dist = (TextView) findViewById(R.id.dist);
+        //tv_dist = (TextView) findViewById(R.id.dist);
         lvl = mPrefs.getInt("sport_level",0);
-
 
         TextView level = (TextView) findViewById(R.id.sport_level);
         String tab_level[] = getResources().getStringArray(R.array.sport_level_array);
@@ -69,7 +71,7 @@ public class Sport extends BasicActivity {
         final int dist_tab[] = {30,70,100,150,200,500};
         final int recompence_tab[] = {30,70,100,150,200,500};
 
-        if (lvl>dist_tab.length || dist_tab.length != recompence_tab.length){
+        if (lvl > dist_tab.length || dist_tab.length != recompence_tab.length) {
             lvl = 0;
             Toast.makeText(getApplicationContext(),"PROBLEME D'IMPLEMENTATION!!!",Toast.LENGTH_LONG).show();
         }
@@ -81,18 +83,42 @@ public class Sport extends BasicActivity {
             public void onClick(View v) {
                 latitude = gps.giveMeLatLong()[0];
                 longitude = gps.giveMeLatLong()[1];
-                double nl[] = gps.newLocation(dist_tab[lvl]);
-                int dist = (int) gps.distance(latitude,longitude,nl[0],nl[1]);
-                tv_dist.setText("Destination a atteindre pour gagner " + recompence_tab[lvl]
-                        + " " + getString(R.string.coin_name)
-                        + " :\nLat : " + nl[0] + "\nLong : " + nl[1]
-                        + "\nDistance demandée = " + dist_tab[lvl]
-                        + " m\nDistance réelle= " + dist + " m");
+                newLocation = gps.newLocation(dist_tab[lvl]);
+
+                //int dist = (int) gps.distance(latitude,longitude,nl[0],nl[1]);
+                //tv_dist.setText("Destination a atteindre pour gagner " + recompence_tab[lvl]
+                //        + " " + getString(R.string.coin_name)
+                //        + " :\nLat : " + newLocation[0] + "\nLong : " + newLocation[1]
+                //        + "\nDistance demandée = " + dist_tab[lvl]
+                //        + " m\nDistance réelle= " + dist + " m");
+            }
+        });
+
+        Button here_i_am = (Button) findViewById(R.id.jy_suis);
+        assert here_i_am != null;
+        here_i_am.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                latitude = gps.giveMeLatLong()[0];
+                longitude = gps.giveMeLatLong()[1];
+                double tolerance = 10;
+                double dist = gps.distance(latitude,longitude,newLocation[0],newLocation[1]);
+                if (dist <= tolerance) {
+                    String text = "Vous y etes!! Récompence : "+recompence_tab[lvl]+" "+getString(R.string.coin_name);
+                    Toast.makeText(mContext,text,Toast.LENGTH_SHORT).show();
+                    // TODO : Ajouter les points
+                    newLocation[0] = 0;
+                    newLocation[1] = 0;
+                } else {
+                    String text = "Vous n'etes pas encore assez proche. Continuez à marcher";
+                    Toast.makeText(mContext,text,Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
 
     }
+
 
     //SERVICE
     private boolean isMyServiceRunning(Class<?> serviceClass) {
@@ -127,7 +153,7 @@ public class Sport extends BasicActivity {
      */
     final Runnable myRunnable = new Runnable() {
         public void run() {
-            coord.setText("Your position : \nLat : " + latitude + "\nLong : " + longitude);
+            //coord.setText("Your position : \nLat : " + latitude + "\nLong : " + longitude);
         }
     };
 
