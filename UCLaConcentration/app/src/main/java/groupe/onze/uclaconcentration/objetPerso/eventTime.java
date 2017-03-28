@@ -55,4 +55,10 @@ public class eventTime {
     public String toString() {
         return heure+":"+minute;
     }
+    public static eventTime stringToEventTime(String string){
+        String[] parts = string.split(":");
+
+
+        return new eventTime(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
+    }
 }

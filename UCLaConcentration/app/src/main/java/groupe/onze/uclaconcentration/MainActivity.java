@@ -127,6 +127,17 @@ public class MainActivity extends BasicActivity {
             }
         });
 
+
+        Button event = (Button) findViewById(R.id.event_button);
+        assert event != null;
+        event.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent s = new Intent(MainActivity.this, NewEventActivity.class);
+                startActivity(s);
+            }
+        });
+
         /*  Ca marche pas pour l'instant
         Button calendar=(Button)findViewById(R.id.button_calendar);
         calendar.setOnClickListener(new View.OnClickListener() {

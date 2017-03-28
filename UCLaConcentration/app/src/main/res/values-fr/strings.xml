@@ -56,6 +56,7 @@
         <item>Si non, allez dans les paramètres et entrez vos cours dans la liste de cours.</item>
         <item>Vous pouvez aussi régler votre niveau de sportivité dans les paramètres.</item>
         <item>Pour lier votre compte Facebook avec l\'app, appuyez sur Facebook.</item>
+        <item>Pour gagner des Procrastinacoins en bougeant un peu, appuyez sur Sport</item>
     </string-array>
     <string name="log_in">Connexion …</string>
     <string name="alpha_numeric_avertissement">Les codes de cours ne peuvent contenir que des caractères alpha-numériques. Ceux ne correspondant pas à cette regle n\'ont pas été sauvegardé</string>

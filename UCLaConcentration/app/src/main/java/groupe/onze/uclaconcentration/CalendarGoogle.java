@@ -47,6 +47,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import groupe.onze.uclaconcentration.dataBaseMan.DatabaseHandler;
 import groupe.onze.uclaconcentration.dataBaseMan.dayEventListDB;
 import groupe.onze.uclaconcentration.objetPerso.EventPerso;
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -180,8 +181,8 @@ public class CalendarGoogle extends AppCompatActivity implements EasyPermissions
             /* Création dialog */
             context = getApplicationContext();
             Calendar calM = Calendar.getInstance();
-            final dayEventListDB dEL = new dayEventListDB(context);
-            final ArrayList<EventPerso> tempList = dEL.getCalendrier(date);// Linker la list associer a la date
+            final DatabaseHandler dEL = new DatabaseHandler(context);
+            final ArrayList<EventPerso> tempList = (ArrayList) dEL.getAllEvent(date);// Linker la list associer a la date
             final AlertDialog.Builder builder = new AlertDialog.Builder(context);
 // Add the buttons
             builder.setPositiveButton(R.string.ok,new DialogInterface.OnClickListener() {

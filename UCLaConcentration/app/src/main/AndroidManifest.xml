@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET"/>
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_school_black_24dp"
@@ -17,16 +16,13 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBOoprP_Ju0VAvfptNFGk9fp0M_aoNIEZ8"/>
-
         <activity
             android:name=".MainActivity"
             android:label="UCLaConcentration"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
-
                 <action android:name="groupe.onze.uclaconcentration.CommunicationService.action.ACTIVITY_STATUS_UPDATE"/>
             </intent-filter>
         </activity>
@@ -48,20 +44,17 @@
             android:name=".AdePrefs"
             android:label="@string/title_activity_prefs"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
+            android:theme="@style/AppTheme.NoActionBar"/>>
         <activity
             android:name=".StoreActivity"
             android:label="@string/title_activity_store"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar"/>
-
         <activity
             android:name=".Sport"
             android:label="@string/sport_activity"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar"/>
-
         <activity
             android:name=".MapsActivity"
             android:label="Maps"
@@ -73,13 +66,6 @@
             android:enabled="true"
             android:exported="true"
             android:launchMode="singleTask"/>
-
-        <service
-            android:name=".GPS_Service_DONT_USE"
-            android:enabled="true"
-            android:exported="true"
-            android:launchMode="singleTask"/>
-
         <service android:name=".GPSTracker"/>
 
         <activity
@@ -91,6 +77,17 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="groupe.onze.uclaconcentration.MainActivity"/>
         </activity>
+        <activity
+            android:name=".ListEventActivity"
+            android:label="listEvent"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
+        <activity
+            android:name=".NewEventActivity"
+            android:label="newEvent"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
     </application>
-
 </manifest>

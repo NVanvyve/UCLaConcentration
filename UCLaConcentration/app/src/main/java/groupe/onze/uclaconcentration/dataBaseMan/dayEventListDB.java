@@ -35,6 +35,7 @@ public class dayEventListDB extends DAOB {
 /* Permet d'ajouter un evenement à la data base
 * Celui ci possède une date, un titre , une heure de début et une heure de fin
 */
+/*
     public void insertEvent(Date date, String titre, eventTime dep, eventTime fin){
         open();
         SQLiteDatabase db = getDatabase();
@@ -42,23 +43,26 @@ public class dayEventListDB extends DAOB {
         db.rawQuery(" INSERT INTO CALENDRIER VALUES ( ?, ?,NULL,?,?);",new String[]{dateS,titre,dep.toString(),fin.toString()});
         close();
     }
+    */
     /* Permet d'ajouter un evenement à la data base
     * Celui ci possède une date, un titre ,une description, une heure de début et une heure de fin
     */
+    /*
     public void insertEvent(Date date, String titre,String descr, eventTime dep, eventTime fin){
         open();
         SQLiteDatabase db = getDatabase();
         String dateS=dateFormat.format(date);
         db.rawQuery(" INSERT INTO CALENDRIER VALUES ( ?, ?,?,?,?);",new String[]{dateS,titre,descr,dep.toString(),fin.toString()});
         close();
-    }
+    */
     /* Renvoie tout les évenement associés a une date sous fomre d'un arraylist d'eventPerso*/
+   /*
     public ArrayList<EventPerso> getCalendrier(Date date){
         open();
         SQLiteDatabase db = getDatabase();
         ArrayList <EventPerso> list=new ArrayList<EventPerso>();
         Cursor cursor=db.rawQuery(" SELECT * FROM CALENDRIER WHERE JOUR=?;",new String[]{date.toString()});
-        while ( cursor.moveToNext()){
+       /* while ( cursor.moveToNext()){
             EventPerso event;
                 int id=cursor.getInt(0);
                 Date nwDate = EventPerso.StringToDate(cursor.getString(1));
@@ -68,7 +72,7 @@ public class dayEventListDB extends DAOB {
                 eventTime hdep=new eventTime(parseInt(hdepTemp[0]),parseInt(hdepTemp[1]));
                 String []hfinTemp=cursor.getString(5).split(":");
                 eventTime hfin=new eventTime(parseInt(hfinTemp[0]),parseInt(hfinTemp[1]));
-                event=new EventPerso(id,nwDate,titre,desc,hdep,hfin);
+                event=new EventPerso(id,nwDate,titre,hdep,hfin,desc);
                 list.add(event);
         }
         cursor.close();
@@ -76,6 +80,8 @@ public class dayEventListDB extends DAOB {
         return list;
 
     }
+    */
+
     /* On retire l'event avec l'id fournis en argment de la base de donnée */
     public void removeDateDispo(int id){
         open();
@@ -84,6 +90,7 @@ public class dayEventListDB extends DAOB {
         close();
     }
     /* On met a jour un évenement dans la base de données */
+    /*
     public void updateDate(ArrayList<EventPerso> list){
         int size=list.size();
         for (int i =0;i<size;i++){
@@ -93,6 +100,6 @@ public class dayEventListDB extends DAOB {
                     new String[]{current.getDateToString(),current.getEventName(),current.getEventDescr(), current.getHeureDeb().toString(),current.getHeureFin().toString()}); // On récupère tout les champs et on les met en texte
 
         }
-    }
+    }*/
 
 }

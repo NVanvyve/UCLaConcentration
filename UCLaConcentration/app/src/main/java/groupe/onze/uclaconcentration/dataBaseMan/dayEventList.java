@@ -24,8 +24,9 @@ public class dayEventList {
     /* getter */
     public ArrayList<EventPerso> getEventList(){
         return EventList;
-    }
+    }}
     /* Adder */
+    /*
     public void addEvent(Context context,Date date, String titre, eventTime heureDeb, eventTime heureFin){
         dayEventListDB DAO = new dayEventListDB(context);
         DAO.insertEvent(date,titre,heureDeb,heureFin);
@@ -43,3 +44,4 @@ public class dayEventList {
         return  DAO.getCalendrier(date);
     }
 }
+*/

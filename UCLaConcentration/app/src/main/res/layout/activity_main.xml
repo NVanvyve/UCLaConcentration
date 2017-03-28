@@ -45,7 +45,6 @@
                     android:id="@+id/tv1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/description"
                     android:gravity="left"
                     android:textAllCaps="false"
                     android:textSize="24sp"
@@ -88,13 +87,20 @@
                 android:layout_below="@+id/button_play"/>
 
 
-
+//bip
             <Button
                 android:id="@+id/ade_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/ade"
                 android:layout_below="@+id/button_store"/>
+
+
+            <Button
+                android:id="@+id/event_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Event" />
 
             <Button
                 android:id="@+id/connexion_button"

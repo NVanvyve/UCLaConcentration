@@ -26,12 +26,6 @@
             android:layout_marginRight="@dimen/margin"
             android:orientation="vertical">
 
-            <!--<TextView
-                android:id="@+id/coord_sport"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"/>-->
-
             <TextView
                 android:id="@+id/sport_level"
                 android:layout_width="match_parent"
@@ -59,12 +53,6 @@
                     android:layout_weight="0.5"
                     />
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/dist"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"/>
 
             <fragment
                 android:id="@+id/map_frag"
