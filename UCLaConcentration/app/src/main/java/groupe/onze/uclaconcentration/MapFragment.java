@@ -1,7 +1,9 @@
 package groupe.onze.uclaconcentration;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
@@ -26,6 +29,9 @@ public class MapFragment extends Fragment {
     GPSTracker gps;
     double latitude;
     double longitude;
+    SharedPreferences mPrefs;
+
+    Marker marker;
 
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
@@ -65,7 +71,13 @@ public class MapFragment extends Fragment {
                 googleMap = mMap;
 
                 // NEVER DELETE !! :)
-                googleMap.setMyLocationEnabled(true);
+                try {
+                    googleMap.setMyLocationEnabled(true);
+                }
+                catch (SecurityException e) {
+                    Log.e("ERROR", "No permission to check the location");
+                    e.printStackTrace();
+                }
 
                 if(finalSave_location[0]!=0 && finalSave_location[1]!=0) {
                     // For dropping a marker at a point on the Map
@@ -82,6 +94,9 @@ public class MapFragment extends Fragment {
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
         });
+
+        mPrefs = this.getActivity().getSharedPreferences("label",0);
+
 
         return rootView;
     }
@@ -108,6 +123,18 @@ public class MapFragment extends Fragment {
     public void onLowMemory() {
         super.onLowMemory();
         mMapView.onLowMemory();
+    }
+
+    public void setMarker(){
+        float lat = mPrefs.getFloat("NL_0", 10);
+        float lon = mPrefs.getFloat("NL_1", 10);
+        if (marker != null)
+            marker.remove();
+        marker = googleMap.addMarker(new MarkerOptions()
+                .position(new LatLng(lat, lon))
+                .title(getResources().getString(R.string.goal)));
+
+        Log.i("UPDATE", "Destination updated");
     }
 
 }
