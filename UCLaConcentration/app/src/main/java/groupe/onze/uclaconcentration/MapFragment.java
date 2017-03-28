@@ -127,16 +127,22 @@ public class MapFragment extends Fragment {
         mMapView.onLowMemory();
     }
 
+
     public void setMarker(){
+        googleMap.getUiSettings().setScrollGesturesEnabled(false);
         float lat = mPrefs.getFloat("NL_0", 10);
         float lon = mPrefs.getFloat("NL_1", 10);
-        if (marker != null)
-            marker.remove();
+        removeMarker();
         marker = googleMap.addMarker(new MarkerOptions()
                 .position(new LatLng(lat, lon))
                 .title(getResources().getString(R.string.goal)));
 
         Log.i("UPDATE", "Destination updated");
+    }
+
+    public void removeMarker(){
+        if (marker != null)
+            marker.remove();
     }
 
 }

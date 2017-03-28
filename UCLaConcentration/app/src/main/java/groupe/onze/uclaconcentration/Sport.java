@@ -18,7 +18,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.List;
 
 /**
@@ -168,6 +167,7 @@ public class Sport extends BasicActivity {
                         newLocation[1] = 0;
                         already_define = false;
                         mEditor.putBoolean("already_define",false);
+                        map.removeMarker();
                     } else {
                         String text = "Vous n'etes pas encore assez proche. Continuez à marcher";
                         Toast.makeText(mContext,text,Toast.LENGTH_SHORT).show();
