@@ -68,6 +68,7 @@
         <item>If not, go to the setting and type your courses in the Courses list</item>
         <item>To set your sport level, go in the Settings</item>
         <item>To link your ap with your facebook account, push FACEBOOK</item>
+        <item>To earn Procrastinacoins by moving, go in Sport</item>
     </string-array>
     <string name="log_in">Logging in …</string>
     <string name="sport_menu" translatable="false">Sport</string>
