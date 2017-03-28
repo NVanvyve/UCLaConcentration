@@ -18,6 +18,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.Float;
+
 /**
  * Created by Nicolas in mars 2017.
  */
@@ -60,6 +62,7 @@ public class Sport extends BasicActivity {
 
         //"SPORT"
         lvl = mPrefs.getInt("sport_level",0);
+        newLocation = new double [2];
 
         already_define = mPrefs.getBoolean("already_define",false);
         newLocation[0] = (double) mPrefs.getFloat("NL_0",0);
@@ -117,10 +120,7 @@ public class Sport extends BasicActivity {
         here_i_am.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!already_define) {
-                    String avert = "Vous n'avez pas encore defini de cible. Vous ne pouvez donc pas y etre.";
-                    Toast.makeText(mContext,avert,Toast.LENGTH_SHORT).show();
-                } else {
+                if (already_define) {
                     latitude = gps.giveMeLatLong()[0];
                     longitude = gps.giveMeLatLong()[1];
                     double tolerance = 10;
@@ -140,8 +140,10 @@ public class Sport extends BasicActivity {
                         String text = "Vous n'etes pas encore assez proche. Continuez à marcher";
                         Toast.makeText(mContext,text,Toast.LENGTH_SHORT).show();
                     }
+                } else {
+                    String avert = "Vous n'avez pas encore defini de cible. Vous ne pouvez donc pas y etre.";
+                    Toast.makeText(mContext,avert,Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
 

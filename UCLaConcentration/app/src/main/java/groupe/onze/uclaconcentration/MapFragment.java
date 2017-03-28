@@ -67,6 +67,8 @@ public class MapFragment extends Fragment {
                 // NEVER DELETE !! :)
                 googleMap.setMyLocationEnabled(true);
 
+                //googleMap.setMapStyle(3);//Terrain
+
                 if(finalSave_location[0]!=0 && finalSave_location[1]!=0) {
                     // For dropping a marker at a point on the Map
                     LatLng destination = new LatLng(finalSave_location[0],finalSave_location[1]);
