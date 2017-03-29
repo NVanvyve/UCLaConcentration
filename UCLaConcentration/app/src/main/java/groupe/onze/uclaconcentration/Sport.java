@@ -1,7 +1,5 @@
 package groupe.onze.uclaconcentration;
 
-import android.app.ActivityManager;
-import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.util.List;
 
 /**
@@ -58,20 +57,18 @@ public class Sport extends BasicActivity {
         List<android.support.v4.app.Fragment> fragments = fm.getFragments();
         map = (MapFragment) fragments.get(fragments.size() - 1);
         if (fragments != null)
-            Log.i("FRAGMENT MANAGER", "Fragments is non null");
+            Log.i("FRAGMENT MANAGER","Fragments is non null");
 
         newLocation = new double[2];
 
         mPrefs = getSharedPreferences("label",0);
 
 
-
         prefListener =
                 new SharedPreferences.OnSharedPreferenceChangeListener() {
                     public void onSharedPreferenceChanged(SharedPreferences prefs,
                                                           String key) {
-                        if (key.equals("NL_0") || key.equals("NL_1"))
-                        {
+                        if (key.equals("NL_0") || key.equals("NL_1")) {
                             map.setMarker();
                         }
 
@@ -92,7 +89,7 @@ public class Sport extends BasicActivity {
 
         //"SPORT"
         lvl = mPrefs.getInt("sport_level",0);
-        newLocation = new double [2];
+        newLocation = new double[2];
 
         already_define = mPrefs.getBoolean("already_define",false);
         newLocation[0] = (double) mPrefs.getFloat("NL_0",0);
@@ -109,9 +106,6 @@ public class Sport extends BasicActivity {
             lvl = 0;
             Toast.makeText(getApplicationContext(),"PROBLEME D'IMPLEMENTATION!!!",Toast.LENGTH_LONG).show();
         }
-
-
-        final Fragment frg = getFragmentManager().findFragmentById(R.id.map_frag);
 
         Button newPosition = (Button) findViewById(R.id.new_position);
         assert newPosition != null;
@@ -131,7 +125,6 @@ public class Sport extends BasicActivity {
                         + " P. est : \nLat : " + newLocation[0] + "\nLong : " + newLocation[1]
                         + "\nLa distance à parcourir est de : " + (int) gps.distance(latitude,longitude,newLocation[0],newLocation[1]) + " m";
 
-
                 String text = "Atteignez la position indiquée pour gagner" + recompence_tab[lvl] + " P.";
                 Toast.makeText(mContext,demo,Toast.LENGTH_LONG).show();
                 already_define = true;
@@ -139,8 +132,6 @@ public class Sport extends BasicActivity {
 
                 // TODO : TRANSMETTRE les coordonées au fragments
 
-                //Bundle bundle = new Bundle();
-                //bundle.putDoubleArray("Position",newLocation);
             }
         });
 
