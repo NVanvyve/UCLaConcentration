@@ -3,6 +3,8 @@ package groupe.onze.uclaconcentration;
 import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -16,7 +18,7 @@ import groupe.onze.uclaconcentration.objetPerso.eventTime;
 
 
 
-public class ListEventActivity extends Activity implements EventPersoAdapter.DispoAdapterListener {
+public class ListEventActivity extends BasicActivity implements EventPersoAdapter.DispoAdapterListener {
     DatabaseHandler db = new DatabaseHandler(ListEventActivity.this);
     EventPersoAdapter adapter;
 
@@ -25,6 +27,12 @@ public class ListEventActivity extends Activity implements EventPersoAdapter.Dis
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calendar_layout);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         //EXAMPLE
         //List<EventPerso> listeD = EventPerso.getAListOfEventPerso();
@@ -42,6 +50,19 @@ public class ListEventActivity extends Activity implements EventPersoAdapter.Dis
 
         Toast.makeText(getApplicationContext(), "Youpie", Toast.LENGTH_LONG);
         finish();
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public int getLayoutResource() {
+        return R.layout.activity_main;
     }
 }
 

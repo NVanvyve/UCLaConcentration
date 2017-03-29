@@ -74,4 +74,6 @@
     <string name="sport_menu" translatable="false">Sport</string>
     <string name="sport_activity" translatable="false">Sport</string>
     <string name="your_sport_level">Your sport level is : </string>
+    <string name="goal">Your goal</string>
+    <string name="title_activity_graphical_menu">GraphicalMenu</string>
 </resources>

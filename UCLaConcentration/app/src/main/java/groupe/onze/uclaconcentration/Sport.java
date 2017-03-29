@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.util.List;
 
 /**
  * Created by Nicolas in mars 2017.
@@ -35,7 +37,9 @@ public class Sport extends BasicActivity {
     boolean already_define;
 
     SharedPreferences mPrefs;
+    public SharedPreferences.OnSharedPreferenceChangeListener prefListener;
     int lvl;
+    MapFragment map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +52,35 @@ public class Sport extends BasicActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        //Fragment currentFragment = this.getActivity().getFragmentManager().findFragmentById(R.id.map_frag);
+        //Fragment currentFragment = fragmentManager.findFragmentByTag("fragmentTag");
+        FragmentManager fm = getSupportFragmentManager();
+        List<android.support.v4.app.Fragment> fragments = fm.getFragments();
+        map = (MapFragment) fragments.get(fragments.size() - 1);
+        if (fragments != null)
+            Log.i("FRAGMENT MANAGER", "Fragments is non null");
+
+        newLocation = new double[2];
+
         mPrefs = getSharedPreferences("label",0);
+
+
+
+        prefListener =
+                new SharedPreferences.OnSharedPreferenceChangeListener() {
+                    public void onSharedPreferenceChanged(SharedPreferences prefs,
+                                                          String key) {
+                        if (key.equals("NL_0") || key.equals("NL_1"))
+                        {
+                            map.setMarker();
+                        }
+
+                    }
+                };
+
+        mPrefs.registerOnSharedPreferenceChangeListener(prefListener);
+
+
         final SharedPreferences.Editor mEditor = mPrefs.edit();
         mContext = this;
 
@@ -71,7 +103,7 @@ public class Sport extends BasicActivity {
         level.setText(getString(R.string.your_sport_level) + tab_level[lvl]);
 
         final int dist_tab[] = {50,90,120,170,210,500};
-        final int recompence_tab[] = {30,70,100,150,200,500};
+        final int recompence_tab[] = {30,70,100,150,200,270};
 
         if (lvl > dist_tab.length || dist_tab.length != recompence_tab.length) {
             lvl = 0;
@@ -147,7 +179,7 @@ public class Sport extends BasicActivity {
 
 
     }
-
+/*
 
     //SERVICE
     private boolean isMyServiceRunning(Class<?> serviceClass) {
@@ -160,7 +192,7 @@ public class Sport extends BasicActivity {
         }
         Log.i("isMyServiceRunning?",false + "");
         return false;
-    }
+    }*/
 
 
     /**
@@ -220,26 +252,28 @@ public class Sport extends BasicActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
         switch (item.getItemId()) {
             case R.id.home:
                 finish(); // close this activity and return to preview activity (if there is any)
+                return true;
 
             case R.id.action_settings:
                 Intent intent = new Intent(this,SettingsActivity.class);
-                finish();
                 startActivity(intent);
+                return true;
 
             case R.id.action_home:
                 Intent t = new Intent(this,MainActivity.class);
                 finish();
                 startActivity(t);
+                return true;
 
             case R.id.action_recompense:
                 Intent s = new Intent(this,StoreActivity.class);
                 finish();
                 startActivity(s);
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);
