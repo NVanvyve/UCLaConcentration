@@ -168,6 +168,17 @@ public class MainActivity extends BasicActivity {
             }
         });
 
+        Button menu = (Button) findViewById(R.id.menu_graphique);
+        assert menu != null;
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent s = new Intent(MainActivity.this,GraphicalMenu.class);
+                startActivity(s);
+            }
+        });
+
+
 
         mContext = this;
     }
