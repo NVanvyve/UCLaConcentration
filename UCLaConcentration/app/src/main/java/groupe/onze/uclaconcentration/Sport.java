@@ -18,8 +18,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.Float;
-
 /**
  * Created by Nicolas in mars 2017.
  */
@@ -91,8 +89,8 @@ public class Sport extends BasicActivity {
                 latitude = gps.giveMeLatLong()[0];
                 longitude = gps.giveMeLatLong()[1];
                 newLocation = gps.newLocation(dist_tab[lvl]);
-                mEditor.putFloat("NL_0",(float) newLocation[0]);
-                mEditor.putFloat("NL_1",(float) newLocation[1]);
+                mEditor.putFloat("NL_0",(float) newLocation[0]).commit();
+                mEditor.putFloat("NL_1",(float) newLocation[1]).commit();
 
                 String demo = "Votre position actuelle est : \nLat : "
                         + latitude +
@@ -105,7 +103,7 @@ public class Sport extends BasicActivity {
                 String text = "Atteignez la position indiquée pour gagner" + recompence_tab[lvl] + " P.";
                 Toast.makeText(mContext,demo,Toast.LENGTH_LONG).show();
                 already_define = true;
-                mEditor.putBoolean("already_define",true);
+                mEditor.putBoolean("already_define",true).commit();
 
                 // TODO : TRANSMETTRE les coordonées au fragments
 
@@ -135,7 +133,7 @@ public class Sport extends BasicActivity {
                         newLocation[0] = 0;
                         newLocation[1] = 0;
                         already_define = false;
-                        mEditor.putBoolean("already_define",false);
+                        mEditor.putBoolean("already_define",false).commit();
                     } else {
                         String text = "Vous n'etes pas encore assez proche. Continuez à marcher";
                         Toast.makeText(mContext,text,Toast.LENGTH_SHORT).show();
