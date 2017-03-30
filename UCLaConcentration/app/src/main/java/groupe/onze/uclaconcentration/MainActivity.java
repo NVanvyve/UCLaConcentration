@@ -71,6 +71,7 @@ public class MainActivity extends BasicActivity {
                         }
                         typeTimer.setText(R.string.timer_timer);
                         tv.setText("0");
+                        SharedPreferences.Editor editor = mPrefs.edit();
                         play.setText(R.string.stop);
                     }
 

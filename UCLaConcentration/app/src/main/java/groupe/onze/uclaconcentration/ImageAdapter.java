@@ -16,10 +16,23 @@ public class ImageAdapter extends BaseAdapter {
     private int sizeBig = 700;
     private int sizeSmall = 200;
     private int sizeAverage = 400;
+    private Integer[] mThumbIds;
+    private boolean onPlay = false;
 
     // Constructor
     public ImageAdapter(Context c) {
         mContext = c;
+        mThumbIds = mThumbIds1;
+    }
+
+
+    public ImageAdapter(Context c, boolean onPlay) {
+        mContext = c;
+        this.onPlay = onPlay;
+        if (onPlay)
+            mThumbIds = mThumbIds2;
+        else
+            mThumbIds = mThumbIds1;
     }
 
     public int getCount() {
@@ -40,12 +53,12 @@ public class ImageAdapter extends BaseAdapter {
 
         if (convertView == null) {
             int size = 1;
-            if (position <= 3)
-                size = sizeBig;
-            else if (position <= 5 && position != 4)
+            if (position <= 1)
+                size = sizeSmall;
+            else if (position == mThumbIds.length-1)
                 size = sizeAverage;
             else
-                size = sizeSmall;
+                size = sizeBig;
             imageView = new ImageView(mContext);
             imageView.setLayoutParams(new GridView.LayoutParams(size, size));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -59,12 +72,30 @@ public class ImageAdapter extends BaseAdapter {
         return imageView;
     }
 
+    public void switchImages()
+    {
+        if (onPlay)
+            mThumbIds = mThumbIds2;
+        else
+            mThumbIds = mThumbIds1;
+        onPlay = !onPlay;
+    }
+
     // Keep all Images in array
-    public Integer[] mThumbIds = {
-            R.drawable.loupe, R.drawable.profile,
-            R.drawable.friends, R.drawable.message,
-            R.drawable.meet, R.drawable.settings,
-            R.drawable.about, R.drawable.logout
+    private Integer[] mThumbIds1 = {
+            R.drawable.play, R.drawable.pause,
+            R.drawable.ade, R.drawable.calendar,
+            R.drawable.caddie, R.drawable.sport,
+            R.drawable.facebook
     };
+
+
+    private Integer[] mThumbIds2 = {
+            R.drawable.stop, R.drawable.pause,
+            R.drawable.ade, R.drawable.calendar,
+            R.drawable.caddie, R.drawable.sport,
+            R.drawable.facebook
+    };
+
 }
 

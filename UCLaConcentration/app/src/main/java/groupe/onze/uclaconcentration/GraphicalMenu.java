@@ -14,6 +14,8 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 public class GraphicalMenu extends BasicActivity {
+    private ImageAdapter mAdapter;
+    private boolean onPlay = false;
 
     @Override
 
@@ -33,7 +35,8 @@ public class GraphicalMenu extends BasicActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         GridView gridview = (GridView) findViewById(R.id.gridview);
-        gridview.setAdapter(new ImageAdapter(this));
+        mAdapter = new ImageAdapter(this, onPlay);
+        gridview.setAdapter(mAdapter);
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id){
                 launch(position);
@@ -45,6 +48,9 @@ public class GraphicalMenu extends BasicActivity {
         switch (pos) {
             case 0:
                 Toast.makeText(this, "Coucou", Toast.LENGTH_LONG).show();
+                onPlay = !onPlay;
+                mAdapter.switchImages();
+                onStart();
                 break;
             case 1:
                 Toast.makeText(this, "Coucou", Toast.LENGTH_LONG).show();
