@@ -99,7 +99,7 @@ public class MainActivity extends BasicActivity {
         if (onPlay)
             typeTimer.setText(typeTimerString);
         else
-            typeTimer.setText("Pas de chrono en route");
+            typeTimer.setText(R.string.no_timer_active);
 
     }
 
@@ -133,7 +133,7 @@ public class MainActivity extends BasicActivity {
                 break;
             case 1:
                 if (isMyServiceRunning(SensorService.class)) {
-                    if (onPause==false) {
+                    if (!onPause) {
                         Toast.makeText(context, getResources().getString(R.string.pausing_chrono), Toast.LENGTH_LONG).show();
                         onPause=true;
                         typeTimerString = getResources().getString(R.string.pause_timer);

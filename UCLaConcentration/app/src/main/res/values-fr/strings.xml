@@ -62,4 +62,5 @@
     <string name="alpha_numeric_avertissement">Les codes de cours ne peuvent contenir que des caractères alpha-numériques. Ceux ne correspondant pas à cette regle n\'ont pas été sauvegardé</string>
     <string name="your_sport_level">"Votre niveau de sport est : "</string>
     <string name="goal">Ta destination</string>
+    <string name="no_timer_active">Pas de chrono en route</string>
 </resources>
