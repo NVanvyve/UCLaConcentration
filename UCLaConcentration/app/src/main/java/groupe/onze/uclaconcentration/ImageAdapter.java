@@ -5,6 +5,7 @@ package groupe.onze.uclaconcentration;
  */
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -16,23 +17,38 @@ public class ImageAdapter extends BaseAdapter {
     private int sizeBig = 700;
     private int sizeSmall = 200;
     private int sizeAverage = 400;
-    private Integer[] mThumbIds;
-    private boolean onPlay = false;
+    private int play;
+    private int pause;
 
     // Constructor
     public ImageAdapter(Context c) {
         mContext = c;
-        mThumbIds = mThumbIds1;
+        play = R.drawable.play;
+        pause = R.drawable.pause_1;
+
+        mThumbIds[0] = play;
+        mThumbIds[1] = pause;
     }
 
 
-    public ImageAdapter(Context c, boolean onPlay) {
+    public ImageAdapter(Context c, boolean onPlay, boolean onPause) {
+
         mContext = c;
-        this.onPlay = onPlay;
-        if (onPlay)
-            mThumbIds = mThumbIds2;
+
+        if (onPause)
+            pause = R.drawable.pause_2;
         else
-            mThumbIds = mThumbIds1;
+            pause = R.drawable.pause_1;
+
+        if (onPlay)
+            play = R.drawable.stop;
+        else
+            play = R.drawable.play;
+
+        mThumbIds[0] = play;
+        mThumbIds[1] = pause;
+
+        Log.i("TEST", "IMAGE ADAPTER : " + getCount());
     }
 
     public int getCount() {
@@ -44,15 +60,16 @@ public class ImageAdapter extends BaseAdapter {
     }
 
     public long getItemId(int position) {
-        return 0;
+        return mThumbIds[position];
     }
 
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
+        Log.i("VIEW", "POSITION : +++" + position);
         ImageView imageView;
+        int size;
 
         if (convertView == null) {
-            int size = 1;
             if (position <= 1)
                 size = sizeSmall;
             else if (position == mThumbIds.length-1)
@@ -72,26 +89,9 @@ public class ImageAdapter extends BaseAdapter {
         return imageView;
     }
 
-    public void switchImages()
-    {
-        if (onPlay)
-            mThumbIds = mThumbIds2;
-        else
-            mThumbIds = mThumbIds1;
-        onPlay = !onPlay;
-    }
-
     // Keep all Images in array
-    private Integer[] mThumbIds1 = {
-            R.drawable.play, R.drawable.pause,
-            R.drawable.ade, R.drawable.calendar,
-            R.drawable.caddie, R.drawable.sport,
-            R.drawable.facebook
-    };
-
-
-    private Integer[] mThumbIds2 = {
-            R.drawable.stop, R.drawable.pause,
+    private Integer[] mThumbIds = {
+            play, pause,
             R.drawable.ade, R.drawable.calendar,
             R.drawable.caddie, R.drawable.sport,
             R.drawable.facebook

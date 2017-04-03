@@ -9,13 +9,17 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.StringBuilderPrinter;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,111 +37,31 @@ public class MainActivity extends BasicActivity {
 
     private SharedPreferences mPrefs;
 
+    private TextView typeTimer;
+
+
+    private ImageAdapter mAdapter;
+    private static boolean onPlay = false;
+
+    private String typeTimerString;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tv = (TextView) findViewById(R.id.tv1);
-        final TextView typeTimer = (TextView) findViewById(R.id.type_of_timer);
+
+        GridView gridview = (GridView) findViewById(R.id.gridview);
+        mAdapter = new ImageAdapter(this, onPlay, onPause);
+        gridview.setAdapter(mAdapter);
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id){
+                launch(position);
+            }
+        });
 
         mPrefs = getSharedPreferences("label",0);
 
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
-
-        final Button play = (Button) findViewById(R.id.button_play);
-        assert play!= null;
-        play.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Context context= mContext;
-                    if (isMyServiceRunning(SensorService.class)) {
-
-                            Toast.makeText(context, getResources().getString(R.string.stopping_chrono), Toast.LENGTH_LONG).show();
-                            Intent serviceIntent = new Intent(mContext, SensorService.class);
-                            context.stopService(serviceIntent);
-                         play.setText(R.string.play);
-                        mPrefs = getSharedPreferences("label",0);
-                        int time = mPrefs.getInt("counterSeconds",0);
-                        addCoins(time);
-                    }
-                    else {
-                        mSensorService = new SensorService(context);
-                        mServiceIntent = new Intent(mContext, mSensorService.getClass());
-                        if (!isMyServiceRunning(mSensorService.getClass())) {
-                            startService(mServiceIntent);
-                        }
-                        typeTimer.setText(R.string.timer_timer);
-                        tv.setText("0");
-                        SharedPreferences.Editor editor = mPrefs.edit();
-                        play.setText(R.string.stop);
-                    }
-
-            }
-        });
-        final Button pause = (Button) findViewById(R.id.button_pause);
-        assert pause!= null;
-        pause.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Context context= mContext;
-                if (isMyServiceRunning(SensorService.class)) {
-                    if (onPause==false) {
-                        Toast.makeText(context, getResources().getString(R.string.pausing_chrono), Toast.LENGTH_LONG).show();
-                        onPause=true;
-                        typeTimer.setText(R.string.pause_timer);
-                        tv.setText(" ");
-                        pause.setText(R.string.resume);
-                    }
-                    else{
-                        Toast.makeText(context, getResources().getString(R.string.resuming_chrono), Toast.LENGTH_LONG).show();
-                        onPause=false;
-                        tv.setText(" ");
-                        typeTimer.setText(R.string.timer_timer);
-                        pause.setText(R.string.pause);
-                    }
-                }
-                else {
-                    Toast.makeText(context, getResources().getString(R.string.no_timer_active), Toast.LENGTH_LONG).show();
-                }
-
-            }
-        });
-
-        //Acces au store
-        Button store = (Button) findViewById(R.id.button_store);
-        assert store != null;
-        store.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent s = new Intent(MainActivity.this, StoreActivity.class);
-                startActivity(s);
-            }
-        });
-
-        Button ade = (Button) findViewById(R.id.ade_button);
-        assert ade != null;
-        ade.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent s = new Intent(MainActivity.this, AdeActivity.class);
-                startActivity(s);
-            }
-        });
-
-
-        Button event = (Button) findViewById(R.id.event_button);
-        assert event != null;
-        event.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent s = new Intent(MainActivity.this, NewEventActivity.class);
-                startActivity(s);
-            }
-        });
 
         /*  Ca marche pas pour l'instant
         Button calendar=(Button)findViewById(R.id.button_calendar);
@@ -148,41 +72,110 @@ public class MainActivity extends BasicActivity {
                 startActivity(s);
             }
         }); */
-
-        Button face = (Button) findViewById(R.id.connexion_button);
-        assert face != null;
-        face.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent s = new Intent(MainActivity.this, Connexion.class);
-                startActivity(s);
-            }
-        });
-
-        Button sport = (Button) findViewById(R.id.sport_button);
-        assert sport != null;
-        sport.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent s = new Intent(MainActivity.this,Sport.class);
-                startActivity(s);
-            }
-        });
-
-        Button menu = (Button) findViewById(R.id.menu_graphique);
-        assert menu != null;
-        menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent s = new Intent(MainActivity.this,GraphicalMenu.class);
-                startActivity(s);
-            }
-        });
-
-
-
         mContext = this;
     }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        setContentView(R.layout.activity_main);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
+        tv = (TextView) findViewById(R.id.tv1);
+        typeTimer = (TextView) findViewById(R.id.type_of_timer);
+
+        GridView gridview = (GridView) findViewById(R.id.gridview);
+        mAdapter = new ImageAdapter(this, onPlay, onPause);
+        gridview.setAdapter(mAdapter);
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id){
+                launch(position);
+            }
+        });
+
+        if (onPlay)
+            typeTimer.setText(typeTimerString);
+
+    }
+
+    public void launch(int pos) {
+        Context context= mContext;
+        Intent s;
+        switch (pos) {
+            case 0:
+                onPlay = !onPlay;
+                if (isMyServiceRunning(SensorService.class)) {
+
+                    Toast.makeText(context, getResources().getString(R.string.stopping_chrono), Toast.LENGTH_LONG).show();
+                    Intent serviceIntent = new Intent(mContext, SensorService.class);
+                    context.stopService(serviceIntent);
+                    mPrefs = getSharedPreferences("label",0);
+                    int time = mPrefs.getInt("counterSeconds",0);
+                    addCoins(time);
+                    onPause = false;
+                }
+                else {
+                    mSensorService = new SensorService(context);
+                    mServiceIntent = new Intent(mContext, mSensorService.getClass());
+                    if (!isMyServiceRunning(mSensorService.getClass())) {
+                        startService(mServiceIntent);
+                    }
+                    typeTimerString = getResources().getString(R.string.timer_timer);
+                    tv.setText("0");
+                    SharedPreferences.Editor editor = mPrefs.edit();
+                }
+                onStart();
+                break;
+            case 1:
+                if (isMyServiceRunning(SensorService.class)) {
+                    if (onPause==false) {
+                        Toast.makeText(context, getResources().getString(R.string.pausing_chrono), Toast.LENGTH_LONG).show();
+                        onPause=true;
+                        typeTimerString = getResources().getString(R.string.pause_timer);
+                        tv.setText(" ");
+                    }
+                    else{
+                        Toast.makeText(context, getResources().getString(R.string.resuming_chrono), Toast.LENGTH_LONG).show();
+                        onPause=false;
+                        tv.setText(" ");
+                        typeTimerString = getResources().getString(R.string.timer_timer);
+                    }
+                }
+                else {
+                    Toast.makeText(context, getResources().getString(R.string.no_timer_active), Toast.LENGTH_LONG).show();
+                }
+                onStart();
+                break;
+            case 2:
+                s = new Intent(MainActivity.this, AdeActivity.class);
+                startActivity(s);
+                break;
+            case 3:
+                s = new Intent(MainActivity.this, NewEventActivity.class);
+                startActivity(s);
+                break;
+            case 4:
+                s = new Intent(MainActivity.this, StoreActivity.class);
+                startActivity(s);
+                break;
+            case 5:
+                s = new Intent(MainActivity.this,Sport.class);
+                startActivity(s);
+                break;
+            case 6:
+                s = new Intent(MainActivity.this, Connexion.class);
+                startActivity(s);
+                break;
+            case 7:
+                Toast.makeText(this, "Coucou", Toast.LENGTH_LONG).show();
+                finish();
+                break;
+        }
+    }
+
 
     /**
      * Service de timer

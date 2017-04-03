@@ -15,112 +15,52 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin"
+        android:layout_marginRight="@dimen/margin"
+        android:orientation="vertical"
+        android:weightSum="1">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin"
-            android:layout_marginRight="@dimen/margin"
-            android:orientation="vertical"
-            android:weightSum="1">
-            <LinearLayout
-                android:layout_width="match_parent"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:id="@+id/type_of_timer"
-                    android:gravity="right"
-                    android:textAllCaps="false"
-                    android:textSize="24sp"
-                    android:layout_weight="0.5"/>
-                <TextView
-                    android:id="@+id/tv1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:textAllCaps="false"
-                    android:textSize="24sp"
-                    android:layout_weight="0.5"/>
-
-            </LinearLayout>
-
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="30sp" />
-            <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:orientation="horizontal"
-             android:weightSum="1">
-
-                <Button
-                    android:text="@string/play"
-                    android:layout_width="wrap_content"
-                    android:id="@+id/button_play"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    />
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/button_pause"
-                    android:text="@string/pause"
-                    android:layout_weight="0.5"
-                    />
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/button_store"
-                android:layout_width="match_parent"
+                android:text=""
+                android:id="@+id/type_of_timer"
+                android:gravity="right"
+                android:textAllCaps="false"
+                android:textSize="24sp"
+                android:layout_weight="0.5"/>
+            <TextView
+                android:id="@+id/tv1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.96"
-                android:text="@string/title_activity_store"
-                android:layout_below="@+id/button_play"/>
-
-
-//bip
-            <Button
-                android:id="@+id/ade_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/ade"
-                android:layout_below="@+id/button_store"/>
-
-
-            <Button
-                android:id="@+id/event_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Event" />
-
-            <Button
-                android:id="@+id/connexion_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/fb"
-                android:layout_below="@+id/ade_button"/>
-
-            <Button
-                android:id="@+id/sport_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/sport_menu"
-                android:layout_below="@+id/connexion_button"/>
-
-            <Button
-                android:id="@+id/menu_graphique"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Test graphique" />
+                android:gravity="left"
+                android:textAllCaps="false"
+                android:textSize="24sp"
+                android:layout_weight="0.5"/>
 
         </LinearLayout>
-    </ScrollView>
+
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="30sp" />
+        </LinearLayout>
+
+
+
+
+    <GridView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/gridview"
+        android:numColumns="2"
+        android:gravity="center" />
+
 //Quelle est la différence entre une Ferrari et un tas de bébés morts ? Il n'y a pas de Ferrari dans mon garage ...
 </LinearLayout>
