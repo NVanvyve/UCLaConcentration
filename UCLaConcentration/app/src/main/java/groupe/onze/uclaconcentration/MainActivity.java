@@ -98,6 +98,8 @@ public class MainActivity extends BasicActivity {
 
         if (onPlay)
             typeTimer.setText(typeTimerString);
+        else
+            typeTimer.setText("Pas de chrono en route");
 
     }
 
