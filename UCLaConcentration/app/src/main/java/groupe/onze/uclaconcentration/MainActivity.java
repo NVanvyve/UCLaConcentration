@@ -1,6 +1,5 @@
 package groupe.onze.uclaconcentration;
 
-import android.app.ActionBar;
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -8,14 +7,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.os.Handler;
 import android.os.Bundle;
-import android.os.StrictMode;
-import android.support.design.widget.Snackbar;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.util.StringBuilderPrinter;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,8 +20,6 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import junit.framework.Test;
 
 public class MainActivity extends BasicActivity {
     private ImageAdapter mAdapter;
@@ -46,8 +40,8 @@ public class MainActivity extends BasicActivity {
     public final int RATE = 10;
 
     int lastSportTime;
-    int sportDelay ;
-    int sportSnooze ;
+    int sportDelay;
+    int sportSnooze;
     int counterMemo;
 
     SharedPreferences.Editor mEditor;
@@ -60,10 +54,10 @@ public class MainActivity extends BasicActivity {
         setContentView(R.layout.activity_main);
 
         GridView gridview = (GridView) findViewById(R.id.gridview);
-        mAdapter = new ImageAdapter(this, onPlay, onPause);
+        mAdapter = new ImageAdapter(this,onPlay,onPause);
         gridview.setAdapter(mAdapter);
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id){
+            public void onItemClick(AdapterView<?> parent,View v,int position,long id) {
                 launch(position);
             }
         });
@@ -73,10 +67,8 @@ public class MainActivity extends BasicActivity {
 
         lastSportTime = mPrefs.getInt("lastSportTime",0);
         dialogOnScreen = false;
-        sportDelay = mPrefs.getInt("sportDelay", 3600) ; // Par defaut : 1h
+        sportDelay = mPrefs.getInt("sportDelay",60); // Par defaut : 1h
         sportSnooze = mPrefs.getInt("sportSnooze",60); // Par defaut : 1 min
-
-
 
         /*  Ca marche pas pour l'instant
         Button calendar=(Button)findViewById(R.id.button_calendar);
@@ -103,10 +95,10 @@ public class MainActivity extends BasicActivity {
         typeTimer = (TextView) findViewById(R.id.type_of_timer);
 
         GridView gridview = (GridView) findViewById(R.id.gridview);
-        mAdapter = new ImageAdapter(this, onPlay, onPause);
+        mAdapter = new ImageAdapter(this,onPlay,onPause);
         gridview.setAdapter(mAdapter);
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id){
+            public void onItemClick(AdapterView<?> parent,View v,int position,long id) {
                 launch(position);
             }
         });
@@ -115,72 +107,67 @@ public class MainActivity extends BasicActivity {
             typeTimer.setText(typeTimerString);
             int time = mPrefs.getInt("counterSeconds",0);
             tv.setText(" " + time);
-        }
-        else
+        } else
             typeTimer.setText(R.string.no_timer_active);
 
     }
 
     public void launch(int pos) {
-        Context context= mContext;
+        Context context = mContext;
         Intent s;
         switch (pos) {
             case 0:
                 onPlay = !onPlay;
                 if (isMyServiceRunning(SensorService.class)) {
 
-                    Toast.makeText(context, getResources().getString(R.string.stopping_chrono), Toast.LENGTH_LONG).show();
-                    Intent serviceIntent = new Intent(mContext, SensorService.class);
+                    Toast.makeText(context,getResources().getString(R.string.stopping_chrono),Toast.LENGTH_LONG).show();
+                    Intent serviceIntent = new Intent(mContext,SensorService.class);
                     context.stopService(serviceIntent);
                     mPrefs = getSharedPreferences("label",0);
                     int time = mPrefs.getInt("counterSeconds",0);
                     mEditor.putInt("lastSportTime",0).commit();
                     addCoins(time);
                     onPause = false;
-                }
-                else {
+                } else {
                     mSensorService = new SensorService(context);
-                    mServiceIntent = new Intent(mContext, mSensorService.getClass());
+                    mServiceIntent = new Intent(mContext,mSensorService.getClass());
                     if (!isMyServiceRunning(mSensorService.getClass())) {
                         startService(mServiceIntent);
                     }
                     typeTimerString = getResources().getString(R.string.timer_timer);
                     tv.setText("0");
-                    SharedPreferences.Editor editor = mPrefs.edit();
                 }
                 onStart();
                 break;
             case 1:
                 if (isMyServiceRunning(SensorService.class)) {
                     if (!onPause) {
-                        Toast.makeText(context, getResources().getString(R.string.pausing_chrono), Toast.LENGTH_LONG).show();
-                        onPause=true;
+                        Toast.makeText(context,getResources().getString(R.string.pausing_chrono),Toast.LENGTH_LONG).show();
+                        onPause = true;
                         typeTimerString = getResources().getString(R.string.pause_timer);
                         tv.setText(" ");
-                    }
-                    else{
-                        Toast.makeText(context, getResources().getString(R.string.resuming_chrono), Toast.LENGTH_LONG).show();
-                        onPause=false;
+                    } else {
+                        Toast.makeText(context,getResources().getString(R.string.resuming_chrono),Toast.LENGTH_LONG).show();
+                        onPause = false;
                         tv.setText(" ");
                         typeTimerString = getResources().getString(R.string.timer_timer);
                         lastSportTime = mPrefs.getInt("lastSportTime",0);
                     }
-                }
-                else {
-                    Toast.makeText(context, getResources().getString(R.string.no_timer_active), Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(context,getResources().getString(R.string.no_timer_active),Toast.LENGTH_LONG).show();
                 }
                 onStart();
                 break;
             case 2:
-                s = new Intent(MainActivity.this, AdeActivity.class);
+                s = new Intent(MainActivity.this,AdeActivity.class);
                 startActivity(s);
                 break;
             case 3:
-                s = new Intent(MainActivity.this, NewEventActivity.class);
+                s = new Intent(MainActivity.this,NewEventActivity.class);
                 startActivity(s);
                 break;
             case 4:
-                s = new Intent(MainActivity.this, StoreActivity.class);
+                s = new Intent(MainActivity.this,StoreActivity.class);
                 startActivity(s);
                 break;
             case 5:
@@ -189,11 +176,11 @@ public class MainActivity extends BasicActivity {
                 startActivity(s);
                 break;
             case 6:
-                s = new Intent(MainActivity.this, Connexion.class);
+                s = new Intent(MainActivity.this,Connexion.class);
                 startActivity(s);
                 break;
             case 7:
-                Toast.makeText(this, "Coucou", Toast.LENGTH_LONG).show();
+                Toast.makeText(this,"Coucou",Toast.LENGTH_LONG).show();
                 finish();
                 break;
         }
@@ -215,11 +202,11 @@ public class MainActivity extends BasicActivity {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.getName().equals(service.service.getClassName())) {
-                Log.i("isMyServiceRunning?", true + "");
+                Log.i("isMyServiceRunning?",true + "");
                 return true;
             }
         }
-        Log.i("isMyServiceRunning?", false + "");
+        Log.i("isMyServiceRunning?",false + "");
         return false;
     }
 
@@ -231,11 +218,11 @@ public class MainActivity extends BasicActivity {
         int id = item.getItemId();
 
         switch (item.getItemId()) {
-            case R.id.home :
+            case R.id.home:
                 finish(); // close this activity and return to preview activity (if there is any)
 
             case R.id.action_settings:
-                Intent intent = new Intent(this, SettingsActivity.class);
+                Intent intent = new Intent(this,SettingsActivity.class);
                 startActivity(intent);
                 return true;
 
@@ -243,7 +230,7 @@ public class MainActivity extends BasicActivity {
                 return true;
 
             case R.id.action_recompense:
-                Intent s = new Intent(MainActivity.this, StoreActivity.class);
+                Intent s = new Intent(MainActivity.this,StoreActivity.class);
                 startActivity(s);
                 return true;
 
@@ -252,7 +239,7 @@ public class MainActivity extends BasicActivity {
                 for (int i = 0; i < help.length; i++) {
                     Toast.makeText(this,help[i],Toast.LENGTH_LONG).show();
                     //Snackbar.make(findViewById(android.R.id.content), help[i],
-                      //      Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    //      Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 }
                 return true;
 
@@ -265,7 +252,7 @@ public class MainActivity extends BasicActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_main,menu);
         return true;
     }
 
@@ -273,7 +260,7 @@ public class MainActivity extends BasicActivity {
     @Override
     protected void onDestroy() {
         stopService(mServiceIntent);
-        Log.i("MAINACT", "onDestroy!");
+        Log.i("MAINACT","onDestroy!");
         super.onDestroy();
 
     }
@@ -291,10 +278,11 @@ public class MainActivity extends BasicActivity {
         IntentFilter movementFilter;
         movementFilter = new IntentFilter(SensorService.TIMER_UPDATE);
         timerReceiver = new TimerServiceReceiver();
-        registerReceiver(timerReceiver, movementFilter);
+        registerReceiver(timerReceiver,movementFilter);
 
         super.onResume();
     }
+
     /**
      * Update le TimeViewer
      */
@@ -319,26 +307,20 @@ public class MainActivity extends BasicActivity {
          * Reçoit les messages broadcast par les services
          */
         @Override
-        public void onReceive(Context context, Intent intent) {
-            counter = intent.getIntExtra(SensorService.COUNTER, 0);
-            if(counter==10) {//Envoie une notif après 10 secondes d'écoulées
-                context=getApplicationContext();
-                if (!onPause) {
-                    NotificationsSys.sendNotif(context, getResources().getString(R.string.TIME_OUT)
-                            , getResources().getString(R.string.more_10), MainActivity.class);
-                }else {
-                    NotificationsSys.sendNotif(context, getResources().getString(R.string.end_pause)
-                            , getResources().getString(R.string.more_10), MainActivity.class);
+        public void onReceive(Context context,Intent intent) {
+            counter = intent.getIntExtra(SensorService.COUNTER,0);
 
-                }
+            if (!dialogOnScreen && !onPause && (counter - lastSportTime >= sportDelay)) {
+                counterMemo = counter;
+                showDialogBox();
             }
+
             UpdateGUI();
         }
     }
 
 
-    private void addCoins(int time)
-    {
+    private void addCoins(int time) {
         int procraCoins = (time / PERIOD) * RATE + mPrefs.getInt("save_coins",0);
         SharedPreferences.Editor mEditor = mPrefs.edit();
         mEditor.putInt("save_coins",procraCoins).commit();
@@ -388,39 +370,35 @@ public class MainActivity extends BasicActivity {
         String s_string = " sec ";
 
         if (time % heure == 0) {
-            if (time == 0){
-                format = time +s_string;
-            }
-            else {
+            if (time == 0) {
+                format = time + s_string;
+            } else {
                 format = time / heure + h_string;
             }
         } else if (time % min == 0) {
-            int h  = time / heure;
-            int m = (time % heure)/min;
+            int h = time / heure;
+            int m = (time % heure) / min;
             if (h != 0) {
-                format = h+ h_string + m + m_string;
-            }
-            else{
+                format = h + h_string + m + m_string;
+            } else {
                 format = m + m_string;
             }
         } else {
-            int h  = time / heure;
-            int m = (time % heure)/min;
-            int s = (time%min);
-            if (h==0 && m == 0) {
+            int h = time / heure;
+            int m = (time % heure) / min;
+            int s = (time % min);
+            if (h == 0 && m == 0) {
                 format = s + s_string;
-            }
-            else if (h==0) {
-                format = m + m_string+s+s_string;
-            }
-            else{
+            } else if (h == 0) {
+                format = m + m_string + s + s_string;
+            } else {
                 format = h + h_string + m + m_string + s + s_string;
             }
         }
         return format;
     }
 
-    private void miseEnPause(){
+    private void miseEnPause() {
         if (isMyServiceRunning(SensorService.class)) {
             if (!onPause) {
                 onPause = true;
@@ -433,4 +411,4 @@ public class MainActivity extends BasicActivity {
 
     }
 
-    }
+}
