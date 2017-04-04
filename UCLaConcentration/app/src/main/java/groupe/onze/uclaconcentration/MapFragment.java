@@ -81,11 +81,7 @@ public class MapFragment extends Fragment {
 
                 //googleMap.setMapStyle(3);//Terrain
 
-                if(finalSave_location[0]!=0 && finalSave_location[1]!=0) {
-                    // For dropping a marker at a point on the Map
-                    LatLng destination = new LatLng(finalSave_location[0],finalSave_location[1]);
-                    googleMap.addMarker(new MarkerOptions().position(destination).title("Destination"));
-                }
+                setMarker();
 
                 // For zooming automatically to the location of the marker
                 LatLng myPosition = new LatLng(latitude,longitude);
@@ -128,21 +124,29 @@ public class MapFragment extends Fragment {
     }
 
 
-    public void setMarker(){
+    public void setMarker() {
         googleMap.getUiSettings().setScrollGesturesEnabled(false);
-        float lat = mPrefs.getFloat("NL_0", 10);
-        float lon = mPrefs.getFloat("NL_1", 10);
+        float lat = mPrefs.getFloat("NL_0",0);
+        float lon = mPrefs.getFloat("NL_1",0);
         removeMarker();
-        marker = googleMap.addMarker(new MarkerOptions()
-                .position(new LatLng(lat, lon))
-                .title(getResources().getString(R.string.goal)));
+        if (lat != 0 && lon != 0) {
+            marker = googleMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(lat,lon))
+                    .title(getResources().getString(R.string.goal)));
 
-        Log.i("UPDATE", "Destination updated");
+            Log.i("UPDATE","Destination updated");
+        }
     }
 
-    public void removeMarker(){
-        if (marker != null)
-            marker.remove();
+    public void removeMarker() {
+        try {
+            if (marker != null)
+                marker.remove();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
 }

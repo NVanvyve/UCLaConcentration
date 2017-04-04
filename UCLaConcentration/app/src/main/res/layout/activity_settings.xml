@@ -30,14 +30,61 @@
                 android:id="@+id/sport_level"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/sport_level" />
+                android:text="@string/sport_level"/>
 
             <Spinner
                 android:id="@+id/sport_spin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <Space
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/sportdelay"/>
+
+                    <EditText
+                        android:id="@+id/sport_delay_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="number"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/snooze"/>
+
+                    <EditText
+                        android:id="@+id/snooze_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="number"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!--<Space
                 android:layout_width="match_parent"
                 android:layout_height="20pt" />
 
@@ -46,17 +93,66 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/cursus_button" />
+-->
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="25sp"/>
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/text_codes_cours"/>
+
+            <EditText
+                android:id="@+id/ed_programme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/programme"
+                android:inputType="textPersonName" />
+
+
+            <EditText
+                android:id="@+id/ed_maj"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/majeure"
+                android:inputType="textPersonName"/>
+
+            <EditText
+                android:id="@+id/ed_min"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/mineure"
+                android:inputType="textPersonName"/>
+
+            <LinearLayout
+                android:id="@+id/layout_cours"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"/>
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/floatingActionButton"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_gravity="right"
+                android:clickable="true"
+                app:elevation="0dp"
+                app:fabSize="mini"
+                app:srcCompat="@android:drawable/ic_input_add"/>
+
+            <Button
+                android:id="@+id/save_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/save_back"/>
         </LinearLayout>
     </ScrollView>
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/my_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        style="@style/HeaderBar"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:elevation="4dp"
-        />
 
 </LinearLayout>

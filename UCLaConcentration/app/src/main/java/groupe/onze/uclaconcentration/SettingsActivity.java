@@ -3,6 +3,7 @@ package groupe.onze.uclaconcentration;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -11,7 +12,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import java.util.LinkedList;
 
 public class SettingsActivity extends BasicActivity {
 
@@ -37,6 +43,44 @@ public class SettingsActivity extends BasicActivity {
         sportLevel = mPrefs.getInt("sport_level",0);
 
         Spinner spinner = (Spinner) findViewById(R.id.sport_spin);
+        final EditText delay = (EditText) findViewById(R.id.sport_delay_value);
+        final EditText snooze = (EditText) findViewById(R.id.snooze_value);
+
+        int delay_sec = mPrefs.getInt("sportDelay",3600);
+        int snooze_sec = mPrefs.getInt("sportSnooze",60);
+
+        delay.setText(Integer.toString(delay_sec/60));
+        snooze.setText(Integer.toString(snooze_sec/60));
+
+        // ADE
+        FloatingActionButton add = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        final LinearLayout lc = (LinearLayout) findViewById(R.id.layout_cours);
+
+        final LinkedList<EditText> memory = new LinkedList<>();
+        final SharedPreferences mPrefs = getSharedPreferences("label",0);
+
+        // Les 3 de base que on a toujours
+        final EditText programme = (EditText) findViewById(R.id.ed_programme);
+        final EditText majeure = (EditText) findViewById(R.id.ed_maj);
+        final EditText mineure = (EditText) findViewById(R.id.ed_min);
+
+        // On charge ce qui était en mémoire
+        programme.setText(mPrefs.getString("programme",null));
+        majeure.setText(mPrefs.getString("majeure",null));
+        mineure.setText(mPrefs.getString("mineure",null));
+
+        //Chargement des cours supplémentaires précedement enregistrés
+        String save_string = mPrefs.getString("cours_supp",null);
+        if (save_string != null) {
+            String delim = ",";
+            String[] codes = save_string.split(delim);
+            for (int i = 0; i < codes.length; i++) {
+                EditText ed = new EditText(getApplicationContext());
+                ed.setText(codes[i]);
+                lc.addView(ed);
+                memory.add(ed);
+            }
+        }
 
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -50,27 +94,69 @@ public class SettingsActivity extends BasicActivity {
         spinner.setSelection(sportLevel);
         spinner.setOnItemSelectedListener(new CustomOnItemSelectedListener());
 
-        /*
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
-
-
-        Button prefs = (Button) findViewById(R.id.cursus_button);
-        assert prefs != null;
-        prefs.setOnClickListener(new View.OnClickListener() {
+        //Rajout de cours
+        add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent s = new Intent(SettingsActivity.this,AdePrefs.class);
-                startActivity(s);
+                final EditText ed = new EditText(getApplicationContext());
+                ed.setHint(R.string.autre_cours);
+                lc.addView(ed);
+                memory.add(ed);
+            }
+        });
+
+        //Bouton Save&Back sauvegarde la liste des cours supplémentaire qui ont été utilisé ainsi que les temps pour le sport
+        Button save = (Button) findViewById(R.id.save_button);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SharedPreferences.Editor mEditor = mPrefs.edit();
+                String p = programme.getText().toString();
+                String ma = majeure.getText().toString();
+                String mi = mineure.getText().toString();
+
+                // verif pas de virgule etc
+                if (p.matches("^[a-zA-Z0-9_]+$") || p.equals("")) {
+                    mEditor.putString("programme",p).commit();
+                }
+                if (ma.matches("^[a-zA-Z0-9_]+$") || ma.equals("")) {
+                    mEditor.putString("majeure",ma).commit();
+                }
+                if (mi.matches("^[a-zA-Z0-9_]+$") || mi.equals("")) {
+                    mEditor.putString("mineure",mi).commit();
+                }
+
+
+                String cours_supp = "";
+                while (!memory.isEmpty()) {
+                    EditText temp = memory.pop();
+                    String content = temp.getText().toString();
+                    if (content.matches("^[a-zA-Z0-9_]+$")) {
+                        if (!temp.getText().toString().equals("")) {
+                            cours_supp += temp.getText().toString() + ",";
+                        }
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(),R.string.alpha_numeric_avertissement,Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+                cours_supp = cours_supp.substring(0,cours_supp.length() - 1);
+                mEditor.putString("cours_supp",cours_supp).commit();
+
+                int delay_min = Integer.parseInt(delay.getText().toString());
+                mEditor.putInt("sportDelay",delay_min*60).commit();
+                int snooze_min = Integer.parseInt((snooze.getText().toString()));
+                mEditor.putInt("sportSnooze",snooze_min*60).commit();
+
+                //TODO  : AVERTISSEMENT relancer le chrono pour activer les chagement
+
+                finish();
             }
         });
     }
+
 
     public class CustomOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
 

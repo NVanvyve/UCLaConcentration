@@ -63,4 +63,6 @@
     <string name="your_sport_level">"Votre niveau de sport est : "</string>
     <string name="goal">Ta destination</string>
     <string name="no_timer_active">Pas de chrono en route</string>
+    <string name="snooze">Snooze [sec]</string>
+    <string name="sportdelay">Délais entre deux pause sport [sec]</string>
 </resources>

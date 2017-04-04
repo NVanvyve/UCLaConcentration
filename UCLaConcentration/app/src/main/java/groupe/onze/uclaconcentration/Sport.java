@@ -88,13 +88,13 @@ public class Sport extends BasicActivity {
 
 
         //"SPORT"
-        lvl = mPrefs.getInt("sport_level",0);
         newLocation = new double[2];
 
         already_define = mPrefs.getBoolean("already_define",false);
         newLocation[0] = (double) mPrefs.getFloat("NL_0",0);
         newLocation[1] = (double) mPrefs.getFloat("NL_1",0);
 
+        lvl = mPrefs.getInt("sport_level",0);
         TextView level = (TextView) findViewById(R.id.sport_level);
         String tab_level[] = getResources().getStringArray(R.array.sport_level_array);
         level.setText(getString(R.string.your_sport_level) + tab_level[lvl]);
@@ -118,19 +118,12 @@ public class Sport extends BasicActivity {
                 mEditor.putFloat("NL_0",(float) newLocation[0]).commit();
                 mEditor.putFloat("NL_1",(float) newLocation[1]).commit();
 
-                String demo = "Votre position actuelle est : \nLat : "
-                        + latitude +
-                        "\nLong : " + longitude +
-                        "\nVotre cible à atteindre pour gagner " + recompence_tab[lvl]
-                        + " P. est : \nLat : " + newLocation[0] + "\nLong : " + newLocation[1]
-                        + "\nLa distance à parcourir est de : " + (int) gps.distance(latitude,longitude,newLocation[0],newLocation[1]) + " m";
+                // Note : Lorsque on change de niveau de sport lors de l'apui sur new location, l'acti quitte
 
-                String text = "Atteignez la position indiquée pour gagner" + recompence_tab[lvl] + " P.";
-                Toast.makeText(mContext,demo,Toast.LENGTH_LONG).show();
                 already_define = true;
                 mEditor.putBoolean("already_define",true).commit();
 
-                // TODO : TRANSMETTRE les coordonées au fragments
+                map.setMarker();
 
             }
         });
@@ -144,7 +137,7 @@ public class Sport extends BasicActivity {
                 if (already_define) {
                     latitude = gps.giveMeLatLong()[0];
                     longitude = gps.giveMeLatLong()[1];
-                    double tolerance = 10;
+                    double tolerance = 100;
                     double dist = gps.distance(latitude,longitude,newLocation[0],newLocation[1]);
                     if (dist <= tolerance) {
                         String text = "Vous y etes!! Récompence : " + recompence_tab[lvl] + " " + getString(R.string.coin_name);
@@ -168,23 +161,10 @@ public class Sport extends BasicActivity {
             }
         });
 
+        Log.i("SPORT", "ONCREATE");
+
 
     }
-/*
-
-    //SERVICE
-    private boolean isMyServiceRunning(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                Log.i("isMyServiceRunning?",true + "");
-                return true;
-            }
-        }
-        Log.i("isMyServiceRunning?",false + "");
-        return false;
-    }*/
-
 
     /**
      * Initialise le récepteur de message broadcast
@@ -196,7 +176,14 @@ public class Sport extends BasicActivity {
         TimerServiceReceiver timerReceiver = new TimerServiceReceiver();
         registerReceiver(timerReceiver,movementFilter);
 
+        lvl = mPrefs.getInt("sport_level",0);
+        TextView level = (TextView) findViewById(R.id.sport_level);
+        String tab_level[] = getResources().getStringArray(R.array.sport_level_array);
+        level.setText(getString(R.string.your_sport_level) + tab_level[lvl]);
+
         super.onResume();
+
+        Log.i("SPORT", "ONRESUME");
     }
 
 

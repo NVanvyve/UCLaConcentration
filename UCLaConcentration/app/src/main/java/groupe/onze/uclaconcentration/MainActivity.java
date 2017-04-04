@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -11,6 +12,7 @@ import android.os.Handler;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.StringBuilderPrinter;
@@ -26,24 +28,31 @@ import android.widget.Toast;
 import junit.framework.Test;
 
 public class MainActivity extends BasicActivity {
+    private ImageAdapter mAdapter;
+    private static boolean onPlay = false;
+
+    private String typeTimerString;
+
     TimerServiceReceiver timerReceiver;
     int counter;
     TextView tv;
     public static boolean onPause = false;
     Context mContext;
+    TextView typeTimer;
+    Button pause;
+    boolean dialogOnScreen;
 
     public final int PERIOD = 1;
-    public final int RATE = 1000;
+    public final int RATE = 10;
+
+    int lastSportTime;
+    int sportDelay ;
+    int sportSnooze ;
+    int counterMemo;
+
+    SharedPreferences.Editor mEditor;
 
     private SharedPreferences mPrefs;
-
-    private TextView typeTimer;
-
-
-    private ImageAdapter mAdapter;
-    private static boolean onPlay = false;
-
-    private String typeTimerString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +69,12 @@ public class MainActivity extends BasicActivity {
         });
 
         mPrefs = getSharedPreferences("label",0);
+        mEditor = mPrefs.edit();
+
+        lastSportTime = mPrefs.getInt("lastSportTime",0);
+        dialogOnScreen = false;
+        sportDelay = mPrefs.getInt("sportDelay", 3600) ; // Par defaut : 1h
+        sportSnooze = mPrefs.getInt("sportSnooze",60); // Par defaut : 1 min
 
 
 
@@ -96,8 +111,11 @@ public class MainActivity extends BasicActivity {
             }
         });
 
-        if (onPlay)
+        if (onPlay) {
             typeTimer.setText(typeTimerString);
+            int time = mPrefs.getInt("counterSeconds",0);
+            tv.setText(" " + time);
+        }
         else
             typeTimer.setText(R.string.no_timer_active);
 
@@ -116,6 +134,7 @@ public class MainActivity extends BasicActivity {
                     context.stopService(serviceIntent);
                     mPrefs = getSharedPreferences("label",0);
                     int time = mPrefs.getInt("counterSeconds",0);
+                    mEditor.putInt("lastSportTime",0).commit();
                     addCoins(time);
                     onPause = false;
                 }
@@ -144,6 +163,7 @@ public class MainActivity extends BasicActivity {
                         onPause=false;
                         tv.setText(" ");
                         typeTimerString = getResources().getString(R.string.timer_timer);
+                        lastSportTime = mPrefs.getInt("lastSportTime",0);
                     }
                 }
                 else {
@@ -164,6 +184,7 @@ public class MainActivity extends BasicActivity {
                 startActivity(s);
                 break;
             case 5:
+                miseEnPause();
                 s = new Intent(MainActivity.this,Sport.class);
                 startActivity(s);
                 break;
@@ -279,7 +300,7 @@ public class MainActivity extends BasicActivity {
      */
     final Runnable myRunnable = new Runnable() {
         public void run() {
-            tv.setText(String.valueOf(counter));
+            tv.setText(timeFormat(counter));
         }
     };
 
@@ -321,6 +342,95 @@ public class MainActivity extends BasicActivity {
         int procraCoins = (time / PERIOD) * RATE + mPrefs.getInt("save_coins",0);
         SharedPreferences.Editor mEditor = mPrefs.edit();
         mEditor.putInt("save_coins",procraCoins).commit();
+    }
+
+    private void showDialogBox() {
+        dialogOnScreen = true;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("il est temps de se bouger un peu le cul")
+                .setTitle("Alerte Sport");
+
+        builder.setPositiveButton("OK. Je me bouge",new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int id) {
+
+                // Mise en mémoire du timer pour
+                final SharedPreferences.Editor mEditor = mPrefs.edit();
+                mEditor.putInt("lastSportTime",counter).commit();
+
+                miseEnPause();
+
+                //Lancer l'activité Sport
+                dialogOnScreen = false;
+                startActivity(new Intent(MainActivity.this,Sport.class));
+
+            }
+        });
+
+        builder.setNegativeButton("Fuck it!! Je snooze",new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int id) {
+                lastSportTime = lastSportTime + counter - counterMemo + sportSnooze;
+                dialogOnScreen = false;
+                Toast.makeText(getApplicationContext(),"Prochain rappel dans " + timeFormat(sportSnooze) + ".",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private String timeFormat(int time) {
+        int min = 60;
+        int heure = 60 * min;
+        String format;
+
+        String h_string = " h ";
+        String m_string = " min ";
+        String s_string = " sec ";
+
+        if (time % heure == 0) {
+            if (time == 0){
+                format = time +s_string;
+            }
+            else {
+                format = time / heure + h_string;
+            }
+        } else if (time % min == 0) {
+            int h  = time / heure;
+            int m = (time % heure)/min;
+            if (h != 0) {
+                format = h+ h_string + m + m_string;
+            }
+            else{
+                format = m + m_string;
+            }
+        } else {
+            int h  = time / heure;
+            int m = (time % heure)/min;
+            int s = (time%min);
+            if (h==0 && m == 0) {
+                format = s + s_string;
+            }
+            else if (h==0) {
+                format = m + m_string+s+s_string;
+            }
+            else{
+                format = h + h_string + m + m_string + s + s_string;
+            }
+        }
+        return format;
+    }
+
+    private void miseEnPause(){
+        if (isMyServiceRunning(SensorService.class)) {
+            if (!onPause) {
+                onPause = true;
+                typeTimer.setText(R.string.pause_timer);
+                tv.setText(" ");
+                pause.setText(R.string.resume);
+            }
+            Toast.makeText(mContext,"Le timer de pause vient de s'activer.",Toast.LENGTH_LONG).show();
+        }
+
     }
 
     }

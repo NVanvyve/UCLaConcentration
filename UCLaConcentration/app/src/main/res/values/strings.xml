@@ -10,17 +10,17 @@
     <string name="back">Back</string>
     <string name="NoNetworkConnection">No network connection available.</string>
     <string name="Initcalendar">Initialise calendar</string>
-    <string name="ok">OK</string>
+    <string name="ok" translatable="false">OK</string>
     <string name="cancel">Cancel</string>
-    <string name="pause">Pause</string>
-    <string name="pausing_chrono">Timer on pause</string>
-    <string name="resuming_chrono">Resume Timer</string>
+    <string name="pause" translatable="false">Pause</string>
+    <string name="pausing_chrono" translatable="false">Timer on pause</string>
+    <string name="resuming_chrono" translatable="false">Resume Timer</string>
     <string name="no_timer_active">No timer running</string>
     <string name="resume">Resume</string>
     <string name="stop" translatable="false">Stop</string>
-    <string name="pause_timer">Pause : </string>
-    <string name="end_pause"> Pause time out</string>
-    <string name="coin_name">ProcrastinaCoins :</string>
+    <string name="pause_timer" translatable="false">Pause : </string>
+    <string name="end_pause" translatable="false"> Pause time out</string>
+    <string name="coin_name" translatable="false">ProcrastinaCoins :</string>
     <string name="timer_timer" translatable="false">Timer : </string>
     <string name="serie20">Serie : 20 min  </string>
     <string name="serie40">Serie : 40 min  </string>
@@ -46,12 +46,12 @@
     </string-array>
     <string name="cursus_button">Course list</string>
     <string name="stopping_chrono">Service is running !! Stopping</string>
-    <string name="TIME_OUT">TIME OUT</string>
+    <string name="TIME_OUT" translatable="false">TIME OUT</string>
     <string name="more_10">More than 10 seconds</string>
     <string name="lack_money">You don\'t have enough money</string>
     <string name="wait_purchase">You must wait 10 seconds between 2 purchases</string>
-    <string name="play">Play</string>
-    <string name="ade">ADE</string>
+    <string name="play" translatable="false">Play</string>
+    <string name="ade" translatable="false">ADE</string>
     <string name="fb" translatable="false">Facebook</string>
     <string name="save_back">Save and Back</string>
     <string name="log_out">Logout</string>
@@ -75,4 +75,8 @@
     <string name="sport_activity" translatable="false">Sport</string>
     <string name="your_sport_level">Your sport level is : </string>
     <string name="goal">Your goal</string>
+    <string name="title_activity_graphical_menu" translatable="false">GraphicalMenu</string>
+    <string name="sportdelay">Delay between two sport break [sec]</string>
+    <string name="snooze">Snooze value [sec]</string>
+    <string name="alpha_numeric_avertissement">Course codes can only contain alpha-numeric characters. Those not corresponding to this rule have not been saved</string>
 </resources>
