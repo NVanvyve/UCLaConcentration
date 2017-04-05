@@ -14,6 +14,7 @@ import android.os.StrictMode;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.StringBuilderPrinter;
 import android.view.Menu;
@@ -60,7 +61,10 @@ public class MainActivity extends BasicActivity {
         setContentView(R.layout.activity_main);
 
         GridView gridview = (GridView) findViewById(R.id.gridview);
-        mAdapter = new ImageAdapter(this, onPlay, onPause);
+        DisplayMetrics screen = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(screen);
+        int width = screen.widthPixels;
+        mAdapter = new ImageAdapter(this, onPlay, onPause, width);
         gridview.setAdapter(mAdapter);
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id){
@@ -102,8 +106,12 @@ public class MainActivity extends BasicActivity {
         tv = (TextView) findViewById(R.id.tv1);
         typeTimer = (TextView) findViewById(R.id.type_of_timer);
 
+        DisplayMetrics screen = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(screen);
+        int width = screen.widthPixels;
+
         GridView gridview = (GridView) findViewById(R.id.gridview);
-        mAdapter = new ImageAdapter(this, onPlay, onPause);
+        mAdapter = new ImageAdapter(this, onPlay, onPause, width);
         gridview.setAdapter(mAdapter);
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id){

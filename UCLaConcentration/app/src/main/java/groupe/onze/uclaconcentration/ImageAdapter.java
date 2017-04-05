@@ -5,6 +5,7 @@ package groupe.onze.uclaconcentration;
  */
 
 import android.content.Context;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +15,9 @@ import android.widget.ImageView;
 
 public class ImageAdapter extends BaseAdapter {
     private Context mContext;
-    private int sizeBig = 700;
-    private int sizeSmall = 200;
-    private int sizeAverage = 400;
+    private int sizeBig;
+    private int sizeSmall;
+    private int sizeAverage;
     private int play;
     private int pause;
 
@@ -28,10 +29,17 @@ public class ImageAdapter extends BaseAdapter {
 
         mThumbIds[0] = play;
         mThumbIds[1] = pause;
+
+        sizeBig = 700;
+        sizeAverage = 400;
+        sizeSmall = 200;
+        Log.i("SIZE INITIALISATIN ", "SMALL : " + sizeSmall + " AVERAGE : " + sizeAverage + " BIG : " + sizeBig);
+
+
     }
 
 
-    public ImageAdapter(Context c, boolean onPlay, boolean onPause) {
+    public ImageAdapter(Context c, boolean onPlay, boolean onPause, int width) {
 
         mContext = c;
 
@@ -48,7 +56,11 @@ public class ImageAdapter extends BaseAdapter {
         mThumbIds[0] = play;
         mThumbIds[1] = pause;
 
-        Log.i("TEST", "IMAGE ADAPTER : " + getCount());
+
+        sizeBig = (int) (0.45 * width);
+        sizeAverage = (int) (0.3 * width);
+        sizeSmall = (int) (0.15 * width);
+        Log.i("SIZE INITIALISATION ", "SMALL : " + sizeSmall + " AVERAGE : " + sizeAverage + " BIG : " + sizeBig);
     }
 
     public int getCount() {
@@ -65,7 +77,6 @@ public class ImageAdapter extends BaseAdapter {
 
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
-        Log.i("VIEW", "POSITION : +++" + position);
         ImageView imageView;
         int size;
 
