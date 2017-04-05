@@ -67,7 +67,6 @@
         <item>To check your schedules, push the ADE button if you\'ve already registered courses in the settings.</item>
         <item>If not, go to the setting and type your courses in the Courses list</item>
         <item>To set your sport level, go in the Settings</item>
-        <item>To link your ap with your facebook account, push FACEBOOK</item>
         <item>To earn Procrastinacoins by moving, go in Sport</item>
     </string-array>
     <string name="log_in">Logging in …</string>
@@ -79,4 +78,8 @@
     <string name="sportdelay">Delay between two sport break [min]</string>
     <string name="snooze">Snooze value [min]</string>
     <string name="alpha_numeric_avertissement">Course codes can only contain alpha-numeric characters. Those not corresponding to this rule have not been saved</string>
+    <string name="title_activity_dummy_menu" translatable="false">UCLaConcentration</string>
+    <string name="menu_style">Style of menu</string>
+    <string name="graphical">Graphical</string>
+    <string name="non_graphical">Non-Graphical</string>
 </resources>

@@ -3,106 +3,56 @@ package groupe.onze.uclaconcentration;
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.content.DialogInterface;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Button;
 
-public class MainActivity extends BasicActivity {
-    private ImageAdapter mAdapter;
-    private static boolean onPlay = false;
-
-    private String typeTimerString;
-
+public class DummyMenu extends BasicActivity {
     TimerServiceReceiver timerReceiver;
     int counter;
     TextView tv;
     public static boolean onPause = false;
     Context mContext;
     TextView typeTimer;
+    Button pause;
     boolean dialogOnScreen;
 
     public final int PERIOD = 1;
     public final int RATE = 10;
 
     int lastSportTime;
-    int sportDelay;
-    int sportSnooze;
+    int sportDelay ;
+    int sportSnooze ;
     int counterMemo;
 
-    SharedPreferences.Editor mEditor;
-
     private SharedPreferences mPrefs;
+    private SharedPreferences.Editor mEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_dummy_menu);
 
         mPrefs = getSharedPreferences("label",0);
         mEditor = mPrefs.edit();
 
-        if (!mPrefs.getBoolean("graphical", true))
+        if (mPrefs.getBoolean("graphical", true))
         {
-            Intent s = new Intent(this, DummyMenu.class);
-            startActivity(s);
-            finish();
-            return;
-        }
-
-        GridView gridview = (GridView) findViewById(R.id.gridview);
-        DisplayMetrics screen = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(screen);
-        int width = screen.widthPixels;
-        mAdapter = new ImageAdapter(this, onPlay, onPause, width);
-        gridview.setAdapter(mAdapter);
-        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent,View v,int position,long id) {
-                launch(position);
-            }
-        });
-
-        lastSportTime = mPrefs.getInt("lastSportTime",0);
-        dialogOnScreen = false;
-        sportDelay = mPrefs.getInt("sportDelay",60); // Par defaut : 1h
-        sportSnooze = mPrefs.getInt("sportSnooze",60); // Par defaut : 1 min
-
-        /*  Ca marche pas pour l'instant
-        Button calendar=(Button)findViewById(R.id.button_calendar);
-        calendar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent s = new Intent(MainActivity.this, CalendarGoogle.class);
-                startActivity(s);
-            }
-        }); */
-        mContext = this;
-    }
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        setContentView(R.layout.activity_main);
-
-        if (!mPrefs.getBoolean("graphical", true))
-        {
-            Intent s = new Intent(this, DummyMenu.class);
-            startActivity(s);
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
             finish();
             return;
         }
@@ -113,101 +63,148 @@ public class MainActivity extends BasicActivity {
         tv = (TextView) findViewById(R.id.tv1);
         typeTimer = (TextView) findViewById(R.id.type_of_timer);
 
-        DisplayMetrics screen = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(screen);
-        int width = screen.widthPixels;
+        mContext = this;
 
-        GridView gridview = (GridView) findViewById(R.id.gridview);
-        mAdapter = new ImageAdapter(this, onPlay, onPause, width);
-        gridview.setAdapter(mAdapter);
-        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent,View v,int position,long id) {
-                launch(position);
-            }
-        });
+        lastSportTime = mPrefs.getInt("lastSportTime",0);
+        dialogOnScreen = false;
+        sportDelay = mPrefs.getInt("sportDelay", 3600) ; // Par defaut : 1h
+        sportSnooze = mPrefs.getInt("sportSnooze",60); // Par defaut : 1 min
 
-        if (onPlay) {
-            typeTimer.setText(typeTimerString);
-            int time = mPrefs.getInt("counterSeconds",0);
-            tv.setText(" " + time);
-        } else
-            typeTimer.setText(R.string.no_timer_active);
+        final Button play = (Button) findViewById(R.id.button_play);
+        assert play != null;
+        play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-    }
-
-    public void launch(int pos) {
-        Context context = mContext;
-        Intent s;
-        switch (pos) {
-            case 0:
-                onPlay = !onPlay;
                 if (isMyServiceRunning(SensorService.class)) {
-
-                    Toast.makeText(context,getResources().getString(R.string.stopping_chrono),Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext,getResources().getString(R.string.stopping_chrono),Toast.LENGTH_LONG).show();
                     Intent serviceIntent = new Intent(mContext,SensorService.class);
-                    context.stopService(serviceIntent);
+                    mContext.stopService(serviceIntent);
+                    play.setText(R.string.play);
+                    mPrefs = getSharedPreferences("label",0);
                     int time = mPrefs.getInt("counterSeconds",0);
                     mEditor.putInt("lastSportTime",0).commit();
                     addCoins(time);
-                    onPause = false;
                 } else {
-                    mSensorService = new SensorService(context);
+                    mSensorService = new SensorService(mContext);
                     mServiceIntent = new Intent(mContext,mSensorService.getClass());
                     if (!isMyServiceRunning(mSensorService.getClass())) {
                         startService(mServiceIntent);
                     }
-                    typeTimerString = getResources().getString(R.string.timer_timer);
+                    typeTimer.setText(R.string.timer_timer);
                     tv.setText("0");
+                    play.setText(R.string.stop);
+                    lastSportTime = mPrefs.getInt("lastSportTime",0);
                 }
-                onStart();
-                break;
-            case 1:
+
+            }
+        });
+
+        pause = (Button) findViewById(R.id.button_pause);
+        assert pause != null;
+        pause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 if (isMyServiceRunning(SensorService.class)) {
                     if (!onPause) {
-                        Toast.makeText(context,getResources().getString(R.string.pausing_chrono),Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext,getResources().getString(R.string.pausing_chrono),Toast.LENGTH_LONG).show();
                         onPause = true;
-                        typeTimerString = getResources().getString(R.string.pause_timer);
+                        typeTimer.setText(R.string.pause_timer);
                         tv.setText(" ");
+                        pause.setText(R.string.resume);
                     } else {
-                        Toast.makeText(context,getResources().getString(R.string.resuming_chrono),Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext,getResources().getString(R.string.resuming_chrono),Toast.LENGTH_LONG).show();
                         onPause = false;
                         tv.setText(" ");
-                        typeTimerString = getResources().getString(R.string.timer_timer);
+                        typeTimer.setText(R.string.timer_timer);
+                        pause.setText(R.string.pause);
                         lastSportTime = mPrefs.getInt("lastSportTime",0);
                     }
                 } else {
-                    Toast.makeText(context,getResources().getString(R.string.no_timer_active),Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext,getResources().getString(R.string.no_timer_active),Toast.LENGTH_LONG).show();
                 }
-                onStart();
-                break;
-            case 2:
-                s = new Intent(MainActivity.this,AdeActivity.class);
-                startActivity(s);
-                break;
-            case 3:
-                s = new Intent(MainActivity.this,NewEventActivity.class);
-                startActivity(s);
-                break;
-            case 4:
-                s = new Intent(MainActivity.this,StoreActivity.class);
-                startActivity(s);
-                break;
-            case 5:
-                miseEnPause();
-                s = new Intent(MainActivity.this,Sport.class);
-                startActivity(s);
-                break;
-            default:
-                break;
-        }
-    }
 
+            }
+        });
+
+        //Acces au store
+        Button store = (Button) findViewById(R.id.button_store);
+        assert store != null;
+        store.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent s = new Intent(DummyMenu.this,StoreActivity.class);
+                startActivity(s);
+            }
+        });
+
+        // Acces à ADE
+        Button ade = (Button) findViewById(R.id.ade_button);
+        assert ade != null;
+        ade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent s = new Intent(DummyMenu.this,AdeActivity.class);
+                startActivity(s);
+            }
+        });
+
+
+        Button event = (Button) findViewById(R.id.event_button);
+        assert event != null;
+        event.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent s = new Intent(DummyMenu.this,NewEventActivity.class);
+                startActivity(s);
+            }
+        });
+
+        /*  Ca marche pas pour l'instant
+        Button calendar=(Button)findViewById(R.id.button_calendar);
+        calendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent s = new Intent(MainActivity.this, CalendarGoogle.class);
+                startActivity(s);
+            }
+        }); */
+
+        // Ne sert à rien
+        /*
+        Button face = (Button) findViewById(R.id.connexion_button);
+        assert face != null;
+        face.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent s = new Intent(MainActivity.this, Connexion.class);
+                startActivity(s);
+            }
+        });*/
+
+
+        Button sport = (Button) findViewById(R.id.sport_button);
+        assert sport != null;
+        sport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                miseEnPause();
+                Intent s = new Intent(DummyMenu.this,Sport.class);
+                startActivity(s);
+            }
+        });
+
+
+    }
 
     /**
      * Service de timer
      */
     Intent mServiceIntent;
     private SensorService mSensorService;
+    Context ctx;
+
+    //public Context getCtx() {return ctx;}
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
@@ -241,14 +238,16 @@ public class MainActivity extends BasicActivity {
                 return true;
 
             case R.id.action_recompense:
-                Intent s = new Intent(MainActivity.this,StoreActivity.class);
+                Intent s = new Intent(DummyMenu.this,StoreActivity.class);
                 startActivity(s);
                 return true;
 
             case R.id.help:
                 String help[] = getResources().getStringArray(R.array.help_main);
-                for (String helpString: help) {
-                    Toast.makeText(this ,helpString ,Toast.LENGTH_LONG).show();
+                for (int i = 0; i < help.length; i++) {
+                    Toast.makeText(this,help[i],Toast.LENGTH_LONG).show();
+                    //Snackbar.make(findViewById(android.R.id.content), help[i],
+                    //      Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 }
                 return true;
 
@@ -297,11 +296,12 @@ public class MainActivity extends BasicActivity {
 
         super.onResume();
 
-        if (!mPrefs.getBoolean("graphical", true))
+        if (mPrefs.getBoolean("graphical", true))
         {
-            Intent s = new Intent(this, DummyMenu.class);
-            startActivity(s);
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
             finish();
+            return;
         }
 
     }
@@ -332,20 +332,24 @@ public class MainActivity extends BasicActivity {
         @Override
         public void onReceive(Context context,Intent intent) {
             counter = intent.getIntExtra(SensorService.COUNTER,0);
-
+            /*
+            if (counter == 10) {//Envoie une notif après 10 secondes d'écoulées
+                context = getApplicationContext();
+                if (!onPause) {
+                    NotificationsSys.sendNotif(context,getResources().getString(R.string.TIME_OUT)
+                            ,getResources().getString(R.string.more_10),MainActivity.class);
+                } else {
+                    NotificationsSys.sendNotif(context,getResources().getString(R.string.end_pause)
+                            ,getResources().getString(R.string.more_10),MainActivity.class);
+                }
+            }
+            */
             if (!dialogOnScreen && !onPause && (counter - lastSportTime >= sportDelay)) {
                 counterMemo = counter;
                 showDialogBox();
             }
-
             UpdateGUI();
         }
-    }
-
-
-    private void addCoins(int time) {
-        int procraCoins = (time / PERIOD) * RATE + mPrefs.getInt("save_coins",0);
-        mEditor.putInt("save_coins",procraCoins).commit();
     }
 
     private void showDialogBox() {
@@ -358,13 +362,14 @@ public class MainActivity extends BasicActivity {
             public void onClick(DialogInterface dialog,int id) {
 
                 // Mise en mémoire du timer pour
+                final SharedPreferences.Editor mEditor = mPrefs.edit();
                 mEditor.putInt("lastSportTime",counter).commit();
 
                 miseEnPause();
 
                 //Lancer l'activité Sport
                 dialogOnScreen = false;
-                startActivity(new Intent(MainActivity.this,Sport.class));
+                startActivity(new Intent(DummyMenu.this,Sport.class));
 
             }
         });
@@ -373,13 +378,18 @@ public class MainActivity extends BasicActivity {
             public void onClick(DialogInterface dialog,int id) {
                 lastSportTime = lastSportTime + counter - counterMemo + sportSnooze;
                 dialogOnScreen = false;
-                Toast.makeText(getApplicationContext(),"Prochain rappel dans "
-                        + timeFormat(sportSnooze) + ".",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Prochain rappel dans " + timeFormat(sportSnooze) + ".",Toast.LENGTH_SHORT).show();
             }
         });
 
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    private void addCoins(int time) {
+        int procraCoins = (time / PERIOD) * RATE + mPrefs.getInt("save_coins",0);
+        SharedPreferences.Editor mEditor = mPrefs.edit();
+        mEditor.putInt("save_coins",procraCoins).commit();
     }
 
     private String timeFormat(int time) {
@@ -392,41 +402,45 @@ public class MainActivity extends BasicActivity {
         String s_string = " sec ";
 
         if (time % heure == 0) {
-            if (time == 0) {
-                format = time + s_string;
-            } else {
+            if (time == 0){
+                format = time +s_string;
+            }
+            else {
                 format = time / heure + h_string;
             }
         } else if (time % min == 0) {
-            int h = time / heure;
-            int m = (time % heure) / min;
+            int h  = time / heure;
+            int m = (time % heure)/min;
             if (h != 0) {
-                format = h + h_string + m + m_string;
-            } else {
+                format = h+ h_string + m + m_string;
+            }
+            else{
                 format = m + m_string;
             }
         } else {
-            int h = time / heure;
-            int m = (time % heure) / min;
-            int s = (time % min);
-            if (h == 0 && m == 0) {
+            int h  = time / heure;
+            int m = (time % heure)/min;
+            int s = (time%min);
+            if (h==0 && m == 0) {
                 format = s + s_string;
-            } else if (h == 0) {
-                format = m + m_string + s + s_string;
-            } else {
+            }
+            else if (h==0) {
+                format = m + m_string+s+s_string;
+            }
+            else{
                 format = h + h_string + m + m_string + s + s_string;
             }
         }
         return format;
     }
 
-    private void miseEnPause() {
+    private void miseEnPause(){
         if (isMyServiceRunning(SensorService.class)) {
             if (!onPause) {
                 onPause = true;
                 typeTimer.setText(R.string.pause_timer);
                 tv.setText(" ");
-                onStart();
+                pause.setText(R.string.resume);
             }
             Toast.makeText(mContext,"Le timer de pause vient de s'activer.",Toast.LENGTH_LONG).show();
         }

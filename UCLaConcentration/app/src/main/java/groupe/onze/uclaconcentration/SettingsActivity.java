@@ -35,12 +35,30 @@ public class SettingsActivity extends BasicActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        /*Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.welcome_param), Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();*/
-
 
         mPrefs = getSharedPreferences("label",0);
         sportLevel = mPrefs.getInt("sport_level",0);
+
+        Button graphical = (Button) findViewById(R.id.graphical_button);
+        assert graphical != null;
+        if (mPrefs.getBoolean("graphical", true))
+            graphical.setText(R.string.graphical);
+        else
+            graphical.setText(R.string.non_graphical);
+        graphical.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences.Editor mEdit = mPrefs.edit();
+                mEdit.putBoolean("graphical", !mPrefs.getBoolean("graphical", true)).apply();
+                Button graphical = (Button) findViewById(R.id.graphical_button);
+                assert graphical != null;
+                if (mPrefs.getBoolean("graphical", true))
+                    graphical.setText(R.string.graphical);
+                else
+                    graphical.setText(R.string.non_graphical);
+            }
+        });
+
 
         Spinner spinner = (Spinner) findViewById(R.id.sport_spin);
         final EditText delay = (EditText) findViewById(R.id.sport_delay_value);

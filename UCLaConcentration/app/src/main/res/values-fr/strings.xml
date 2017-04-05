@@ -50,7 +50,6 @@
         <item>Pour consulter votre agenda, allez dans l\'onglet ADE, si vous avez déjà enregistré votre liste de cours.</item>
         <item>Si non, allez dans les paramètres et entrez vos cours dans la liste de cours.</item>
         <item>Vous pouvez aussi régler votre niveau de sportivité dans les paramètres.</item>
-        <item>Pour lier votre compte Facebook avec l\'app, appuyez sur Facebook.</item>
         <item>Pour gagner des Procrastinacoins en bougeant un peu, appuyez sur Sport</item>
     </string-array>
     <string name="log_in">Connexion …</string>
@@ -60,4 +59,7 @@
     <string name="no_timer_active">Pas de chrono en route</string>
     <string name="snooze">Snooze [min]</string>
     <string name="sportdelay">Délais entre deux pause sport [min]</string>
+    <string name="menu_style">Style de menu</string>
+    <string name="graphical">Graphique</string>
+    <string name="non_graphical">Non-Graphique</string>
 </resources>

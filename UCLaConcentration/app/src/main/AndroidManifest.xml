@@ -44,9 +44,8 @@
             android:name=".Connexion"
             android:label="Connexion à Facebook"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.NoActionBar" /><![CDATA[
+            android:theme="@style/AppTheme.NoActionBar" />
         >
-        ]]>
         <activity
             android:name=".StoreActivity"
             android:label="@string/title_activity_store"
@@ -84,6 +83,11 @@
             android:name=".NewEventActivity"
             android:label="newEvent"
             android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".DummyMenu"
+            android:label="@string/title_activity_dummy_menu"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>

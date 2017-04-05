@@ -3,5 +3,6 @@
     <color name="colorPrimary">#669900</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#0099cc</color>
-    <color name="ToolBarColor">#334dcf</color>
+    <!--<color name="ToolBarColor">#334dcf</color>-->  <!--Barre bleue-->
+    <color name="ToolBarColor">#669900</color> <!--Barre verte-->
 </resources>
