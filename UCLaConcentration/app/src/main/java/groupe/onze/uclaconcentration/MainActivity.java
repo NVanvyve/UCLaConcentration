@@ -412,7 +412,7 @@ public class MainActivity extends BasicActivity {
                 onPause = true;
                 typeTimer.setText(R.string.pause_timer);
                 tv.setText(" ");
-                pause.setText(R.string.resume);
+                onStart();
             }
             Toast.makeText(mContext,"Le timer de pause vient de s'activer.",Toast.LENGTH_LONG).show();
         }
