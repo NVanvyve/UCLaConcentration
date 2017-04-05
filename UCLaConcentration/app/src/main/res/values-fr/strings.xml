@@ -60,4 +60,8 @@
     <string name="no_timer_active">Pas de chrono en route</string>
     <string name="snooze">Snooze [min]</string>
     <string name="sportdelay">Délais entre deux pause sport [min]</string>
+    <string name="alerte_sport">Il est temps de faire une pause</string>
+    <string name="dialog_sport_1">"Vous étudiez depuis "</string>
+    <string name="dialog_sport_2">il est temps de faire une petite pause. Profitez en pour gagner quelque Procastinacoins</string>
+    <string name="dialog_sport_ok">C\'est parti !!</string>
 </resources>

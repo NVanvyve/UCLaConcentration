@@ -79,4 +79,9 @@
     <string name="sportdelay">Delay between two sport break [min]</string>
     <string name="snooze">Snooze value [min]</string>
     <string name="alpha_numeric_avertissement">Course codes can only contain alpha-numeric characters. Those not corresponding to this rule have not been saved</string>
+    <string name="alerte_sport">It\'s time for a break</string>
+    <string name="dialog_sport_1">"You have been studying for "</string>
+    <string name="dialog_sport_2">it\'s time to take a break. Take advantage of this to win some Procastinacoins</string>
+    <string name="dialog_sport_cancel" translatable="false">Snooze</string>
+    <string name="dialog_sport_ok">Let\'s go!!</string>
 </resources>
