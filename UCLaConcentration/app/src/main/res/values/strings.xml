@@ -16,7 +16,7 @@
     <string name="pausing_chrono" translatable="false">Timer on pause</string>
     <string name="resuming_chrono" translatable="false">Resume Timer</string>
     <string name="no_timer_active">No timer running</string>
-    <string name="resume">Resume</string>
+    <string name="resume" translatable="false">Resume</string>
     <string name="stop" translatable="false">Stop</string>
     <string name="pause_timer" translatable="false">Pause : </string>
     <string name="end_pause" translatable="false"> Pause time out</string>
@@ -76,7 +76,7 @@
     <string name="your_sport_level">Your sport level is : </string>
     <string name="goal">Your goal</string>
     <string name="title_activity_graphical_menu" translatable="false">GraphicalMenu</string>
-    <string name="sportdelay">Delay between two sport break [sec]</string>
-    <string name="snooze">Snooze value [sec]</string>
+    <string name="sportdelay">Delay between two sport break [min]</string>
+    <string name="snooze">Snooze value [min]</string>
     <string name="alpha_numeric_avertissement">Course codes can only contain alpha-numeric characters. Those not corresponding to this rule have not been saved</string>
 </resources>
