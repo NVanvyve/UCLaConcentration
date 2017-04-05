@@ -78,8 +78,16 @@
     <string name="sportdelay">Delay between two sport break [min]</string>
     <string name="snooze">Snooze value [min]</string>
     <string name="alpha_numeric_avertissement">Course codes can only contain alpha-numeric characters. Those not corresponding to this rule have not been saved</string>
+<<<<<<< HEAD
     <string name="title_activity_dummy_menu" translatable="false">UCLaConcentration</string>
     <string name="menu_style">Style of menu</string>
     <string name="graphical">Graphical</string>
     <string name="non_graphical">Non-Graphical</string>
+=======
+    <string name="alerte_sport">It\'s time for a break</string>
+    <string name="dialog_sport_1">"You have been studying for "</string>
+    <string name="dialog_sport_2">it\'s time to take a break. Take advantage of this to win some Procastinacoins</string>
+    <string name="dialog_sport_cancel" translatable="false">Snooze</string>
+    <string name="dialog_sport_ok">Let\'s go!!</string>
+>>>>>>> 0cf2099353dad22c7f8ab3d79414f54a2739e2bf
 </resources>

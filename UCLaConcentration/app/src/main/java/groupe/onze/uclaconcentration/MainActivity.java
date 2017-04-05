@@ -81,6 +81,8 @@ public class MainActivity extends BasicActivity {
         sportDelay = mPrefs.getInt("sportDelay",60); // Par defaut : 1h
         sportSnooze = mPrefs.getInt("sportSnooze",60); // Par defaut : 1 min
 
+        //sportDelay = 15;
+
         /*  Ca marche pas pour l'instant
         Button calendar=(Button)findViewById(R.id.button_calendar);
         calendar.setOnClickListener(new View.OnClickListener() {
@@ -351,10 +353,11 @@ public class MainActivity extends BasicActivity {
     private void showDialogBox() {
         dialogOnScreen = true;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("il est temps de se bouger un peu le cul")
-                .setTitle("Alerte Sport");
+        builder.setMessage(getString(R.string.dialog_sport_1) + timeFormat(counter) + getString(R.string.dialog_sport_2));
+        builder.setTitle(R.string.alerte_sport);
+        builder.setCancelable(false);
 
-        builder.setPositiveButton("OK. Je me bouge",new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.dialog_sport_ok,new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog,int id) {
 
                 // Mise en mémoire du timer pour
@@ -369,7 +372,7 @@ public class MainActivity extends BasicActivity {
             }
         });
 
-        builder.setNegativeButton("Fuck it!! Je snooze",new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.dialog_sport_cancel,new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog,int id) {
                 lastSportTime = lastSportTime + counter - counterMemo + sportSnooze;
                 dialogOnScreen = false;
@@ -380,44 +383,6 @@ public class MainActivity extends BasicActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
-    }
-
-    private String timeFormat(int time) {
-        int min = 60;
-        int heure = 60 * min;
-        String format;
-
-        String h_string = " h ";
-        String m_string = " min ";
-        String s_string = " sec ";
-
-        if (time % heure == 0) {
-            if (time == 0) {
-                format = time + s_string;
-            } else {
-                format = time / heure + h_string;
-            }
-        } else if (time % min == 0) {
-            int h = time / heure;
-            int m = (time % heure) / min;
-            if (h != 0) {
-                format = h + h_string + m + m_string;
-            } else {
-                format = m + m_string;
-            }
-        } else {
-            int h = time / heure;
-            int m = (time % heure) / min;
-            int s = (time % min);
-            if (h == 0 && m == 0) {
-                format = s + s_string;
-            } else if (h == 0) {
-                format = m + m_string + s + s_string;
-            } else {
-                format = h + h_string + m + m_string + s + s_string;
-            }
-        }
-        return format;
     }
 
     private void miseEnPause() {

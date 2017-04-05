@@ -59,7 +59,14 @@
     <string name="no_timer_active">Pas de chrono en route</string>
     <string name="snooze">Snooze [min]</string>
     <string name="sportdelay">Délais entre deux pause sport [min]</string>
+<<<<<<< HEAD
     <string name="menu_style">Style de menu</string>
     <string name="graphical">Graphique</string>
     <string name="non_graphical">Non-Graphique</string>
+=======
+    <string name="alerte_sport">Il est temps de faire une pause</string>
+    <string name="dialog_sport_1">"Vous étudiez depuis "</string>
+    <string name="dialog_sport_2">il est temps de faire une petite pause. Profitez en pour gagner quelque Procastinacoins</string>
+    <string name="dialog_sport_ok">C\'est parti !!</string>
+>>>>>>> 0cf2099353dad22c7f8ab3d79414f54a2739e2bf
 </resources>
