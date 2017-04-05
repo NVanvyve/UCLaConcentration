@@ -44,13 +44,9 @@
             android:name=".Connexion"
             android:label="Connexion à Facebook"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".AdePrefs"
-            android:label="@string/title_activity_prefs"
-            android:launchMode="singleTask"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" /><![CDATA[
         >
+        ]]>
         <activity
             android:name=".StoreActivity"
             android:label="@string/title_activity_store"
@@ -59,11 +55,6 @@
         <activity
             android:name=".Sport"
             android:label="@string/sport_activity"
-            android:launchMode="singleTask"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".MapsActivity"
-            android:label="Maps"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
 

@@ -183,10 +183,10 @@ public class MainActivity extends BasicActivity {
                 s = new Intent(MainActivity.this,Sport.class);
                 startActivity(s);
                 break;
-            case 6:
+            /*case 6:
                 s = new Intent(MainActivity.this,Connexion.class);
                 startActivity(s);
-                break;
+                break;*/
             case 7:
                 Toast.makeText(this,"Coucou",Toast.LENGTH_LONG).show();
                 finish();

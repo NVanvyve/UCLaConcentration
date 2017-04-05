@@ -57,9 +57,9 @@ public class ImageAdapter extends BaseAdapter {
         mThumbIds[1] = pause;
 
 
-        sizeBig = (int) (0.45 * width);
-        sizeAverage = (int) (0.3 * width);
-        sizeSmall = (int) (0.15 * width);
+        sizeBig = (int) (0.5 * width);
+        sizeAverage = (int) (0.37 * width);
+        sizeSmall = (int) (0.2 * width);
         Log.i("SIZE INITIALISATION ", "SMALL : " + sizeSmall + " AVERAGE : " + sizeAverage + " BIG : " + sizeBig);
     }
 
@@ -83,10 +83,8 @@ public class ImageAdapter extends BaseAdapter {
         if (convertView == null) {
             if (position <= 1)
                 size = sizeSmall;
-            else if (position == mThumbIds.length-1)
-                size = sizeAverage;
             else
-                size = sizeBig;
+                size = sizeAverage;
             imageView = new ImageView(mContext);
             imageView.setLayoutParams(new GridView.LayoutParams(size, size));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -104,8 +102,7 @@ public class ImageAdapter extends BaseAdapter {
     private Integer[] mThumbIds = {
             play, pause,
             R.drawable.ade, R.drawable.calendar,
-            R.drawable.caddie, R.drawable.sport,
-            R.drawable.facebook
+            R.drawable.store, R.drawable.sport
     };
 
 }
