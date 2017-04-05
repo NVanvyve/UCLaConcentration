@@ -142,10 +142,9 @@ public class Sport extends BasicActivity {
                     if (dist <= tolerance) {
                         String text = "Vous y etes!! Récompence : " + recompence_tab[lvl] + " " + getString(R.string.coin_name);
                         Toast.makeText(mContext,text,Toast.LENGTH_SHORT).show();
-
+                        map.removeMarker();
                         int coins = mPrefs.getInt("save_coins",0);
                         mEditor.putInt("save_coins",coins + recompence_tab[lvl]).commit();
-
                         newLocation[0] = 0;
                         newLocation[1] = 0;
                         already_define = false;

@@ -30,6 +30,7 @@ public class MapFragment extends Fragment {
     double latitude;
     double longitude;
     SharedPreferences mPrefs;
+    boolean already_define;
 
     Marker marker;
 
@@ -37,12 +38,7 @@ public class MapFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_map,container,false);
 
-        double [] save_location = {0,0};
-
-        //Bundle bundle = this.getArguments();
-        //if (bundle != null){
-        //    save_location = bundle.getDoubleArray("Position");
-        //}
+        double[] save_location = {0,0};
 
         mMapView = (MapView) rootView.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
@@ -51,8 +47,8 @@ public class MapFragment extends Fragment {
 
         gps = new GPSTracker(getActivity().getApplicationContext(),getActivity());
 
-        // Pour les tests
-        //save_location = gps.newLocation(20);
+        mPrefs = this.getActivity().getSharedPreferences("label",0);
+        already_define = mPrefs.getBoolean("already_define",false);
 
         double loc[] = gps.giveMeLatLong();
         latitude = loc[0];
@@ -73,15 +69,16 @@ public class MapFragment extends Fragment {
                 // NEVER DELETE !! :)
                 try {
                     googleMap.setMyLocationEnabled(true);
-                }
-                catch (SecurityException e) {
-                    Log.e("ERROR", "No permission to check the location");
+                } catch (SecurityException e) {
+                    Log.e("ERROR","No permission to check the location");
                     e.printStackTrace();
                 }
 
                 //googleMap.setMapStyle(3);//Terrain
 
-                setMarker();
+                if (already_define) {
+                    setMarker();
+                }
 
                 // For zooming automatically to the location of the marker
                 LatLng myPosition = new LatLng(latitude,longitude);
@@ -93,7 +90,6 @@ public class MapFragment extends Fragment {
             }
         });
 
-        mPrefs = this.getActivity().getSharedPreferences("label",0);
 
 
         return rootView;
@@ -142,8 +138,7 @@ public class MapFragment extends Fragment {
         try {
             if (marker != null)
                 marker.remove();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
