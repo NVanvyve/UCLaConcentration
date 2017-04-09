@@ -82,24 +82,14 @@
                         android:inputType="number"/>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/menu_style"/>
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/graphical_button"/>
-                </LinearLayout>
-
             </LinearLayout>
+
+            <Switch
+                android:id="@+id/switch_menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/menu_style"/>
 
             <Space
                 android:layout_width="match_parent"

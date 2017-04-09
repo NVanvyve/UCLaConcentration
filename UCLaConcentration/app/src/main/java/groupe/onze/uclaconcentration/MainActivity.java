@@ -346,6 +346,7 @@ public class MainActivity extends BasicActivity {
 
 
     private void addCoins(int time) {
+        // TODO : Ajouter des coins à chaque pause --> Memoriser le dernier timer
         int procraCoins = (time / PERIOD) * RATE + mPrefs.getInt("save_coins",0);
         mEditor.putInt("save_coins",procraCoins).commit();
     }

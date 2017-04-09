@@ -40,6 +40,8 @@ public class DummyMenu extends BasicActivity {
     private SharedPreferences mPrefs;
     private SharedPreferences.Editor mEditor;
 
+    // TODO : Fixer le timer : il est identique pour l'étude te la pause
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -352,17 +354,23 @@ public class DummyMenu extends BasicActivity {
         }
     }
 
+    private void addCoins(int time) {
+        // TODO : Ajouter des coins à chaque pause --> Memoriser le dernier timer
+        int procraCoins = (time / PERIOD) * RATE + mPrefs.getInt("save_coins",0);
+        mEditor.putInt("save_coins",procraCoins).commit();
+    }
+
     private void showDialogBox() {
         dialogOnScreen = true;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("il est temps de se bouger un peu le cul")
-                .setTitle("Alerte Sport");
+        builder.setMessage(getString(R.string.dialog_sport_1) + timeFormat(counter) + getString(R.string.dialog_sport_2));
+        builder.setTitle(R.string.alerte_sport);
+        builder.setCancelable(false);
 
-        builder.setPositiveButton("OK. Je me bouge",new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.dialog_sport_ok,new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog,int id) {
 
                 // Mise en mémoire du timer pour
-                final SharedPreferences.Editor mEditor = mPrefs.edit();
                 mEditor.putInt("lastSportTime",counter).commit();
 
                 miseEnPause();
@@ -374,11 +382,12 @@ public class DummyMenu extends BasicActivity {
             }
         });
 
-        builder.setNegativeButton("Fuck it!! Je snooze",new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.dialog_sport_cancel,new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog,int id) {
                 lastSportTime = lastSportTime + counter - counterMemo + sportSnooze;
                 dialogOnScreen = false;
-                Toast.makeText(getApplicationContext(),"Prochain rappel dans " + timeFormat(sportSnooze) + ".",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Prochain rappel dans "
+                        + timeFormat(sportSnooze) + ".",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -386,11 +395,6 @@ public class DummyMenu extends BasicActivity {
         dialog.show();
     }
 
-    private void addCoins(int time) {
-        int procraCoins = (time / PERIOD) * RATE + mPrefs.getInt("save_coins",0);
-        SharedPreferences.Editor mEditor = mPrefs.edit();
-        mEditor.putInt("save_coins",procraCoins).commit();
-    }
 
 
     private void miseEnPause(){
