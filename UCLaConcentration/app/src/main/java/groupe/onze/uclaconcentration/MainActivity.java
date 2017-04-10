@@ -21,6 +21,9 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
+
 public class MainActivity extends BasicActivity {
     private ImageAdapter mAdapter;
     private static boolean onPlay = false;
@@ -51,7 +54,12 @@ public class MainActivity extends BasicActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
+
+        mContext = this;
+
+        Toast.makeText(mContext,"Pour les confession, il faut etre logger sur Face sinon ca plante pour le moment",Toast.LENGTH_SHORT).show();
 
         mPrefs = getSharedPreferences("label",0);
         mEditor = mPrefs.edit();
@@ -92,7 +100,6 @@ public class MainActivity extends BasicActivity {
                 startActivity(s);
             }
         }); */
-        mContext = this;
     }
 
 
@@ -199,6 +206,13 @@ public class MainActivity extends BasicActivity {
                 s = new Intent(MainActivity.this,Sport.class);
                 startActivity(s);
                 break;
+            case 6:
+                s = new Intent(MainActivity.this,Conf.class);
+                startActivity(s);
+                break;
+            case 7:
+                s = new Intent(MainActivity.this,Connexion.class);
+                startActivity(s);
             default:
                 break;
         }

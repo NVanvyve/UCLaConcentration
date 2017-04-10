@@ -1,5 +1,25 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        // These docs use an open ended version so that our plugin
+        // can be updated quickly in response to Android tooling updates
+
+        // We recommend changing it to the latest version from our changelog:
+        // https://docs.fabric.io/android/changelog.html#fabric-gradle-plugin
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'checkstyle'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
 
 android {
     compileSdkVersion 25
@@ -45,4 +65,7 @@ dependencies {
     compile 'com.android.support:support-vector-drawable:25.2.0'
     compile 'com.google.android.gms:play-services-maps:10.2.1'
     testCompile 'junit:junit:4.12'
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.7@aar') {
+        transitive = true;
+    }
 }

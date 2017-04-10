@@ -17,7 +17,10 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBOoprP_Ju0VAvfptNFGk9fp0M_aoNIEZ8" />
-
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="ffc8735e493bdba04d48c9e5c18a049df2420b70"
+            />
         <activity
             android:name=".MainActivity"
             android:label="UCLaConcentration"
@@ -90,6 +93,12 @@
             android:label="@string/title_activity_dummy_menu"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+
+        <activity
+            android:name=".Conf"
+            android:label="Test Confession"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

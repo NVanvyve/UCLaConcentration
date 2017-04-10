@@ -55,7 +55,6 @@ public class StoreActivity extends BasicActivity {
         }
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         text = getResources().getString(R.string.lack_money);
@@ -68,10 +67,6 @@ public class StoreActivity extends BasicActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        //test alexis notif
-        //context=getApplicationContext();
-        //NotificationsSys.sendNotif(context,"test title store","test description store",MainActivity.class);
 
         waiting = 10000;
         rand = new Random(System.currentTimeMillis());

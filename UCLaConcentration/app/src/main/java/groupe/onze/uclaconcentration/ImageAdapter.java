@@ -102,7 +102,8 @@ public class ImageAdapter extends BaseAdapter {
     private Integer[] mThumbIds = {
             play, pause,
             R.drawable.ade, R.drawable.calendar,
-            R.drawable.store, R.drawable.sport
+            R.drawable.store, R.drawable.sport,
+            R.drawable.com_facebook_button_icon_blue,R.drawable.facebook
     };
 
 }
