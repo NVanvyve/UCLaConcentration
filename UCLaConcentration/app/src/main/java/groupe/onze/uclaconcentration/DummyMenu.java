@@ -392,7 +392,7 @@ public class DummyMenu extends BasicActivity {
         mEditor.putInt("save_coins",procraCoins).commit();
     }
 
-    private String timeFormat(int time) {
+    public static String timeFormat(int time) {
         int min = 60;
         int heure = 60 * min;
         String format;
