@@ -12,9 +12,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import java.util.LinkedList;
@@ -39,23 +41,18 @@ public class SettingsActivity extends BasicActivity {
         mPrefs = getSharedPreferences("label",0);
         sportLevel = mPrefs.getInt("sport_level",0);
 
-        Button graphical = (Button) findViewById(R.id.graphical_button);
-        assert graphical != null;
-        if (mPrefs.getBoolean("graphical", true))
-            graphical.setText(R.string.graphical);
-        else
-            graphical.setText(R.string.non_graphical);
-        graphical.setOnClickListener(new View.OnClickListener() {
+        Switch typeOfMenu = (Switch) findViewById(R.id.switch_menu);
+        assert typeOfMenu != null;
+        if (mPrefs.getBoolean("graphical",true)) {
+            typeOfMenu.setChecked(true);
+        } else {
+            typeOfMenu.setChecked(false);
+        }
+        typeOfMenu.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
+            public void onCheckedChanged(CompoundButton compoundButton,boolean bChecked) {
                 SharedPreferences.Editor mEdit = mPrefs.edit();
-                mEdit.putBoolean("graphical", !mPrefs.getBoolean("graphical", true)).apply();
-                Button graphical = (Button) findViewById(R.id.graphical_button);
-                assert graphical != null;
-                if (mPrefs.getBoolean("graphical", true))
-                    graphical.setText(R.string.graphical);
-                else
-                    graphical.setText(R.string.non_graphical);
+                mEdit.putBoolean("graphical",!mPrefs.getBoolean("graphical",true)).apply();
             }
         });
 
@@ -67,8 +64,8 @@ public class SettingsActivity extends BasicActivity {
         int delay_sec = mPrefs.getInt("sportDelay",3600);
         int snooze_sec = mPrefs.getInt("sportSnooze",60);
 
-        delay.setText(Integer.toString(delay_sec/60));
-        snooze.setText(Integer.toString(snooze_sec/60));
+        delay.setText(Integer.toString(delay_sec / 60));
+        snooze.setText(Integer.toString(snooze_sec / 60));
 
         // ADE
         FloatingActionButton add = (FloatingActionButton) findViewById(R.id.floatingActionButton);
@@ -154,8 +151,7 @@ public class SettingsActivity extends BasicActivity {
                         if (!temp.getText().toString().equals("")) {
                             cours_supp += temp.getText().toString() + ",";
                         }
-                    }
-                    else{
+                    } else {
                         Toast.makeText(getApplicationContext(),R.string.alpha_numeric_avertissement,Toast.LENGTH_SHORT).show();
                     }
 
@@ -164,9 +160,9 @@ public class SettingsActivity extends BasicActivity {
                 mEditor.putString("cours_supp",cours_supp).commit();
 
                 int delay_min = Integer.parseInt(delay.getText().toString());
-                mEditor.putInt("sportDelay",delay_min*60).commit();
+                mEditor.putInt("sportDelay",delay_min * 60).commit();
                 int snooze_min = Integer.parseInt((snooze.getText().toString()));
-                mEditor.putInt("sportSnooze",snooze_min*60).commit();
+                mEditor.putInt("sportSnooze",snooze_min * 60).commit();
 
                 //TODO  : AVERTISSEMENT relancer le chrono pour activer les chagement
 

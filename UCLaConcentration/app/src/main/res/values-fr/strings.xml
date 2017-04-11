@@ -59,7 +59,7 @@
     <string name="no_timer_active">Pas de chrono en route</string>
     <string name="snooze">Snooze [min]</string>
     <string name="sportdelay">Délais entre deux pause sport [min]</string>
-    <string name="menu_style">Style de menu</string>
+    <string name="menu_style">Menu graphique</string>
     <string name="graphical">Graphique</string>
     <string name="non_graphical">Non-Graphique</string>
     <string name="alerte_sport">Il est temps de faire une pause</string>

@@ -79,7 +79,7 @@
     <string name="snooze">Snooze value [min]</string>
     <string name="alpha_numeric_avertissement">Course codes can only contain alpha-numeric characters. Those not corresponding to this rule have not been saved</string>
     <string name="title_activity_dummy_menu" translatable="false">UCLaConcentration</string>
-    <string name="menu_style">Style of menu</string>
+    <string name="menu_style">Graphical menu</string>
     <string name="graphical">Graphical</string>
     <string name="non_graphical">Non-Graphical</string>
     <string name="alerte_sport">It\'s time for a break</string>

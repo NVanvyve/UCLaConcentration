@@ -13,7 +13,7 @@
         android:background="@color/ToolBarColor"
         android:elevation="4dp"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
 
     <ScrollView
@@ -161,10 +161,6 @@
 
                 </LinearLayout>
             </ScrollView>
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="100sp" />
 
             <Button
                 android:text="Reset"
