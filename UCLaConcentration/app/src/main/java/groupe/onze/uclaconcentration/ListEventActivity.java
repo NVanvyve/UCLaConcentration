@@ -1,7 +1,5 @@
 package groupe.onze.uclaconcentration;
 
-import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -10,12 +8,9 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import groupe.onze.uclaconcentration.dataBaseMan.DAOB;
 import groupe.onze.uclaconcentration.dataBaseMan.DatabaseHandler;
 import groupe.onze.uclaconcentration.objetPerso.EventPerso;
 import groupe.onze.uclaconcentration.objetPerso.EventPersoAdapter;
-import groupe.onze.uclaconcentration.objetPerso.eventTime;
-
 
 
 public class ListEventActivity extends BasicActivity implements EventPersoAdapter.DispoAdapterListener {

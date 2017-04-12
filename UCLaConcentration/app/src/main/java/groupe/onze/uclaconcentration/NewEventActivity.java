@@ -9,19 +9,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import groupe.onze.uclaconcentration.dataBaseMan.DatabaseHandler;
 import groupe.onze.uclaconcentration.objetPerso.EventPerso;
 import groupe.onze.uclaconcentration.objetPerso.eventTime;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 /**
  * Created by X on 20-04-16.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class NewEventActivity extends Activity {
     Button btn;
     int year_x, month_x, day_x;

@@ -1,13 +1,8 @@
 package groupe.onze.uclaconcentration.dataBaseMan;
 
-import android.app.usage.UsageEvents;
-import android.content.Context;
-
 import java.util.ArrayList;
-import java.util.Date;
 
 import groupe.onze.uclaconcentration.objetPerso.EventPerso;
-import groupe.onze.uclaconcentration.objetPerso.eventTime;
 
 /**
  * Created by alexis on 13-03-17.

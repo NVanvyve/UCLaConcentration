@@ -14,7 +14,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 
 /**
- * Created by nicolasvanvyve on 12/03/17.
+ * Created by nicolasvanvyve in avr. 2017.
  */
 
 public class Facebook_Activity extends BasicActivity {

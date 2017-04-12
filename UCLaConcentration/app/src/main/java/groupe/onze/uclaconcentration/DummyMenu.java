@@ -85,7 +85,7 @@ public class DummyMenu extends BasicActivity {
                     play.setText(R.string.play);
                     mPrefs = getSharedPreferences("label",0);
                     int time = mPrefs.getInt("counterSeconds",0);
-                    mEditor.putInt("lastSportTime",0).commit();
+                    mEditor.putInt("lastSportTime",0).apply();
                     addCoins(time);
                 } else {
                     mSensorService = new SensorService(mContext);
@@ -246,8 +246,8 @@ public class DummyMenu extends BasicActivity {
 
             case R.id.help:
                 String help[] = getResources().getStringArray(R.array.help_main);
-                for (int i = 0; i < help.length; i++) {
-                    Toast.makeText(this,help[i],Toast.LENGTH_LONG).show();
+                for (String aHelp : help) {
+                    Toast.makeText(this,aHelp,Toast.LENGTH_LONG).show();
                     //Snackbar.make(findViewById(android.R.id.content), help[i],
                     //      Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 }
@@ -303,7 +303,6 @@ public class DummyMenu extends BasicActivity {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
-            return;
         }
 
     }
@@ -313,7 +312,7 @@ public class DummyMenu extends BasicActivity {
      */
     final Runnable myRunnable = new Runnable() {
         public void run() {
-            tv.setText(timeFormat(counter));
+            tv.setText(Outils.timeFormat(counter));
         }
     };
 
@@ -363,7 +362,7 @@ public class DummyMenu extends BasicActivity {
     private void showDialogBox() {
         dialogOnScreen = true;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(getString(R.string.dialog_sport_1) + timeFormat(counter) + getString(R.string.dialog_sport_2));
+        builder.setMessage(getString(R.string.dialog_sport_1) + Outils.timeFormat(counter) + getString(R.string.dialog_sport_2));
         builder.setTitle(R.string.alerte_sport);
         builder.setCancelable(false);
 
@@ -387,7 +386,7 @@ public class DummyMenu extends BasicActivity {
                 lastSportTime = lastSportTime + counter - counterMemo + sportSnooze;
                 dialogOnScreen = false;
                 Toast.makeText(getApplicationContext(),"Prochain rappel dans "
-                        + timeFormat(sportSnooze) + ".",Toast.LENGTH_SHORT).show();
+                        + Outils.timeFormat(sportSnooze) + ".",Toast.LENGTH_SHORT).show();
             }
         });
 

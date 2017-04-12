@@ -26,6 +26,12 @@
             android:layout_marginRight="@dimen/margin"
             android:orientation="vertical">
 
+            <Button
+                android:id="@+id/next_conf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Next"/>
+
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="match_parent"

@@ -89,9 +89,9 @@ public class SettingsActivity extends BasicActivity {
         if (save_string != null) {
             String delim = ",";
             String[] codes = save_string.split(delim);
-            for (int i = 0; i < codes.length; i++) {
+            for (String code : codes) {
                 EditText ed = new EditText(getApplicationContext());
-                ed.setText(codes[i]);
+                ed.setText(code);
                 lc.addView(ed);
                 memory.add(ed);
             }
@@ -133,7 +133,7 @@ public class SettingsActivity extends BasicActivity {
 
                 // verif pas de virgule etc
                 if (p.matches("^[a-zA-Z0-9_]+$") || p.equals("")) {
-                    mEditor.putString("programme",p).commit();
+                    mEditor.putString("programme",p).apply();
                 }
                 if (ma.matches("^[a-zA-Z0-9_]+$") || ma.equals("")) {
                     mEditor.putString("majeure",ma).commit();
@@ -180,7 +180,7 @@ public class SettingsActivity extends BasicActivity {
 
             SharedPreferences.Editor mEditor = mPrefs.edit();
             sportLevel = pos;
-            mEditor.putInt("sport_level",pos).commit();
+            mEditor.putInt("sport_level",pos).apply();
         }
 
         @Override

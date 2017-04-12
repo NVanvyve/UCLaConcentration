@@ -48,13 +48,12 @@ import java.util.Date;
 import java.util.List;
 
 import groupe.onze.uclaconcentration.dataBaseMan.DatabaseHandler;
-import groupe.onze.uclaconcentration.dataBaseMan.dayEventListDB;
 import groupe.onze.uclaconcentration.objetPerso.EventPerso;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
 /**
- * Created by alexis on 28-02-17.
+ * Created by alexis in avr. 2017.
  */
 
 public class CalendarGoogle extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
@@ -74,10 +73,7 @@ public class CalendarGoogle extends AppCompatActivity implements EasyPermissions
 
     final SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy 'from' HH:mm 'to' HH:mm");//TODO Utiliser les res Strings // donne le format des dates
     final ColorDrawable blue = new ColorDrawable(Color.parseColor("#4169E1"));
-    private CaldroidFragment caldroidFragment; // Variables du caldroid
     private CaldroidFragment dialogCaldroidFragment;
-    private int daysBefore = -7;// definis le jour initial du calendrier par rapport a la date d'ajd
-    private int daysAfter = 45;// definis le jour final du calendrier par rapport a la date d'ajd
     private static ArrayList<EventPerso> EventList;// Arraylist pour récuper tout les évents d'une date
 
 
@@ -125,7 +121,7 @@ public class CalendarGoogle extends AppCompatActivity implements EasyPermissions
         // Initialize credentials and service object.
 
         // Setup caldroid fragment
-        caldroidFragment = new CaldroidFragment();
+        CaldroidFragment caldroidFragment = new CaldroidFragment();
         //seting the mindate 1 days before the current day
         Calendar calM = Calendar.getInstance();
         calM.setTime(new Date());
@@ -229,9 +225,11 @@ public class CalendarGoogle extends AppCompatActivity implements EasyPermissions
         Calendar cal = Calendar.getInstance();
 
         // Min date is last daysBefore days
+        int daysBefore = -7;
         cal.add(Calendar.DATE,daysBefore);
 
         // Max date is next daysAfter days
+        int daysAfter = 45;
         cal.add(Calendar.DATE,daysAfter);
     }
 /*

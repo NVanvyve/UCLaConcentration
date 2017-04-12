@@ -1,19 +1,10 @@
 package groupe.onze.uclaconcentration.dataBaseMan;
-import groupe.onze.uclaconcentration.objetPerso.*;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.sql.Time;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-
-
-import static java.lang.Integer.parseInt;
 
 /**
  * Created by alexis on 13-03-17.

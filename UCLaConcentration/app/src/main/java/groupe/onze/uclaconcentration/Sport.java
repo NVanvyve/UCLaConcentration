@@ -40,6 +40,7 @@ public class Sport extends BasicActivity {
     int lvl;
     MapFragment map;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,7 +100,7 @@ public class Sport extends BasicActivity {
         String tab_level[] = getResources().getStringArray(R.array.sport_level_array);
         level.setText(getString(R.string.your_sport_level) + tab_level[lvl]);
 
-        final int dist_tab[] = {50,90,120,170,210,500};
+        final int dist_tab [] = new int[]{50,90,120,170,210,500};
         final int recompence_tab[] = {30,70,100,150,200,270};
 
         if (lvl > dist_tab.length || dist_tab.length != recompence_tab.length) {
@@ -115,7 +116,7 @@ public class Sport extends BasicActivity {
                 latitude = gps.giveMeLatLong()[0];
                 longitude = gps.giveMeLatLong()[1];
                 newLocation = gps.newLocation(dist_tab[lvl]);
-                mEditor.putFloat("NL_0",(float) newLocation[0]).commit();
+                mEditor.putFloat("NL_0",(float) newLocation[0]).apply();
                 mEditor.putFloat("NL_1",(float) newLocation[1]).commit();
 
                 // Note : Lorsque on change de niveau de sport lors de l'apui sur new location, l'acti quitte
@@ -264,6 +265,4 @@ public class Sport extends BasicActivity {
         getMenuInflater().inflate(R.menu.menu_main,menu);
         return true;
     }
-
-
 }

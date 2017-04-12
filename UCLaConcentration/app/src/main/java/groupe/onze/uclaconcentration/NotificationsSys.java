@@ -11,6 +11,7 @@ import android.content.Intent;
  * Created by alexis on 21-02-17.
  */
 
+@SuppressWarnings("ALL")
 public class NotificationsSys extends Activity {
     /*
     @Pre: Prend en argument le contexte dans lequel la méthode est appelé, Le titre de la notification a envoyer, la description de la notification et la classe a charger dans le cas ou l'utilisateur clique sur la notification

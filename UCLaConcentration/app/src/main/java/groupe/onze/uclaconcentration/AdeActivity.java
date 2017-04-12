@@ -1,5 +1,6 @@
 package groupe.onze.uclaconcentration;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,7 +12,7 @@ import android.webkit.WebView;
 import android.widget.Toast;
 
 /**
- * Created by nicolasvanvyve on 5/03/17.
+ * Created by nicolasvanvyve in avr. 2017.
  */
 
 public class AdeActivity extends BasicActivity {
@@ -22,6 +23,7 @@ public class AdeActivity extends BasicActivity {
         return R.layout.activity_main;
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);

@@ -5,7 +5,6 @@ package groupe.onze.uclaconcentration;
  */
 
 import android.content.Context;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;

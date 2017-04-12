@@ -21,34 +21,16 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
 /**
- * Created by nicolasvanvyve on 12/03/17.
+ * Created by nicolasvanvyve in avr. 2017.
  */
 
 
 public class Connexion extends BasicActivity {
 
 
-    private LoginButton loginButton;
     private CallbackManager callbackManager;
     private AccessTokenTracker accessTokenTracker;
     private ProfileTracker profileTracker;
-
-    //Facebook login button
-    private FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
-        @Override
-        public void onSuccess(LoginResult loginResult) {
-            Profile profile = Profile.getCurrentProfile();
-            nextActivity(profile);
-        }
-
-        @Override
-        public void onCancel() {
-        }
-
-        @Override
-        public void onError(FacebookException e) {
-        }
-    };
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,10 +70,10 @@ public class Connexion extends BasicActivity {
         profileTracker.startTracking();
 
 
-        loginButton = (LoginButton) findViewById(R.id.login_button);
+        LoginButton loginButton1 = (LoginButton) findViewById(R.id.login_button);
 
         LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
-        callback = new FacebookCallback<LoginResult>() {
+        FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 AccessToken accessToken = loginResult.getAccessToken();

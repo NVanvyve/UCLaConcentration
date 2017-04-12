@@ -2,7 +2,7 @@
 
 <resources>
     <string name="description">The &appname; app was created by &author;</string>
-    <string name="app_name" translatable="false">&appname;UCLaConcentration</string>
+    <string name="app_name" translatable="false">&appname;</string>
     <string name="StartTime">The &appname; app was created by &author;</string>
     <string name="title_activity_timer">TimerActivity</string>
     <string name="title_activity_store">Store</string>

@@ -16,7 +16,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
@@ -58,7 +57,7 @@ public class GPSTracker extends Service {
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 1000; // 10 meters
 
     // The minimum time between updates in milliseconds
-    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; // 1 minute
+    private static final long MIN_TIME_BW_UPDATES = 1000 * 60; // 1 minute
 
     // Declaring a Location Manager
     protected LocationManager locationManager;
@@ -138,15 +137,6 @@ public class GPSTracker extends Service {
         }
 
         return location;
-    }
-
-
-    /**
-     * Stop using GPS listener
-     * Calling this function will stop using GPS in your app.
-     */
-    public void stopUsingGPS() {
-
     }
 
 
@@ -289,7 +279,7 @@ public class GPSTracker extends Service {
     public void initializeTimerTask() {
         timerTask = new TimerTask() {
             public void run() {
-                Log.i("Mise à jour de la position","Lat : "+latitude+" Longitude : "+longitude);
+                Log.i("MAJ Position","Lat : "+latitude+" Longitude : "+longitude);
                 announceTimerChanges(latitude,longitude);//Envoie à l'activité
             }
         };
@@ -314,8 +304,7 @@ public class GPSTracker extends Service {
         double c = Math.toRadians(LongA); //longitude du point A (en radians)
         double d = Math.toRadians(LongB); //longitude du point B (en radians)
 
-        double Dist = R * acos(cos(a) * cos(b) * cos(c - d) + sin(a) * sin(b)); //Distance en metre
-        return Dist;
+        return R * acos(cos(a) * cos(b) * cos(c - d) + sin(a) * sin(b));
     }
 
     /**
@@ -352,8 +341,7 @@ public class GPSTracker extends Service {
         lat2 = Math.toDegrees(lat2);
         lon2 = Math.toDegrees(lon2);
 
-        double tab[] = {lat2,lon2};
-        return tab;
+        return new double[]{lat2,lon2};
 
     }
 
@@ -379,8 +367,7 @@ public class GPSTracker extends Service {
                 showSettingsAlert();
             }
         }
-        double tab[] = {la,lo};
-        return tab;
+        return new double[]{la,lo};
     }
 
 

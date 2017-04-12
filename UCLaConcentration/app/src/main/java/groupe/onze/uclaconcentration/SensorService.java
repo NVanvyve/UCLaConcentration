@@ -40,7 +40,7 @@ public class SensorService extends Service {
         {
             mPrefs = getSharedPreferences("label",0);
             SharedPreferences.Editor mEditor = mPrefs.edit();
-            mEditor.putInt("counterSeconds",time).commit();
+            mEditor.putInt("counterSeconds",time).apply();
         }
     }
 

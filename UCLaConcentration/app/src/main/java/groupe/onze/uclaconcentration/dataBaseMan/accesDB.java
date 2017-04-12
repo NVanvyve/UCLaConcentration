@@ -10,7 +10,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 /**
- * Created by alexis on 13-03-17.
+ * Created by alexis in avr. 2017.
  */
 
 public class accesDB extends SQLiteOpenHelper {

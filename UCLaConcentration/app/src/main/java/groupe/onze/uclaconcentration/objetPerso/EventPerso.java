@@ -1,6 +1,5 @@
 package groupe.onze.uclaconcentration.objetPerso;
 
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

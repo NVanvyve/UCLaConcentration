@@ -160,7 +160,7 @@ public class MainActivity extends BasicActivity {
                     addCoins(time);
                     onPause = false;
                 } else {
-                    mSensorService = new SensorService(context);
+                    SensorService mSensorService = new SensorService(context);
                     mServiceIntent = new Intent(mContext,mSensorService.getClass());
                     if (!isMyServiceRunning(mSensorService.getClass())) {
                         startService(mServiceIntent);
@@ -223,7 +223,6 @@ public class MainActivity extends BasicActivity {
      * Service de timer
      */
     Intent mServiceIntent;
-    private SensorService mSensorService;
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
@@ -327,7 +326,7 @@ public class MainActivity extends BasicActivity {
      */
     final Runnable myRunnable = new Runnable() {
         public void run() {
-            tv.setText(timeFormat(counter));
+            tv.setText(Outils.timeFormat(counter));
         }
     };
 
@@ -368,7 +367,7 @@ public class MainActivity extends BasicActivity {
     private void showDialogBox() {
         dialogOnScreen = true;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(getString(R.string.dialog_sport_1) + timeFormat(counter) + getString(R.string.dialog_sport_2));
+        builder.setMessage(getString(R.string.dialog_sport_1) + Outils.timeFormat(counter) + getString(R.string.dialog_sport_2));
         builder.setTitle(R.string.alerte_sport);
         builder.setCancelable(false);
 
@@ -392,7 +391,7 @@ public class MainActivity extends BasicActivity {
                 lastSportTime = lastSportTime + counter - counterMemo + sportSnooze;
                 dialogOnScreen = false;
                 Toast.makeText(getApplicationContext(),"Prochain rappel dans "
-                        + timeFormat(sportSnooze) + ".",Toast.LENGTH_SHORT).show();
+                        + Outils.timeFormat(sportSnooze) + ".",Toast.LENGTH_SHORT).show();
             }
         });
 

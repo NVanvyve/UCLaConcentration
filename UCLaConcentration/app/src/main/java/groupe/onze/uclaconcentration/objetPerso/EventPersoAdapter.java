@@ -1,9 +1,6 @@
 package groupe.onze.uclaconcentration.objetPerso;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +12,6 @@ import android.widget.TextView;
 import groupe.onze.uclaconcentration.R;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import groupe.onze.uclaconcentration.objetPerso.EventPerso;
@@ -30,7 +26,7 @@ import groupe.onze.uclaconcentration.objetPerso.EventPerso;
 
 public class EventPersoAdapter extends BaseAdapter {
     public interface DispoAdapterListener {
-        public void onClickNom(EventPerso item, int position);
+        void onClickNom(EventPerso item,int position);
     }
 
 

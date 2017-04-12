@@ -40,9 +40,6 @@
                     android:id="@+id/money"
                     android:layout_width="219dp"
                     android:layout_height="wrap_content"
-                    android:layout_alignEnd="@+id/moremoney"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
                     android:ems="10"
                     android:gravity="left"
                     android:text="@string/coin_name"
@@ -54,10 +51,6 @@
                     android:id="@+id/var_coin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_above="@+id/moremoney"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_toEndOf="@+id/money"
                     android:ems="10"
                     android:gravity="left"
                     android:inputType="number"
@@ -72,8 +65,6 @@
                 android:layout_marginTop="34dp"
                 android:id="@+id/moremoney"
                 android:textSize="30sp"
-                android:layout_below="@+id/money"
-                android:layout_centerHorizontal="true"
                 android:textStyle="normal|bold"
                 android:background="@color/colorAccent"
                 android:layout_height="100sp" />
@@ -108,8 +99,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/button20min"
-                            android:layout_alignTop="@+id/serie20"
-                            android:layout_toEndOf="@+id/serie20"
                             android:layout_weight="1"/>
                     </LinearLayout>
 
@@ -130,9 +119,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/button40min"
-                            android:layout_alignBaseline="@+id/serie40"
-                            android:layout_alignBottom="@+id/serie40"
-                            android:layout_alignStart="@+id/button20min"
                             android:layout_weight="1" />
                     </LinearLayout>
 
@@ -153,9 +139,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/button60min"
-                            android:layout_alignBaseline="@+id/serie60"
-                            android:layout_alignBottom="@+id/serie60"
-                            android:layout_alignStart="@+id/button40min"
                             android:layout_weight="1" />
                     </LinearLayout>
 

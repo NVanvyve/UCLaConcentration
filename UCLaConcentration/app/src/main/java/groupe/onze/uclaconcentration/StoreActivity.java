@@ -33,7 +33,7 @@ public class StoreActivity extends BasicActivity {
 
     private void update() {
         SharedPreferences.Editor mEditor = mPrefs.edit();
-        mEditor.putInt("save_coins",procraCoins).commit();
+        mEditor.putInt("save_coins",procraCoins).apply();
         mEditor.putLong("last_purchase",last_purchase).commit();
     }
 
@@ -43,7 +43,6 @@ public class StoreActivity extends BasicActivity {
             procraCoins -= cost;
             update();
             money.setText(": " + procraCoins + " P");
-            ;
         } else if (cost >= procraCoins) {
             context = getApplicationContext();
             Toast toast = Toast.makeText(context,text,duration);

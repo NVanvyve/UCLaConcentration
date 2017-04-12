@@ -57,7 +57,7 @@ public class TimerActivity extends AppCompatActivity {
             SharedPreferences.Editor mEditor = mPrefs.edit();
             mEditor.putInt("CounterSeconds",seconds);
             mEditor.putInt("CounterMinutes",minutes);
-            mEditor.commit();
+            mEditor.apply();
             timerTextView.setText(String.format("%d:%02d",minutes,seconds));
 
             timerHandler.postDelayed(this,500);
@@ -189,7 +189,7 @@ public class TimerActivity extends AppCompatActivity {
 
     private void update() {
         SharedPreferences.Editor mEditor = mPrefs.edit();
-        mEditor.putInt("save_coins",procraCoins).commit();
+        mEditor.putInt("save_coins",procraCoins).apply();
     }
 
 }

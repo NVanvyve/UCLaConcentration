@@ -60,7 +60,6 @@ public class MapFragment extends Fragment {
             e.printStackTrace();
         }
 
-        final double[] finalSave_location = save_location;
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap mMap) {
@@ -84,7 +83,8 @@ public class MapFragment extends Fragment {
                 LatLng myPosition = new LatLng(latitude,longitude);
                 CameraPosition cameraPosition = new CameraPosition.Builder()
                         .target(myPosition)
-                        .zoom(17)
+                        //TODO Ajuster le zoom en fonction de la distance https://developers.google.com/maps/documentation/android-api/views?hl=fr
+                        .zoom(15)
                         .build();
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
