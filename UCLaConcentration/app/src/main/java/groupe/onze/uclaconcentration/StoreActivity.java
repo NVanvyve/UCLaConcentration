@@ -1,16 +1,27 @@
 package groupe.onze.uclaconcentration;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
+import com.facebook.Profile;
+import com.facebook.ProfileTracker;
 
 import java.util.Random;
 
@@ -28,11 +39,11 @@ public class StoreActivity extends BasicActivity {
     int waiting;
     long last_purchase;
     int procraCoins;
+    SharedPreferences.Editor mEditor;
 
     Random rand;
 
     private void update() {
-        SharedPreferences.Editor mEditor = mPrefs.edit();
         mEditor.putInt("save_coins",procraCoins).apply();
         mEditor.putLong("last_purchase",last_purchase).commit();
     }
@@ -78,19 +89,26 @@ public class StoreActivity extends BasicActivity {
         procraCoins = mPrefs.getInt("save_coins",0);
         last_purchase = mPrefs.getLong("last_purchase",0);
         money.setText(": "+procraCoins + " P");
+        mEditor = mPrefs.edit();
 
         // Récompenses 
         // Boutons et Prix associés
         Button[] ButtonList = {
                 (Button) findViewById(R.id.button20min),
                 (Button) findViewById(R.id.button40min),
-                (Button) findViewById(R.id.button60min)};
+                (Button) findViewById(R.id.button60min),
+                (Button) findViewById(R.id.buttonConf)};
+
+        // Durée de la pause confession
+        final int confDuration = 5;
+        TextView conf_tv = (TextView) findViewById(R.id.store_conf_tv);
+        conf_tv.setText("UConfession "+confDuration+"min");
 
         final int[] CostList = {
                 150,
                 350,
-                600};
-
+                600,
+                15*confDuration};
 
         // Initialisation des prix sur les boutons
         for (int i = 0; i < ButtonList.length; i++) {
@@ -102,7 +120,7 @@ public class StoreActivity extends BasicActivity {
         more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                procraCoins += 20 + rand.nextInt(30);
+                procraCoins += 50 + rand.nextInt(50);
                 update();
                 money.setText(": "+procraCoins + " P");
             }
@@ -117,7 +135,7 @@ public class StoreActivity extends BasicActivity {
         });
 
 
-        // Méthode onClick() pour tous les boutons... Une solution plus compacte est la bien venue
+        // Méthode onClick() pour tous les boutons
         ButtonList[0].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,17 +154,59 @@ public class StoreActivity extends BasicActivity {
                 sell(CostList[2]);
             }
         });
-        
+        ButtonList[3].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!Outils.checkFaceConnexion()){
+                    showDialogBox();
+                }
+                else{
+                    sell(CostList[3]);
+                    mEditor.putLong("conf_begin",last_purchase).apply();
+                    Intent s = new Intent(StoreActivity.this,Conf.class);
+                    s.putExtra("time_limit",confDuration);
+                    startActivity(s);
+                }
+
+            }
+        });
+
+
         /*
         // Ajout d'un nouveau bouton?
         ButtonList[i].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sell(CostList[i]);
+                //Code
             }
         });
         */
 
+    }
+
+    private void showDialogBox() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Avertissement");
+        builder.setMessage("Vous n'êtes pas connecter à Facebook. Vous ne pourrez donc pas voir les confessions. " +
+                "Rendez vous dans les paramètres pour vous connecter et revenez par après, " +
+                "ou retournez dans le Store.\n" +
+                "Aucun Procastinacoins n'a été débiter pour le moment.");
+        builder.setCancelable(false);
+
+        builder.setPositiveButton("Go to settings",new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int id) {
+                startActivity(new Intent(StoreActivity.this, SettingsActivity.class));
+            }
+        });
+
+        builder.setNegativeButton("Back to Store",new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int id) {
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     @Override
@@ -192,4 +252,5 @@ public class StoreActivity extends BasicActivity {
 
         }
     }
+
 }

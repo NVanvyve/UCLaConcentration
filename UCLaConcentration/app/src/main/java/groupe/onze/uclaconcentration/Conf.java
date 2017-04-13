@@ -1,7 +1,10 @@
 package groupe.onze.uclaconcentration;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -9,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
@@ -29,19 +33,47 @@ public class Conf extends BasicActivity {
     String message;
     String until;
     final String TAG = "CONF";
+    SharedPreferences mPrefs;
+    long conf_begin;
+    int time_limit;
+    boolean dialogOnScreen;
+    SharedPreferences.Editor mEditor;
+    int count_null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_conf);
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        final Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        Log.i(TAG,"init");
+        if (!Outils.checkFaceConnexion()){
+            Toast.makeText(getApplicationContext(),"Vous n'etes pas connecter à Facebook.\n" +
+                    "Normalement vous n'auriez jamais du acceder au UConfessions.\nTRICHEUR VA!! :)",Toast.LENGTH_LONG).show();
+            //startActivity(new Intent(this,MainActivity.class));
+        }
+
+        mPrefs = getSharedPreferences("label",0);
+        mEditor = mPrefs.edit();
+
+        dialogOnScreen = false;
+        count_null = 0;
+
+        int time_limit_init = 0;
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            time_limit_init = bundle.getInt("time_limit",10);  // Limte de temps en minute
+        } else {
+            Log.i(TAG,"bundle == null");
+        }
+        time_limit = time_limit_init * 60 * 1000; //Milisec
+
+        conf_begin = mPrefs.getLong("conf_begin",System.currentTimeMillis());
+
 
         paging_token = null;
         until = null;
@@ -49,15 +81,15 @@ public class Conf extends BasicActivity {
 
         Log.i(TAG,"-------------------------------------------------------------------------");
         Log.i(TAG,"message = " + message);
-        Log.i(TAG,"token = " + paging_token);
-        Log.i(TAG,"until = " + until);
+        //Log.i(TAG,"token = " + paging_token);
+        //Log.i(TAG,"until = " + until);
         confRequest();
-        Log.i(TAG,"message = " + message);
         conf_tv.setText(message);
 
 
         Button new_conf = (Button) findViewById(R.id.next_conf);
         assert new_conf != null;
+        final int finalTime_limit_init = time_limit_init;
         new_conf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,17 +98,70 @@ public class Conf extends BasicActivity {
                 Log.i(TAG,"token = " + paging_token);
                 Log.i(TAG,"until = " + until);
                 confRequest();
+
+                //Reload activity if request fail
+                if (message==null){
+                    count_null++;
+                    if (count_null==3){
+                        Log.i(TAG,"3 times message=null");
+                        Intent s = new Intent(Conf.this,Conf.class);
+                        s.putExtra("time_limit",finalTime_limit_init);
+                        startActivity(s);
+                    }
+                }else {
+                    count_null = 0;
+                }
+
                 conf_tv.setText(message);
+                checkTime();
             }
         });
 
     }
 
+    private void checkTime() {
+        long now = System.currentTimeMillis();
+        long duration = now - conf_begin;
+        Log.i(TAG,"Time = " + Outils.timeFormat((int) (duration / 1000)));
+        if (duration >= time_limit) {
+            Log.i(TAG,"Time exceeded");
+            if (!dialogOnScreen) {
+                showDialogBox();
+            }
+        }
+    }
+
+    private void showDialogBox() {
+        dialogOnScreen = true;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        int limit = time_limit / 1000; // En sec
+        builder.setMessage("Vous regardez des confessions depuis plus de " + Outils.timeFormat(limit) + ". C'est bien assez, il est temps de retourner bosser");
+        builder.setTitle("Time exceeded");
+        builder.setCancelable(false);
+
+        builder.setPositiveButton("Back to work",new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int id) {
+                dialogOnScreen = false;
+                Log.i(TAG,"Back to work");
+                startActivity(new Intent(Conf.this,MainActivity.class));
+            }
+        });
+/*
+        builder.setNegativeButton(R.string.dialog_sport_cancel,new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int id) {
+
+            }
+        });
+*/
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
     private void confRequest() {
         if (!Outils.isConnectedInternet(Conf.this)) {
             message = "No internet connection";
-        }
-        else{
+        } else {
             final String[] ret = new String[2];
 
             Bundle parameters = new Bundle();

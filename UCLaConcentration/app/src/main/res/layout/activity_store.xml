@@ -88,18 +88,18 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:text="@string/serie20"
-                            android:layout_width="wrap_content"
                             android:id="@+id/serie20"
-                            android:textSize="24sp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1" />
+                            android:layout_weight="1"
+                            android:text="@string/serie20"
+                            android:textSize="18sp"/>
 
                         <Button
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/button20min"
-                            android:layout_weight="1"/>
+                            />
                     </LinearLayout>
 
                     <LinearLayout
@@ -108,18 +108,18 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:text="@string/serie40"
+                            android:id="@+id/serie40"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/serie40"
-                            android:textSize="24sp"
-                            android:layout_weight="1" />
+                            android:layout_weight="1"
+                            android:text="@string/serie40"
+                            android:textSize="18sp"/>
 
                         <Button
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/button40min"
-                            android:layout_weight="1" />
+                            />
                     </LinearLayout>
 
                     <LinearLayout
@@ -128,18 +128,38 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:text="@string/serie60"
+                            android:id="@+id/serie60"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/serie60"
-                            android:textSize="24sp"
-                            android:layout_weight="1" />
+                            android:layout_weight="1"
+                            android:text="@string/serie60"
+                            android:textSize="18sp"/>
 
                         <Button
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/button60min"
-                            android:layout_weight="1" />
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/store_conf_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="UConfession"
+                            android:textSize="18sp"/>
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/buttonConf"
+                            />
                     </LinearLayout>
 
                 </LinearLayout>

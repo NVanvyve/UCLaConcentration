@@ -199,20 +199,15 @@ public class MainActivity extends BasicActivity {
                 break;
             case 4:
                 s = new Intent(MainActivity.this,StoreActivity.class);
+                miseEnPause();
                 startActivity(s);
                 break;
             case 5:
                 miseEnPause();
                 s = new Intent(MainActivity.this,Sport.class);
+                miseEnPause();
                 startActivity(s);
                 break;
-            case 6:
-                s = new Intent(MainActivity.this,Conf.class);
-                startActivity(s);
-                break;
-            case 7:
-                s = new Intent(MainActivity.this,Connexion.class);
-                startActivity(s);
             default:
                 break;
         }

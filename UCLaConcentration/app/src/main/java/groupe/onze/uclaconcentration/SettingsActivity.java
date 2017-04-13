@@ -19,12 +19,26 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.Profile;
+import com.facebook.ProfileTracker;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+
 import java.util.LinkedList;
 
 public class SettingsActivity extends BasicActivity {
 
     SharedPreferences mPrefs;
     int sportLevel;
+    private CallbackManager callbackManager;
+    private AccessTokenTracker accessTokenTracker;
+    private ProfileTracker profileTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +55,48 @@ public class SettingsActivity extends BasicActivity {
         mPrefs = getSharedPreferences("label",0);
         sportLevel = mPrefs.getInt("sport_level",0);
 
+        //Connexion Facebook
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
+        accessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken oldToken,AccessToken newToken) {
+            }
+        };
+
+        profileTracker = new ProfileTracker() {
+            @Override
+            protected void onCurrentProfileChanged(Profile oldProfile,Profile newProfile) {
+                //nextActivity(newProfile);
+            }
+        };
+        accessTokenTracker.startTracking();
+        profileTracker.startTracking();
+        LoginButton loginButton = (LoginButton) findViewById(R.id.loginButton_settings);
+        FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                AccessToken accessToken = loginResult.getAccessToken();
+                Profile profile = Profile.getCurrentProfile();
+                String text = getString(R.string.Hello_face) + " " + profile.getFirstName() + " " + profile.getLastName();
+                Toast.makeText(getApplicationContext(),text,Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancel() {
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+            }
+        };
+        loginButton.setReadPermissions("public_profile");
+        loginButton.setReadPermissions("user_friends");
+        loginButton.registerCallback(callbackManager,callback);
+
+
+        //Switch menu graphique
         Switch typeOfMenu = (Switch) findViewById(R.id.switch_menu);
         assert typeOfMenu != null;
         if (mPrefs.getBoolean("graphical",true)) {
@@ -91,6 +147,7 @@ public class SettingsActivity extends BasicActivity {
             String[] codes = save_string.split(delim);
             for (String code : codes) {
                 EditText ed = new EditText(getApplicationContext());
+                ed.setTextSize(14);
                 ed.setText(code);
                 lc.addView(ed);
                 memory.add(ed);
@@ -115,6 +172,7 @@ public class SettingsActivity extends BasicActivity {
             public void onClick(View v) {
                 final EditText ed = new EditText(getApplicationContext());
                 ed.setHint(R.string.autre_cours);
+                ed.setTextSize(14);
                 lc.addView(ed);
                 memory.add(ed);
             }
@@ -233,6 +291,26 @@ public class SettingsActivity extends BasicActivity {
                 return super.onOptionsItemSelected(item);
 
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    protected void onStop() {
+        super.onStop();
+        //Facebook login
+        accessTokenTracker.stopTracking();
+        profileTracker.stopTracking();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode,int responseCode,Intent intent) {
+        super.onActivityResult(requestCode,responseCode,intent);
+        //Facebook login
+        callbackManager.onActivityResult(requestCode,responseCode,intent);
+
     }
 
 }

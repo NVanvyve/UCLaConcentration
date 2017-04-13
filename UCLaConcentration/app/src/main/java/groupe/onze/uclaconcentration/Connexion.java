@@ -3,6 +3,7 @@ package groupe.onze.uclaconcentration;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -70,8 +71,6 @@ public class Connexion extends BasicActivity {
         profileTracker.startTracking();
 
 
-        LoginButton loginButton1 = (LoginButton) findViewById(R.id.login_button);
-
         LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
         FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
             @Override
@@ -101,7 +100,11 @@ public class Connexion extends BasicActivity {
         super.onResume();
         //Facebook login
         Profile profile = Profile.getCurrentProfile();
-        nextActivity(profile);
+        if (profile==null){
+            Log.i("FACE","Profil vide");
+        }else {
+            Log.i("FACE",profile.toString());
+        }nextActivity(profile);
     }
 
     @Override

@@ -87,4 +87,6 @@
     <string name="dialog_sport_2">it\'s time to take a break. Take advantage of this to win some Procastinacoins</string>
     <string name="dialog_sport_cancel" translatable="false">Snooze</string>
     <string name="dialog_sport_ok">Let\'s go!!</string>
+    <string name="Store_confession">UConfession : 10min</string>
+    <string name="Hello_face">Hello</string>
 </resources>

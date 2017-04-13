@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
+
+import com.facebook.Profile;
 
 /**
  * Created by nicolasvanvyve in avr. 2017.
@@ -60,4 +63,17 @@ public class Outils {
         }
         else return false;
     }
+
+    public static boolean checkFaceConnexion(){
+        Profile profile = Profile.getCurrentProfile();
+        if (profile==null){
+            Log.i("FACEBOOK","profile = null");
+            return false;
+        }
+        else{
+            Log.i("FACEBOOK",profile.toString());
+            return true;
+        }
+    }
+
 }

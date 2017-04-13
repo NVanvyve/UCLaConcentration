@@ -96,7 +96,7 @@
 
         <activity
             android:name=".Conf"
-            android:label="Test Confession"
+            android:label="UConfession"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

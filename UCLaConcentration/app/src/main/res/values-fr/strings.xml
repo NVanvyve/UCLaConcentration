@@ -66,4 +66,6 @@
     <string name="dialog_sport_1">"Vous étudiez depuis "</string>
     <string name="dialog_sport_2">il est temps de faire une petite pause. Profitez en pour gagner quelque Procastinacoins</string>
     <string name="dialog_sport_ok">C\'est parti !!</string>
+    <string name="Store_confession">UConfession : 10min</string>
+    <string name="Hello_face">Bonjour</string>
 </resources>
