@@ -47,7 +47,6 @@ public class MainActivity extends BasicActivity {
     int counterMemo;
 
     SharedPreferences.Editor mEditor;
-
     private SharedPreferences mPrefs;
 
     @Override
@@ -59,10 +58,13 @@ public class MainActivity extends BasicActivity {
 
         mContext = this;
 
-        Toast.makeText(mContext,"Pour les confession, il faut etre logger sur Face sinon ca plante pour le moment",Toast.LENGTH_SHORT).show();
-
         mPrefs = getSharedPreferences("label",0);
         mEditor = mPrefs.edit();
+
+        if(!mPrefs.getBoolean("tuto", false)){
+            Log.i("TUTO","Start");
+            startActivity(new Intent(this,Tuto.class));
+        }
 
         if (!mPrefs.getBoolean("graphical", true))
         {

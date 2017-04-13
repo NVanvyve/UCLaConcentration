@@ -98,6 +98,13 @@
                     android:layout_weight="1"
                     android:text="@string/menu_style"/>
 
+                <Switch
+                    android:id="@+id/tuto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Tuto next time"/>
+
                 <com.facebook.login.widget.LoginButton
                     android:id="@+id/loginButton_settings"
                     android:layout_width="wrap_content"

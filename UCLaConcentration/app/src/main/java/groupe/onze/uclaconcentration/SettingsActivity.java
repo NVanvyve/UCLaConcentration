@@ -37,8 +37,6 @@ public class SettingsActivity extends BasicActivity {
     SharedPreferences mPrefs;
     int sportLevel;
     private CallbackManager callbackManager;
-    private AccessTokenTracker accessTokenTracker;
-    private ProfileTracker profileTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,40 +57,21 @@ public class SettingsActivity extends BasicActivity {
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
-        accessTokenTracker = new AccessTokenTracker() {
-            @Override
-            protected void onCurrentAccessTokenChanged(AccessToken oldToken,AccessToken newToken) {
-            }
-        };
 
-        profileTracker = new ProfileTracker() {
-            @Override
-            protected void onCurrentProfileChanged(Profile oldProfile,Profile newProfile) {
-                //nextActivity(newProfile);
-            }
-        };
-        accessTokenTracker.startTracking();
-        profileTracker.startTracking();
         LoginButton loginButton = (LoginButton) findViewById(R.id.loginButton_settings);
         FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                AccessToken accessToken = loginResult.getAccessToken();
                 Profile profile = Profile.getCurrentProfile();
-                String text = getString(R.string.Hello_face) + " " + profile.getFirstName() + " " + profile.getLastName();
+                String text = getString(R.string.Hello_face) + " " + profile.getFirstName();
                 Toast.makeText(getApplicationContext(),text,Toast.LENGTH_SHORT).show();
             }
-
             @Override
-            public void onCancel() {
-            }
-
+            public void onCancel() {}
             @Override
-            public void onError(FacebookException e) {
-            }
+            public void onError(FacebookException e) {}
         };
         loginButton.setReadPermissions("public_profile");
-        loginButton.setReadPermissions("user_friends");
         loginButton.registerCallback(callbackManager,callback);
 
 
@@ -109,6 +88,22 @@ public class SettingsActivity extends BasicActivity {
             public void onCheckedChanged(CompoundButton compoundButton,boolean bChecked) {
                 SharedPreferences.Editor mEdit = mPrefs.edit();
                 mEdit.putBoolean("graphical",!mPrefs.getBoolean("graphical",true)).apply();
+            }
+        });
+
+        //Switch TUTO
+        Switch tuto = (Switch) findViewById(R.id.tuto);
+        assert tuto != null;
+        if (mPrefs.getBoolean("tuto",true)) {
+            tuto.setChecked(false);
+        } else {
+            tuto.setChecked(true);
+        }
+        tuto.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton,boolean bChecked) {
+                SharedPreferences.Editor mEdit = mPrefs.edit();
+                mEdit.putBoolean("tuto",!mPrefs.getBoolean("tuto",true)).apply();
             }
         });
 
@@ -293,17 +288,6 @@ public class SettingsActivity extends BasicActivity {
         }
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    protected void onStop() {
-        super.onStop();
-        //Facebook login
-        accessTokenTracker.stopTracking();
-        profileTracker.stopTracking();
-    }
 
     @Override
     protected void onActivityResult(int requestCode,int responseCode,Intent intent) {

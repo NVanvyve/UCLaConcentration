@@ -99,6 +99,10 @@
             android:label="UConfession"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".Tuto"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
