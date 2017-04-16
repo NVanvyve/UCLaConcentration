@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
  * Created by alexis on 13-03-17.
  */
 
+@SuppressWarnings("ALL")
 public class dayEventListDB extends DAOB {
     /* Nome de la table*/
     private final static String TABLE_CALENDRIER = "CALENDRIER";

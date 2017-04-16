@@ -27,4 +27,8 @@
         android:title="@string/help"
         app:showAsAction="never"/>
 
+    <item android:id="@+id/credits"
+          android:title="@string/credit_menu"
+          app:showAsAction="never"/>
+
 </menu>

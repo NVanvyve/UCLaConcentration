@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
  * Created by alexis on 13-03-17.
  */
 
+@SuppressWarnings("ALL")
 public abstract class DAOB {
     protected SQLiteDatabase database;
     protected accesDB handler;

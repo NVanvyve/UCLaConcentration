@@ -6,7 +6,7 @@
     <string name="description">Cette application a été crée par</string>
     <string name="serie20">Episode : 20 min</string>
     <string name="serie40">Episode : 40 min</string>
-    <string name="serie60">Episode : 60min</string>
+    <string name="serie60">Episode : 60 min</string>
     <string name="title_activity_calendar">Calendrier</string>
     <string name="title_activity_store">Magasin</string>
     <string name="title_activity_timer">Chronomètre</string>
@@ -35,7 +35,7 @@
     <string name="avertissement_pas_de_cours">Vous n\'avez pas défini vos cours. Rendez vous dans les paramètres afin de les saisir</string>
     <string name="action_favorite">Favoris</string>
     <string name="lack_money">Vous n\'avez pas assez d\'argent</string>
-    <string name="wait_purchase">Vous devez attendre 10 secondes entre 2 achats</string>
+    <string name="wait_purchase">"Vous devez attendre entre 2 achats. Encore "</string>
     <string name="save_back">Sauvegarder et Quitter</string>
     <string name="log_out">Déconnexion</string>
     <string name="autre_cours">Autre cours (LFSA1106)</string>
@@ -68,4 +68,26 @@
     <string name="dialog_sport_ok">C\'est parti !!</string>
     <string name="Store_confession">UConfession : 10min</string>
     <string name="Hello_face">Bonjour</string>
+    <string name="credits">Cette application a été développée par Alexis van den Bogaert, Julien Aigret, Nicolas Vanvyve et Sophie Madessis dans le cadre du cours LFSAB1509 Projet 4 en informatique au cours de l\'année 2016–17 à l\'Université Catholique de Louvain.</string>
+    <string name="credit_menu">Crédits</string>
+    <string name="wait_purchase2">avant le prochain.</string>
+    <string name="sell_avert_switch">Avertissement achat</string>
+    <string name="sell_and_mask">Acheter et ne plus me montrer cet avertissement</string>
+    <string name="achat">Achat</string>
+    <string name="dialog_conf_message">Vous n\'êtes pas connecter à Facebook. Vous ne pourrez donc pas voir les confessions. Rendez vous dans les paramètres pour vous connecter et revenez par après, ou retournez dans le Store. Aucun Procastinacoins n\'a été débiter pour le moment.</string>
+    <string name="dialog_conf_title">Avertissement</string>
+    <string name="dialog_sell_mess_1">"Vous êtes sur le point d'acheter une récompense pour "</string>
+    <string name="dialog_sell_mess_2">En cliquant sur \"</string>
+    <string name="dialog_sell_mess_3">\" votre solde sera débité et vous ne pourrez plus acheter d\'autres récompenses durant un temps proportionnel à durée cette récompense. Appuyez sur \"</string>
+    <string name="dialog_sell_mess_4">\" pour revenir au Store et annuler votre achat.</string>
+    <string name="dialog_conf_negative">Retour au Store</string>
+    <string name="dialog_conf_positive">Accéder aux paramètres</string>
+    <string name="no">Non</string>
+    <string name="yes">Oui</string>
+    <string name="skip">Passer</string>
+    <string name="next">Suivant</string>
+    <string name="prev">Précédent</string>
+    <string name="tuto_next_time">Tuto au prochain redémarage</string>
+    <string name="give_me_new_position">Nouvelle cible</string>
+    <string name="j_y_suis">J\'y suis</string>
 </resources>

@@ -43,7 +43,7 @@ public class ListEventActivity extends BasicActivity implements EventPersoAdapte
 
     public void onClickNom(EventPerso item, int position) {
 
-        Toast.makeText(getApplicationContext(), "Youpie", Toast.LENGTH_LONG);
+        //Toast.makeText(getApplicationContext(), "Youpie", Toast.LENGTH_LONG);
         finish();
     }
 

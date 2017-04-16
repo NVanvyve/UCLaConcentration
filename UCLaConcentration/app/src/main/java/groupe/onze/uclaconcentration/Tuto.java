@@ -15,9 +15,8 @@ import android.widget.ImageView;
 
 public class Tuto extends AppCompatActivity {
 
-    SharedPreferences.Editor mEditor;
-    private SharedPreferences mPrefs;
-    int i;
+    private SharedPreferences.Editor mEditor;
+    private int i;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,7 +31,7 @@ public class Tuto extends AppCompatActivity {
         assert next != null;
         assert skip != null;
 
-        mPrefs = getSharedPreferences("label",0);
+        SharedPreferences mPrefs = getSharedPreferences("label",0);
         mEditor = mPrefs.edit();
 
         final int[] image_tuto = {R.drawable.tuto_firstview,
@@ -62,7 +61,7 @@ public class Tuto extends AppCompatActivity {
             public void onClick(View v) {
                 i++;
                 if (i==image_tuto.length){
-                    mEditor.putBoolean("tuto",true).commit();
+                    mEditor.putBoolean("tuto",true).apply();
                     startActivity(new Intent(Tuto.this,MainActivity.class));
                 }
                 else{

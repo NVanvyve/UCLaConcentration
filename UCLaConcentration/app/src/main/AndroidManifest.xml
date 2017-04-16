@@ -35,20 +35,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AdeActivity"
+            android:name=".ADE"
             android:label="@string/title_activity_ade"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".Facebook_Activity"
-            android:label="Facebook"
-            android:launchMode="singleTask"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".Connexion"
-            android:label="Connexion à Facebook"
-            android:launchMode="singleTask"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" /><![CDATA[
         >
+        ]]>
         <activity
             android:name=".StoreActivity"
             android:label="@string/title_activity_store"
@@ -95,7 +86,7 @@
         </activity>
 
         <activity
-            android:name=".Conf"
+            android:name=".UConfessions"
             android:label="UConfession"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />

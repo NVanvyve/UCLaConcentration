@@ -23,7 +23,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="0.81">
 
             <LinearLayout
@@ -103,7 +103,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Tuto next time"/>
+                    android:text="@string/tuto_next_time"/>
+
+                <Switch
+                    android:id="@+id/sell_avert"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/sell_avert_switch"/>
 
                 <com.facebook.login.widget.LoginButton
                     android:id="@+id/loginButton_settings"

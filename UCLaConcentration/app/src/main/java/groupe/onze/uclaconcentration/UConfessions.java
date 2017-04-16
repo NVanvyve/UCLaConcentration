@@ -27,18 +27,18 @@ import org.json.JSONObject;
  * Created by nicolasvanvyve.
  */
 
-public class Conf extends BasicActivity {
+public class UConfessions extends BasicActivity {
 
-    String paging_token;
-    String message;
-    String until;
-    final String TAG = "CONF";
-    SharedPreferences mPrefs;
-    long conf_begin;
-    int time_limit;
-    boolean dialogOnScreen;
-    SharedPreferences.Editor mEditor;
-    int count_null;
+    private String paging_token;
+    private String message;
+    private String until;
+    private final String TAG = "CONF";
+    private SharedPreferences mPrefs;
+    private long conf_begin;
+    private int time_limit;
+    private boolean dialogOnScreen;
+    private SharedPreferences.Editor mEditor;
+    private int count_null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class Conf extends BasicActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        if (!Outils.checkFaceConnexion()){
+        if (Outils.checkFaceConnexion()){
             Toast.makeText(getApplicationContext(),"Vous n'etes pas connecter à Facebook.\n" +
                     "Normalement vous n'auriez jamais du acceder au UConfessions.\nTRICHEUR VA!! :)",Toast.LENGTH_LONG).show();
             //startActivity(new Intent(this,MainActivity.class));
@@ -104,7 +104,7 @@ public class Conf extends BasicActivity {
                     count_null++;
                     if (count_null==3){
                         Log.i(TAG,"3 times message=null");
-                        Intent s = new Intent(Conf.this,Conf.class);
+                        Intent s = new Intent(UConfessions.this,UConfessions.class);
                         s.putExtra("time_limit",finalTime_limit_init);
                         startActivity(s);
                     }
@@ -144,7 +144,7 @@ public class Conf extends BasicActivity {
             public void onClick(DialogInterface dialog,int id) {
                 dialogOnScreen = false;
                 Log.i(TAG,"Back to work");
-                startActivity(new Intent(Conf.this,MainActivity.class));
+                startActivity(new Intent(UConfessions.this,MainActivity.class));
             }
         });
 /*
@@ -159,7 +159,7 @@ public class Conf extends BasicActivity {
     }
 
     private void confRequest() {
-        if (!Outils.isConnectedInternet(Conf.this)) {
+        if (!Outils.isConnectedInternet(UConfessions.this)) {
             message = "No internet connection";
         } else {
             final String[] ret = new String[2];
@@ -250,10 +250,14 @@ public class Conf extends BasicActivity {
                 return true;
 
             case R.id.action_recompense:
-                Intent s = new Intent(Conf.this,StoreActivity.class);
+                Intent s = new Intent(UConfessions.this,StoreActivity.class);
                 finish();
                 startActivity(s);
 
+                return true;
+
+            case R.id.credits:
+                Outils.showCredits(this);
                 return true;
 
             default:
@@ -271,7 +275,7 @@ public class Conf extends BasicActivity {
 
     @Override
     public void finish() {
-        Intent s = new Intent(Conf.this,MainActivity.class);
+        Intent s = new Intent(UConfessions.this,MainActivity.class);
         startActivity(s);
     }
 

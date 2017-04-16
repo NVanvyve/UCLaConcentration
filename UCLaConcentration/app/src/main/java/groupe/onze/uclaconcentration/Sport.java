@@ -32,13 +32,13 @@ public class Sport extends BasicActivity {
 
 
     private Context mContext;
-    double newLocation[];
-    boolean already_define;
+    private double[] newLocation;
+    private boolean already_define;
 
-    SharedPreferences mPrefs;
-    public SharedPreferences.OnSharedPreferenceChangeListener prefListener;
-    int lvl;
-    MapFragment map;
+    private SharedPreferences mPrefs;
+    private SharedPreferences.OnSharedPreferenceChangeListener prefListener;
+    private int lvl;
+    private MapFragment map;
 
 
     @Override
@@ -57,8 +57,7 @@ public class Sport extends BasicActivity {
         FragmentManager fm = getSupportFragmentManager();
         List<android.support.v4.app.Fragment> fragments = fm.getFragments();
         map = (MapFragment) fragments.get(fragments.size() - 1);
-        if (fragments != null)
-            Log.i("FRAGMENT MANAGER","Fragments is non null");
+        Log.i("FRAGMENT MANAGER","Fragments is non null");
 
         newLocation = new double[2];
 
@@ -190,13 +189,13 @@ public class Sport extends BasicActivity {
     /**
      * Update le TimeViewer
      */
-    final Runnable myRunnable = new Runnable() {
+    private final Runnable myRunnable = new Runnable() {
         public void run() {
             //coord.setText("Your position : \nLat : " + latitude + "\nLong : " + longitude);
         }
     };
 
-    final Handler myHandler = new Handler();
+    private final Handler myHandler = new Handler();
 
     /**
      * Update TimeView grâce au Runnable
@@ -251,6 +250,10 @@ public class Sport extends BasicActivity {
                 Intent s = new Intent(this,StoreActivity.class);
                 finish();
                 startActivity(s);
+                return true;
+
+            case R.id.credits:
+                Outils.showCredits(this);
                 return true;
 
             default:

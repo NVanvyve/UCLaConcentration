@@ -41,17 +41,17 @@ public class GPSTracker extends Service {
     }
 
     // Flag for GPS status
-    boolean isGPSEnabled = false;
+    private boolean isGPSEnabled = false;
 
     // Flag for network status
-    boolean isNetworkEnabled = false;
+    private boolean isNetworkEnabled = false;
 
     // Flag for GPS status
-    boolean canGetLocation = false;
+    private boolean canGetLocation = false;
 
-    Location location; // Location
-    double latitude; // Latitude
-    double longitude; // Longitude
+    private Location location; // Location
+    private double latitude; // Latitude
+    private double longitude; // Longitude
 
     // The minimum distance to change Updates in meters
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 1000; // 10 meters
@@ -60,9 +60,9 @@ public class GPSTracker extends Service {
     private static final long MIN_TIME_BW_UPDATES = 1000 * 60; // 1 minute
 
     // Declaring a Location Manager
-    protected LocationManager locationManager;
+    private LocationManager locationManager;
 
-    Activity activity;
+    private Activity activity;
 
     public GPSTracker(Context context,Activity activity) {
         this.mContext = context;
@@ -71,7 +71,7 @@ public class GPSTracker extends Service {
     }
 
 
-    public Location getLocation() {
+    private Location getLocation() {
         try {
 
 
@@ -166,37 +166,13 @@ public class GPSTracker extends Service {
         }
     };
 
-    /**
-     * Function to get latitude
-     */
-    public double getLatitude() {
-        if (location != null) {
-            latitude = location.getLatitude();
-        }
-
-        // return latitude
-        return latitude;
-    }
-
-
-    /**
-     * Function to get longitude
-     */
-    public double getLongitude() {
-        if (location != null) {
-            longitude = location.getLongitude();
-        }
-
-        // return longitude
-        return longitude;
-    }
 
     /**
      * Function to check GPS/Wi-Fi enabled
      *
      * @return boolean
      */
-    public boolean canGetLocation() {
+    private boolean canGetLocation() {
         return this.canGetLocation;
     }
 
@@ -205,7 +181,7 @@ public class GPSTracker extends Service {
      * Function to show settings alert dialog.
      * On pressing the Settings button it will launch Settings Options.
      */
-    public void showSettingsAlert() {
+    private void showSettingsAlert() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
 
         // Setting Dialog Title
@@ -258,7 +234,7 @@ public class GPSTracker extends Service {
         return START_STICKY;
     }
 
-    public void startTimer() {
+    private void startTimer() {
         timer = new Timer();
         initializeTimerTask();// Initialisation du timer
         timer.schedule(timerTask,1000,1000); // Tâche à faire toutes les x
@@ -276,7 +252,7 @@ public class GPSTracker extends Service {
     /**
      * A faire toutes les x secondes
      */
-    public void initializeTimerTask() {
+    private void initializeTimerTask() {
         timerTask = new TimerTask() {
             public void run() {
                 Log.i("MAJ Position","Lat : "+latitude+" Longitude : "+longitude);
@@ -288,7 +264,7 @@ public class GPSTracker extends Service {
     /**
      * Stoppe le timer
      */
-    public void stoptimertask() {
+    private void stoptimertask() {
         //stop the timer, if it's not already null
         if (timer != null) {
             timer.cancel();

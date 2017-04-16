@@ -39,7 +39,7 @@
                 android:weightSum="1">
 
                 <Button
-                    android:text="Give me new position"
+                    android:text="@string/give_me_new_position"
                     android:layout_width="wrap_content"
                     android:id="@+id/new_position"
                     android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/jy_suis"
-                    android:text="J'y suis"
+                    android:text="@string/j_y_suis"
                     android:layout_weight="0.5"
                     />
             </LinearLayout>

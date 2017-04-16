@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
 import com.facebook.Profile;
@@ -12,7 +13,7 @@ import com.facebook.Profile;
  * Created by nicolasvanvyve in avr. 2017.
  */
 
-public class Outils {
+class Outils {
 
     public static String timeFormat(int time) {
         int min = 60;
@@ -52,8 +53,7 @@ public class Outils {
         return format;
     }
 
-    public static boolean isConnectedInternet(Activity activity)
-    {
+    public static boolean isConnectedInternet(Activity activity) {
         ConnectivityManager connectivityManager = (ConnectivityManager)activity.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         if (networkInfo != null)
@@ -68,12 +68,19 @@ public class Outils {
         Profile profile = Profile.getCurrentProfile();
         if (profile==null){
             Log.i("FACEBOOK","profile = null");
-            return false;
+            return true;
         }
         else{
             Log.i("FACEBOOK",profile.toString());
-            return true;
+            return false;
         }
     }
 
+    public static void showCredits(Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(R.string.credit_menu);
+        builder.setMessage(R.string.credits);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 }

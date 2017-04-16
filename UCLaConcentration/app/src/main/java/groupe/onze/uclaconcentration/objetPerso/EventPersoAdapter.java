@@ -49,14 +49,11 @@ public class EventPersoAdapter extends BaseAdapter {
     // Une liste de personnes
     private List<EventPerso> mListM;
 
-    //Le contexte dans lequel est présent notre adapter
-    private Context mContext;
-
     //Un mécanisme pour gérer l'affichage graphique depuis un layout XML
     private LayoutInflater mInflater;
 
     public EventPersoAdapter(Context context, List<EventPerso> aListM) {
-        mContext = context;
+        Context mContext = context;
         mListM = aListM;
         mInflater = LayoutInflater.from(mContext);
     }

@@ -14,18 +14,17 @@ import java.util.TimerTask;
 /**
  * Created by Sophie on 12/03/2017.
  */
+@SuppressWarnings("ALL")
 public class SensorService extends Service {
-    public int counter = 0;// Compteur
-    public int pauseCounter = 0;// compteur pour la pause
+    private int counter = 0;// Compteur
+    private int pauseCounter = 0;// compteur pour la pause
     String serviceName;
 
     /** Quid de ces Strings?? :) */
 
     public static final String TIMER_UPDATE = "com.client.gaitlink.AccelerationService.action.MOVEMENT_UPDATE";
     public static final String COUNTER = "com.client.gaitlink.AccelerationService.ACCELERATION_X";
-    public boolean onPause = false;
-
-    private SharedPreferences mPrefs;
+    private boolean onPause = false;
 
     /**
      * Méthode pour broadcast les messages aux activités
@@ -38,7 +37,7 @@ public class SensorService extends Service {
 
         if (!onPause)
         {
-            mPrefs = getSharedPreferences("label",0);
+            SharedPreferences mPrefs = getSharedPreferences("label",0);
             SharedPreferences.Editor mEditor = mPrefs.edit();
             mEditor.putInt("counterSeconds",time).apply();
         }
@@ -72,7 +71,7 @@ public class SensorService extends Service {
     private Timer timer;
     private TimerTask timerTask;
 
-    public void startTimer() {
+    private void startTimer() {
         timer = new Timer();
 
         initializeTimerTask();// Initialisation du timer
@@ -83,7 +82,7 @@ public class SensorService extends Service {
     /**
      * A faire toutes les x secondes
      */
-    public void initializeTimerTask() {
+    private void initializeTimerTask() {
         timerTask = new TimerTask() {
             public void run() {
                 if (!MainActivity.onPause) {
@@ -105,7 +104,7 @@ public class SensorService extends Service {
     /**
      * Stoppe le timer
      */
-    public void stoptimertask() {
+    private void stoptimertask() {
         //stop the timer, if it's not already null
         if (timer != null) {
             timer.cancel();

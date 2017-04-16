@@ -20,22 +20,22 @@ import android.widget.Toast;
 import android.widget.Button;
 
 public class DummyMenu extends BasicActivity {
-    TimerServiceReceiver timerReceiver;
-    int counter;
-    TextView tv;
-    public static boolean onPause = false;
-    Context mContext;
-    TextView typeTimer;
-    Button pause;
-    boolean dialogOnScreen;
+    private TimerServiceReceiver timerReceiver;
+    private int counter;
+    private TextView tv;
+    private static boolean onPause = false;
+    private Context mContext;
+    private TextView typeTimer;
+    private Button pause;
+    private boolean dialogOnScreen;
 
-    public final int PERIOD = 1;
-    public final int RATE = 10;
+    private final int PERIOD = 1;
+    private final int RATE = 10;
 
-    int lastSportTime;
-    int sportDelay ;
-    int sportSnooze ;
-    int counterMemo;
+    private int lastSportTime;
+    private int sportDelay ;
+    private int sportSnooze ;
+    private int counterMemo;
 
     private SharedPreferences mPrefs;
     private SharedPreferences.Editor mEditor;
@@ -146,7 +146,7 @@ public class DummyMenu extends BasicActivity {
         ade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent s = new Intent(DummyMenu.this,AdeActivity.class);
+                Intent s = new Intent(DummyMenu.this,ADE.class);
                 startActivity(s);
             }
         });
@@ -172,18 +172,6 @@ public class DummyMenu extends BasicActivity {
             }
         }); */
 
-        // Ne sert à rien
-        /*
-        Button face = (Button) findViewById(R.id.connexion_button);
-        assert face != null;
-        face.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent s = new Intent(MainActivity.this, Connexion.class);
-                startActivity(s);
-            }
-        });*/
-
 
         Button sport = (Button) findViewById(R.id.sport_button);
         assert sport != null;
@@ -202,7 +190,7 @@ public class DummyMenu extends BasicActivity {
     /**
      * Service de timer
      */
-    Intent mServiceIntent;
+    private Intent mServiceIntent;
     private SensorService mSensorService;
     Context ctx;
 
@@ -251,6 +239,10 @@ public class DummyMenu extends BasicActivity {
                     //Snackbar.make(findViewById(android.R.id.content), help[i],
                     //      Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 }
+                return true;
+
+            case R.id.credits:
+                Outils.showCredits(this);
                 return true;
 
             default:
@@ -310,13 +302,13 @@ public class DummyMenu extends BasicActivity {
     /**
      * Update le TimeViewer
      */
-    final Runnable myRunnable = new Runnable() {
+    private final Runnable myRunnable = new Runnable() {
         public void run() {
             tv.setText(Outils.timeFormat(counter));
         }
     };
 
-    final Handler myHandler = new Handler();
+    private final Handler myHandler = new Handler();
 
     /**
      * Update le TimeViewer du compteur grâce au Runnable

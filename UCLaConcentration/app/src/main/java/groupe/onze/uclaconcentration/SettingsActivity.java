@@ -19,23 +19,22 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.Profile;
-import com.facebook.ProfileTracker;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
 import java.util.LinkedList;
 
+import static com.facebook.FacebookSdk.sdkInitialize;
+
 public class SettingsActivity extends BasicActivity {
 
-    SharedPreferences mPrefs;
-    int sportLevel;
+    private SharedPreferences mPrefs;
+    private int sportLevel;
     private CallbackManager callbackManager;
 
     @Override
@@ -55,7 +54,8 @@ public class SettingsActivity extends BasicActivity {
 
         //Connexion Facebook
 
-        FacebookSdk.sdkInitialize(getApplicationContext());
+        //noinspection deprecation
+        sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
 
         LoginButton loginButton = (LoginButton) findViewById(R.id.loginButton_settings);
@@ -104,6 +104,22 @@ public class SettingsActivity extends BasicActivity {
             public void onCheckedChanged(CompoundButton compoundButton,boolean bChecked) {
                 SharedPreferences.Editor mEdit = mPrefs.edit();
                 mEdit.putBoolean("tuto",!mPrefs.getBoolean("tuto",true)).apply();
+            }
+        });
+
+        //Switch Avertissement vente
+        Switch avert = (Switch) findViewById(R.id.sell_avert);
+        assert avert != null;
+        if (mPrefs.getBoolean("SellAvert",true)) {
+            avert.setChecked(true);
+        } else {
+            avert.setChecked(false);
+        }
+        avert.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton,boolean bChecked) {
+                SharedPreferences.Editor mEdit = mPrefs.edit();
+                mEdit.putBoolean("SellAvert",!mPrefs.getBoolean("SellAvert",true)).apply();
             }
         });
 
@@ -225,7 +241,7 @@ public class SettingsActivity extends BasicActivity {
     }
 
 
-    public class CustomOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
+    private class CustomOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
 
         public void onItemSelected(AdapterView<?> parent,View view,int pos,
                                    long id) {
@@ -278,6 +294,10 @@ public class SettingsActivity extends BasicActivity {
 
             case R.id.action_recompense:
                 startActivity(new Intent(this,StoreActivity.class));
+                return true;
+
+            case R.id.credits:
+                Outils.showCredits(this);
                 return true;
 
             default:

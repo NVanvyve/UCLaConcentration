@@ -15,7 +15,7 @@ import android.widget.Toast;
  * Created by nicolasvanvyve in avr. 2017.
  */
 
-public class AdeActivity extends BasicActivity {
+public class ADE extends BasicActivity {
 
 
     @Override
@@ -96,6 +96,9 @@ public class AdeActivity extends BasicActivity {
                 Intent s = new Intent(this, StoreActivity.class);
                 finish();
                 startActivity(s);
+
+            case R.id.credits:
+                Outils.showCredits(this);
 
             default:
                 return super.onOptionsItemSelected(item);

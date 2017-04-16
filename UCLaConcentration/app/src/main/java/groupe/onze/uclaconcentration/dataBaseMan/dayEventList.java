@@ -8,6 +8,7 @@ import groupe.onze.uclaconcentration.objetPerso.EventPerso;
  * Created by alexis on 13-03-17.
  */
 
+@SuppressWarnings("ALL")
 public class dayEventList {
     /*variable classe */
     private ArrayList<EventPerso> EventList=null;

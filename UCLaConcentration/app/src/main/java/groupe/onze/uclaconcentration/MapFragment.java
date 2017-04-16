@@ -24,15 +24,15 @@ import com.google.android.gms.maps.model.MarkerOptions;
  */
 public class MapFragment extends Fragment {
 
-    MapView mMapView;
+    private MapView mMapView;
     private GoogleMap googleMap;
-    GPSTracker gps;
-    double latitude;
-    double longitude;
-    SharedPreferences mPrefs;
-    boolean already_define;
+    private GPSTracker gps;
+    private double latitude;
+    private double longitude;
+    private SharedPreferences mPrefs;
+    private boolean already_define;
 
-    Marker marker;
+    private Marker marker;
 
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {

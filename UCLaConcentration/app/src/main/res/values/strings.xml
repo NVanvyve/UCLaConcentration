@@ -20,7 +20,7 @@
     <string name="stop" translatable="false">Stop</string>
     <string name="pause_timer" translatable="false">Pause : </string>
     <string name="end_pause" translatable="false"> Pause time out</string>
-    <string name="coin_name" translatable="false">ProcrastinaCoins :</string>
+    <string name="coin_name" translatable="false">ProcrastinaCoins</string>
     <string name="timer_timer" translatable="false">Timer : </string>
     <string name="serie20">Serie : 20 min  </string>
     <string name="serie40">Serie : 40 min  </string>
@@ -49,7 +49,8 @@
     <string name="TIME_OUT" translatable="false">TIME OUT</string>
     <string name="more_10">More than 10 seconds</string>
     <string name="lack_money">You don\'t have enough money</string>
-    <string name="wait_purchase">You must wait 10 seconds between 2 purchases</string>
+    <string name="wait_purchase">You must wait between 2 purchases. Still </string>
+    <string name="wait_purchase2">before the next.</string>
     <string name="play" translatable="false">Play</string>
     <string name="ade" translatable="false">ADE</string>
     <string name="fb" translatable="false">Facebook</string>
@@ -89,4 +90,26 @@
     <string name="dialog_sport_ok">Let\'s go!!</string>
     <string name="Store_confession">UConfession : 10min</string>
     <string name="Hello_face">Hello</string>
+    <string name="credit_menu">Credits</string>
+    <string name="credits">This application was developed by Alexis van den Bogaert, Julien Aigret, Nicolas Vanvyve and Sophie Madessis as part of the course LFSAB1509 Project 4 in computer science during the year 2016–17 at Université Catholique de Louvain.</string>
+    <string name="UConf" translatable="false">UConfession</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="dialog_conf_positive">Go to settings</string>
+    <string name="dialog_conf_negative">Back to Store</string>
+    <string name="achat">Purchase</string>
+    <string name="dialog_conf_message">You are not logged in to Facebook. You will not be able to see the confessions. Go to the settings to log in and go back later, or go back to the Store. No Procastinacoins has been debited yet.</string>
+    <string name="dialog_conf_title">Warning</string>
+    <string name="dialog_sell_mess_1">"You are about to buy a reward for "</string>
+    <string name="dialog_sell_mess_2">By clicking \"</string>
+    <string name="dialog_sell_mess_3">\"your balance will be debited and you will not be able to purchase other rewards for a period proportional to the duration of this reward. Press \"</string>
+    <string name="dialog_sell_mess_4">\" To return to the Store and cancel your purchase.</string>
+    <string name="tuto_next_time">Tuto next restart</string>
+    <string name="next">Next</string>
+    <string name="give_me_new_position">Give me new position</string>
+    <string name="j_y_suis">I\'m there</string>
+    <string name="prev">Previous</string>
+    <string name="skip">Skip</string>
+    <string name="sell_and_mask">"Buy and no longer show me this warning "</string>
+    <string name="sell_avert_switch">Purchase warning</string>
 </resources>

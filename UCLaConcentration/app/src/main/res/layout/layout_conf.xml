@@ -30,13 +30,12 @@
                 android:id="@+id/next_conf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Next"/>
+                android:text="@string/next"/>
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="BUG"/>
+                android:layout_height="wrap_content"/>
         </LinearLayout>
     </ScrollView>
 

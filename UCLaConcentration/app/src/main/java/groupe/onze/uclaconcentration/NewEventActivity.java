@@ -73,13 +73,11 @@ public class NewEventActivity extends Activity {
             year_x = i;
             month_x = i1;
             day_x = i2;
-            StringBuffer sb = new StringBuffer();
-            sb.append(i);
-            sb.append("-");
-            sb.append(i1+1);
-            sb.append("-");
-            sb.append(i2);
-            String str1= sb.toString();
+            String str1= String.valueOf(i) +
+                    "-" +
+                    (i1 + 1) +
+                    "-" +
+                    i2;
             Log.v("ICIIIII",str1);
             String str2= "1994-06-22";
             EventPerso newEvent = new EventPerso(1, str1, "bonjour", new eventTime(8,30), new eventTime(9,30), "hehe");

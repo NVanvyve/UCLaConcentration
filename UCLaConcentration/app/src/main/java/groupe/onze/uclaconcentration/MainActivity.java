@@ -30,23 +30,23 @@ public class MainActivity extends BasicActivity {
 
     private String typeTimerString;
 
-    TimerServiceReceiver timerReceiver;
-    int counter;
-    TextView tv;
+    private TimerServiceReceiver timerReceiver;
+    private int counter;
+    private TextView tv;
     public static boolean onPause = false;
-    Context mContext;
-    TextView typeTimer;
-    boolean dialogOnScreen;
+    private Context mContext;
+    private TextView typeTimer;
+    private boolean dialogOnScreen;
 
-    public final int PERIOD = 1;
-    public final int RATE = 10;
+    private final int PERIOD = 1;
+    private final int RATE = 10;
 
-    int lastSportTime;
-    int sportDelay;
-    int sportSnooze;
-    int counterMemo;
+    private int lastSportTime;
+    private int sportDelay;
+    private int sportSnooze;
+    private int counterMemo;
 
-    SharedPreferences.Editor mEditor;
+    private SharedPreferences.Editor mEditor;
     private SharedPreferences mPrefs;
 
     @Override
@@ -146,7 +146,7 @@ public class MainActivity extends BasicActivity {
 
     }
 
-    public void launch(int pos) {
+    private void launch(int pos) {
         Context context = mContext;
         Intent s;
         switch (pos) {
@@ -192,7 +192,7 @@ public class MainActivity extends BasicActivity {
                 onStart();
                 break;
             case 2:
-                s = new Intent(MainActivity.this,AdeActivity.class);
+                s = new Intent(MainActivity.this,ADE.class);
                 startActivity(s);
                 break;
             case 3:
@@ -219,7 +219,7 @@ public class MainActivity extends BasicActivity {
     /**
      * Service de timer
      */
-    Intent mServiceIntent;
+    private Intent mServiceIntent;
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
@@ -262,6 +262,9 @@ public class MainActivity extends BasicActivity {
                 for (String helpString: help) {
                     Toast.makeText(this ,helpString ,Toast.LENGTH_LONG).show();
                 }
+                return true;
+            case R.id.credits:
+                Outils.showCredits(this);
                 return true;
 
             default:
@@ -321,13 +324,13 @@ public class MainActivity extends BasicActivity {
     /**
      * Update le TimeViewer
      */
-    final Runnable myRunnable = new Runnable() {
+    private final Runnable myRunnable = new Runnable() {
         public void run() {
             tv.setText(Outils.timeFormat(counter));
         }
     };
 
-    final Handler myHandler = new Handler();
+    private final Handler myHandler = new Handler();
 
     /**
      * Update le TimeViewer du compteur grâce au Runnable

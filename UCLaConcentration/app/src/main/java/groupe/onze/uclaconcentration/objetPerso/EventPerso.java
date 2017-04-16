@@ -10,17 +10,18 @@ import java.util.Date;
  * Created by alexis on 11-03-17.
  */
 
+@SuppressWarnings("ALL")
 public class EventPerso {
     /* variable de classe */
-    int _id;
+    private int _id;
      String _eventDate;
-     String _eventName;
-     String _eventDescr;
-     eventTime _heureDeb;
-    eventTime _heureFin;
+     private String _eventName;
+     private String _eventDescr;
+     private eventTime _heureDeb;
+    private eventTime _heureFin;
 
-    public static final String DATE_FORMAT_NOW = "yyyy-MM-dd";
-    public static final DateFormat dateFormat= new SimpleDateFormat(DATE_FORMAT_NOW);
+    private static final String DATE_FORMAT_NOW = "yyyy-MM-dd";
+    private static final DateFormat dateFormat= new SimpleDateFormat(DATE_FORMAT_NOW);
 
     public EventPerso(){
         _eventDate=null;

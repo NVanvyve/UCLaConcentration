@@ -29,20 +29,20 @@ import static android.content.ContentValues.TAG;
    int minutes = mPrefs.getInt("counterMinutes", "0");
 * */
 public class TimerActivity extends AppCompatActivity {
-    MenuItem countdownTimer;
+    private MenuItem countdownTimer;
     private BroadcastReceiver uiUpdated;
-    TextView timerTextView;
+    private TextView timerTextView;
     TextView textView2;
-    int seconds;
-    int minutes;
-    long startTime = 0;
-    SharedPreferences mPrefs;
-    Context context;
+    private int seconds;
+    private int minutes;
+    private long startTime = 0;
+    private SharedPreferences mPrefs;
+    private Context context;
     //runs without a timer by reposting this handler at the end of the runnable
-    Handler timerHandler = new Handler();
-    int procraCoins = 0;
-    final int RATE = 100;  // Coins per seconds
-    Runnable timerRunnable = new Runnable() {
+    private Handler timerHandler = new Handler();
+    private int procraCoins = 0;
+    private final int RATE = 100;  // Coins per seconds
+    private Runnable timerRunnable = new Runnable() {
 
         @Override
         public void run() {
@@ -143,7 +143,7 @@ public class TimerActivity extends AppCompatActivity {
         });
     }
 
-    public void addCoins() {
+    private void addCoins() {
         mPrefs = getSharedPreferences("label",0);
         int seconds = mPrefs.getInt("counterSeconds",0) + 60 * mPrefs.getInt("counterMinutes",0);
         seconds++;

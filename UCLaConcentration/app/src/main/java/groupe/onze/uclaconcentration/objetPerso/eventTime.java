@@ -7,10 +7,11 @@ package groupe.onze.uclaconcentration.objetPerso;
 crée un objet temps qui ne se préocuppe que des heures et des minutes
  */
 
+@SuppressWarnings("ALL")
 public class eventTime {
     /* Variable de classe */
-    int heure=0;
-    int minute=0;
+    private int heure=0;
+    private int minute=0;
     /*
     constructeur
      */

@@ -1,7 +1,7 @@
 package groupe.onze.uclaconcentration;
 
-/**
- * Created by jaigret on 28/03/17.
+/*
+  Created by jaigret on 28/03/17.
  */
 
 import android.content.Context;
@@ -12,30 +12,13 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
-public class ImageAdapter extends BaseAdapter {
+class ImageAdapter extends BaseAdapter {
     private Context mContext;
     private int sizeBig;
     private int sizeSmall;
     private int sizeAverage;
     private int play;
     private int pause;
-
-    // Constructor
-    public ImageAdapter(Context c) {
-        mContext = c;
-        play = R.drawable.play;
-        pause = R.drawable.pause_1;
-
-        mThumbIds[0] = play;
-        mThumbIds[1] = pause;
-
-        sizeBig = 700;
-        sizeAverage = 400;
-        sizeSmall = 200;
-        Log.i("SIZE INITIALISATIN ", "SMALL : " + sizeSmall + " AVERAGE : " + sizeAverage + " BIG : " + sizeBig);
-
-
-    }
 
 
     public ImageAdapter(Context c, boolean onPlay, boolean onPause, int width) {
