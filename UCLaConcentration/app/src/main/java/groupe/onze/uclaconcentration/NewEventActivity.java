@@ -27,6 +27,7 @@ public class NewEventActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MainActivity.isInBackground=false;
         setContentView(R.layout.event_add);
         showDialogOnButtonClick();
 
@@ -88,5 +89,24 @@ public class NewEventActivity extends Activity {
         }
     };
 
-
+    @Override
+    public void onPause(){
+        MainActivity.isInBackground=true;
+        super.onPause();
+    }
+    @Override
+    public void onDestroy(){
+        MainActivity.isInBackground=true;
+        super.onDestroy();
+    }
+    @Override
+    public void onResume(){
+        MainActivity.isInBackground=false;
+        super.onResume();
+    }
+    @Override
+    public void onStop(){
+        MainActivity.isInBackground=true;
+        super.onStop();
+    }
 }

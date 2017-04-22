@@ -22,6 +22,7 @@ public class Tuto extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_tuto);
+        MainActivity.isInBackground=false;
 
         final ImageView screenImage = (ImageView) findViewById(R.id.screen);
         final Button prev = (Button) findViewById(R.id.prev_button);
@@ -80,5 +81,25 @@ public class Tuto extends AppCompatActivity {
             }
         });
 
+    }
+    @Override
+    public void onPause(){
+        MainActivity.isInBackground=true;
+        super.onPause();
+    }
+    @Override
+    public void onDestroy(){
+        MainActivity.isInBackground=true;
+        super.onDestroy();
+    }
+    @Override
+    public void onResume(){
+        MainActivity.isInBackground=false;
+        super.onResume();
+    }
+    @Override
+    public void onStop(){
+        MainActivity.isInBackground=true;
+        super.onStop();
     }
 }

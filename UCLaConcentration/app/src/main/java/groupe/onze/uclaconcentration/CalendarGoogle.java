@@ -91,6 +91,7 @@ public class CalendarGoogle extends AppCompatActivity implements EasyPermissions
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MainActivity.isInBackground=false;
         //mPrefs = getSharedPreferences("label", 0);
         //boolean test = mPrefs.getBoolean("GoogleLinkedAccount", false);
 
@@ -148,6 +149,26 @@ public class CalendarGoogle extends AppCompatActivity implements EasyPermissions
         t.commit();
 
 
+    }
+    @Override
+    public void onPause(){
+        MainActivity.isInBackground=true;
+        super.onPause();
+    }
+    @Override
+    public void onDestroy(){
+        MainActivity.isInBackground=true;
+        super.onDestroy();
+    }
+    @Override
+    public void onResume(){
+        MainActivity.isInBackground=false;
+        super.onResume();
+    }
+    @Override
+    public void onStop(){
+        MainActivity.isInBackground=true;
+        super.onStop();
     }
 
     // Setup listener

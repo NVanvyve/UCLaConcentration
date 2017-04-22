@@ -34,6 +34,7 @@ public class MainActivity extends BasicActivity {
     private int counter;
     private TextView tv;
     public static boolean onPause = false;
+    public static boolean isInBackground=false;
     private Context mContext;
     private TextView typeTimer;
     private boolean dialogOnScreen;
@@ -55,6 +56,7 @@ public class MainActivity extends BasicActivity {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
+        isInBackground=false;
 
         mContext = this;
 
@@ -109,7 +111,7 @@ public class MainActivity extends BasicActivity {
     public void onStart() {
         super.onStart();
         setContentView(R.layout.activity_main);
-
+        isInBackground=false;
         if (!mPrefs.getBoolean("graphical", true))
         {
             Intent s = new Intent(this, DummyMenu.class);
@@ -149,6 +151,7 @@ public class MainActivity extends BasicActivity {
     private void launch(int pos) {
         Context context = mContext;
         Intent s;
+        isInBackground=false;
         switch (pos) {
             case 0:
                 onPlay = !onPlay;
@@ -201,13 +204,13 @@ public class MainActivity extends BasicActivity {
                 break;
             case 4:
                 s = new Intent(MainActivity.this,StoreActivity.class);
-                miseEnPause();
+                //miseEnPause();
                 startActivity(s);
                 break;
             case 5:
-                miseEnPause();
+                //miseEnPause();
                 s = new Intent(MainActivity.this,Sport.class);
-                miseEnPause();
+                //miseEnPause();
                 startActivity(s);
                 break;
             default:
@@ -291,6 +294,7 @@ public class MainActivity extends BasicActivity {
             e.printStackTrace();
         }
         Log.i("MAINACT","onDestroy!");
+        isInBackground=true;
         super.onDestroy();
 
     }
@@ -305,6 +309,7 @@ public class MainActivity extends BasicActivity {
      */
     @Override
     public void onResume() {
+        isInBackground=false;
         IntentFilter movementFilter;
         movementFilter = new IntentFilter(SensorService.TIMER_UPDATE);
         timerReceiver = new TimerServiceReceiver();
@@ -318,9 +323,18 @@ public class MainActivity extends BasicActivity {
             startActivity(s);
             finish();
         }
-
+        isInBackground=false;
     }
-
+    @Override
+    public void onPause(){
+        //MainActivity.isInBackground=true;
+        super.onPause();
+    }
+    @Override
+    public void onStop(){
+        //MainActivity.isInBackground=true;
+        super.onStop();
+    }
     /**
      * Update le TimeViewer
      */
@@ -337,6 +351,7 @@ public class MainActivity extends BasicActivity {
      */
     private void UpdateGUI() {
         myHandler.post(myRunnable);
+        isInBackground=false;
     }
 
     //----------------

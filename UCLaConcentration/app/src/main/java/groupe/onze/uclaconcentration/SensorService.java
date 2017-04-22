@@ -47,10 +47,12 @@ public class SensorService extends Service {
     public SensorService(Context context) {
         super();
         Log.i("HERE","here I am!");
+        MainActivity.isInBackground=false;
     }
 
     public SensorService() {
         super();
+        MainActivity.isInBackground=false;
     }
 
     @Override
@@ -86,11 +88,17 @@ public class SensorService extends Service {
         timerTask = new TimerTask() {
             public void run() {
                 if (!MainActivity.onPause) {
+                    if(counter%2==0){
+                        while(MainActivity.isInBackground){}
+                    }
                     Log.i("in timer","in timer ++++  " + counter);
                     announceTimerChanges(counter);//Envoie à l'activité l'état du compteur
                     counter++;//Incrémentation du compteur
                     pauseCounter = 0;
                 } else {
+                    if(pauseCounter%2==0){
+                        while(MainActivity.isInBackground){}
+                    }
                     Log.i("in pause","in pause ++++  " + pauseCounter);
                     announceTimerChanges(pauseCounter);//Envoie à l'activité l'état du compteur
                     pauseCounter++;//Incrémentation du compteur

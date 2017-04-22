@@ -28,6 +28,7 @@ public class ADE extends BasicActivity {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_ade);
+        MainActivity.isInBackground=false;
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -111,5 +112,26 @@ public class ADE extends BasicActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    public void onPause(){
+        MainActivity.isInBackground=true;
+        super.onPause();
+    }
+    @Override
+    public void onDestroy(){
+        MainActivity.isInBackground=true;
+        super.onDestroy();
+    }
+    @Override
+    public void onResume(){
+        MainActivity.isInBackground=false;
+        super.onResume();
+    }
+    @Override
+    public void onStop(){
+        MainActivity.isInBackground=true;
+        super.onStop();
     }
 }

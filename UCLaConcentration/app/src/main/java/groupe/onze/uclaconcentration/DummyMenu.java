@@ -47,6 +47,7 @@ public class DummyMenu extends BasicActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dummy_menu);
+        MainActivity.isInBackground=false;
 
         mPrefs = getSharedPreferences("label",0);
         mEditor = mPrefs.edit();
@@ -108,15 +109,15 @@ public class DummyMenu extends BasicActivity {
             @Override
             public void onClick(View v) {
                 if (isMyServiceRunning(SensorService.class)) {
-                    if (!onPause) {
+                    if (!MainActivity.onPause) {
                         Toast.makeText(mContext,getResources().getString(R.string.pausing_chrono),Toast.LENGTH_LONG).show();
-                        onPause = true;
+                        MainActivity.onPause = true;
                         typeTimer.setText(R.string.pause_timer);
                         tv.setText(" ");
                         pause.setText(R.string.resume);
                     } else {
                         Toast.makeText(mContext,getResources().getString(R.string.resuming_chrono),Toast.LENGTH_LONG).show();
-                        onPause = false;
+                        MainActivity.onPause = false;
                         tv.setText(" ");
                         typeTimer.setText(R.string.timer_timer);
                         pause.setText(R.string.pause);
@@ -269,6 +270,7 @@ public class DummyMenu extends BasicActivity {
             e.printStackTrace();
         }
         Log.i("MAINACT","onDestroy!");
+       // MainActivity.isInBackground=true;
         super.onDestroy();
 
     }
@@ -287,6 +289,7 @@ public class DummyMenu extends BasicActivity {
         movementFilter = new IntentFilter(SensorService.TIMER_UPDATE);
         timerReceiver = new TimerServiceReceiver();
         registerReceiver(timerReceiver,movementFilter);
+        MainActivity.isInBackground=false;
 
         super.onResume();
 
@@ -297,6 +300,16 @@ public class DummyMenu extends BasicActivity {
             finish();
         }
 
+    }
+    @Override
+    public void onPause(){
+        //MainActivity.isInBackground=true;
+        super.onPause();
+    }
+    @Override
+    public void onStop(){
+        //MainActivity.isInBackground=true;
+        super.onStop();
     }
 
     /**

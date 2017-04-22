@@ -98,18 +98,21 @@ public class MapFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        MainActivity.isInBackground=false;
         mMapView.onResume();
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MainActivity.isInBackground=true;
         mMapView.onPause();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        MainActivity.isInBackground=true;
         mMapView.onDestroy();
     }
 

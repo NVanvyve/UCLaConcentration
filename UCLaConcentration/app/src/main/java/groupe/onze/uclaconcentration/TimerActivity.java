@@ -68,6 +68,7 @@ public class TimerActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         countdownTimer = menu.findItem(R.id.action_favorite);
+
         return true;
     }
 
@@ -78,7 +79,7 @@ public class TimerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_timer);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-
+        MainActivity.isInBackground=false;
 
 /////////////////////
 
@@ -156,12 +157,14 @@ public class TimerActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+        MainActivity.isInBackground=false;
         Log.v(TAG,"++ ON START ++");
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        MainActivity.isInBackground=false;
         Log.v(TAG,"+ ON RESUME +");
     }
 
@@ -169,18 +172,21 @@ public class TimerActivity extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
+        MainActivity.isInBackground=true;
         Log.v(TAG,"-- ON STOP --");
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        MainActivity.isInBackground=true;
         Log.v(TAG,"- ON DESTROY -");
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MainActivity.isInBackground=true;
         Log.v(TAG,"- ON PAUSE -");
         timerHandler.removeCallbacks(timerRunnable);
         Button b = (Button) findViewById(R.id.buttonTimer);
