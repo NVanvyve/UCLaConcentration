@@ -233,15 +233,6 @@ public class DummyMenu extends BasicActivity {
                 startActivity(s);
                 return true;
 
-            case R.id.help:
-                String help[] = getResources().getStringArray(R.array.help_main);
-                for (String aHelp : help) {
-                    Toast.makeText(this,aHelp,Toast.LENGTH_LONG).show();
-                    //Snackbar.make(findViewById(android.R.id.content), help[i],
-                    //      Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                }
-                return true;
-
             case R.id.credits:
                 Outils.showCredits(this);
                 return true;

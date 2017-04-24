@@ -260,12 +260,6 @@ public class MainActivity extends BasicActivity {
                 startActivity(s);
                 return true;
 
-            case R.id.help:
-                String help[] = getResources().getStringArray(R.array.help_main);
-                for (String helpString: help) {
-                    Toast.makeText(this ,helpString ,Toast.LENGTH_LONG).show();
-                }
-                return true;
             case R.id.credits:
                 Outils.showCredits(this);
                 return true;
