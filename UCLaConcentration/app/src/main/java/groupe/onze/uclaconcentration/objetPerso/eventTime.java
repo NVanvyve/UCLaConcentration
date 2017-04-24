@@ -26,6 +26,7 @@ public class eventTime {
             this.heure+=heure;
         }
     }
+
 /* Getters */
     public int getHeure() {
         return heure;

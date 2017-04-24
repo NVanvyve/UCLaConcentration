@@ -7,6 +7,9 @@
     <string name="serie20">Episode : 20 min</string>
     <string name="serie40">Episode : 40 min</string>
     <string name="serie60">Episode : 60 min</string>
+    <string name="newEvent">Nouvel Evénement</string>
+    <string name="event">Evénement</string>
+    <string name="events">Liste des événement</string>
     <string name="title_activity_calendar">Calendrier</string>
     <string name="title_activity_store">Magasin</string>
     <string name="title_activity_timer">Chronomètre</string>

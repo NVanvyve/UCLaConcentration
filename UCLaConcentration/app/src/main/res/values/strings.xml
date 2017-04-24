@@ -18,6 +18,7 @@
     <string name="no_timer_active">No timer running</string>
     <string name="resume" translatable="false">Resume</string>
     <string name="stop" translatable="false">Stop</string>
+    <string name="newEvent">New Event</string>
     <string name="pause_timer" translatable="false">Pause : </string>
     <string name="end_pause" translatable="false"> Pause time out</string>
     <string name="coin_name" translatable="false">ProcrastinaCoins</string>
@@ -56,6 +57,7 @@
     <string name="fb" translatable="false">Facebook</string>
     <string name="save_back">Save and Back</string>
     <string name="log_out">Logout</string>
+    <string name="events">List of events</string>
     <string name="autre_cours">Other course (LFSA1106)</string>
     <string name="programme">Program (FSA13BA)</string>
     <string name="majeure">Major (MajInfo13)</string>
@@ -71,6 +73,7 @@
         <item>To earn Procrastinacoins by moving, go in Sport</item>
     </string-array>
     <string name="log_in">Logging in …</string>
+    <string name="event">Event</string>
     <string name="sport_menu" translatable="false">Sport</string>
     <string name="sport_activity" translatable="false">Sport</string>
     <string name="your_sport_level">Your sport level is : </string>

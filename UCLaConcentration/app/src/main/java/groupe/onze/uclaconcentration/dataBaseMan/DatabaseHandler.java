@@ -88,7 +88,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         // Inserting Row
         db.insert(TABLE_EVENT, null, values);
-        Log.v("YOUPIIIIIII", event.getId()+event.getEventDate());
+        Log.v("YOUPIIIIIII", event.getEventDate());
         db.close(); // Closing database connection
     }
 /*
@@ -203,6 +203,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         // return person list
         return rdvList;
+    }
+
+    // Deleting single person
+    public void deleteEvent(Integer id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_EVENT, KEY_ID + " = ?",
+                new String[]{String.valueOf(id)});
+        db.close();
     }
 
 
