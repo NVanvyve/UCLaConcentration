@@ -91,12 +91,14 @@
 
                 </LinearLayout>
 
+<!--
                 <Switch
                     android:id="@+id/switch_menu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/menu_style"/>
+-->
 
                 <Switch
                     android:id="@+id/tuto"

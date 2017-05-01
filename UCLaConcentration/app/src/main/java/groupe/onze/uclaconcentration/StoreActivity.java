@@ -42,8 +42,7 @@ public class StoreActivity extends BasicActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         money = (TextView) findViewById(R.id.var_coin);
-        Button more = (Button) findViewById(R.id.moremoney);
-        Button reset = (Button) findViewById(R.id.reset_button);
+
 
         // Récupération de la mémoire
         mPrefs = getSharedPreferences("label",0);
@@ -53,8 +52,13 @@ public class StoreActivity extends BasicActivity {
         money.setText(": " + procraCoins + " P");
         mEditor = mPrefs.edit();
 
+        /*
         //////////////////////////////////////////////////////////////////////////////
         //DEBUG
+
+        Button more = (Button) findViewById(R.id.moremoney);
+        Button reset = (Button) findViewById(R.id.reset_button);
+
         rand = new Random(System.currentTimeMillis());
         more.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +78,7 @@ public class StoreActivity extends BasicActivity {
             }
         });
         //////////////////////////////////////////////////////////////////////////////
+        */
 
         // Récompenses 
         // Boutons et Prix associés
@@ -89,10 +94,10 @@ public class StoreActivity extends BasicActivity {
         conf_tv.setText("UConfession " + confDuration + " min");
 
         final int[] CostList = {
-                150,
-                350,
-                600,
-                15 * confDuration};
+                60,
+                130,
+                200,
+                6 * confDuration};
 
         // Initialisation des prix sur les boutons
         for (int i = 0; i < ButtonList.length; i++) {
@@ -121,10 +126,10 @@ public class StoreActivity extends BasicActivity {
         ButtonList[3].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sell(CostList[3],confDuration,true);
+                //sell(CostList[3],confDuration,true);
+                Toast.makeText(getApplicationContext(),"Indisponible pour le moment, Facebook vient de faire une mise à jour",Toast.LENGTH_LONG).show();
             }
         });
-
 
     }
     @Override

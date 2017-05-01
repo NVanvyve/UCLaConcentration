@@ -58,7 +58,7 @@
 
             </LinearLayout>
 
-            <Button
+        <!--    <Button
                 android:text="Give Me MORE!!"
                 android:layout_width="match_parent"
                 android:layout_marginTop="34dp"
@@ -66,7 +66,7 @@
                 android:textSize="30sp"
                 android:textStyle="normal|bold"
                 android:background="@color/colorAccent"
-                android:layout_height="100sp" />
+                android:layout_height="100sp" />-->
 
             <Space
                 android:layout_width="match_parent"
@@ -165,12 +165,12 @@
                 </LinearLayout>
             </ScrollView>
 
-            <Button
+<!--            <Button
                 android:text="Reset"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/reset_button"
-                android:textAlignment="center" />
+                android:textAlignment="center" />-->
         </LinearLayout>
     </ScrollView>
 

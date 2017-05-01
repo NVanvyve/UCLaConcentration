@@ -44,7 +44,7 @@ public class UConfessions extends BasicActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_conf);
-        MainActivity.isInBackground=false;
+        MainActivity.isInBackground = false;
 
         final Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -52,7 +52,7 @@ public class UConfessions extends BasicActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        if (Outils.checkFaceConnexion()){
+        if (Outils.checkFaceConnexion()) {
             Toast.makeText(getApplicationContext(),"Vous n'etes pas connecter à Facebook.\n" +
                     "Normalement vous n'auriez jamais du acceder au UConfessions.\nTRICHEUR VA!! :)",Toast.LENGTH_LONG).show();
             //startActivity(new Intent(this,MainActivity.class));
@@ -63,6 +63,8 @@ public class UConfessions extends BasicActivity {
 
         dialogOnScreen = false;
         count_null = 0;
+
+        Log.i(TAG,"A");
 
         int time_limit_init = 0;
         Bundle bundle = getIntent().getExtras();
@@ -75,6 +77,7 @@ public class UConfessions extends BasicActivity {
 
         conf_begin = mPrefs.getLong("conf_begin",System.currentTimeMillis());
 
+        Log.i(TAG,"B");
 
         paging_token = null;
         until = null;
@@ -82,10 +85,11 @@ public class UConfessions extends BasicActivity {
 
         Log.i(TAG,"-------------------------------------------------------------------------");
         Log.i(TAG,"message = " + message);
-        //Log.i(TAG,"token = " + paging_token);
-        //Log.i(TAG,"until = " + until);
         confRequest();
         conf_tv.setText(message);
+
+
+        Log.i(TAG,"C");
 
 
         Button new_conf = (Button) findViewById(R.id.next_conf);
@@ -94,27 +98,31 @@ public class UConfessions extends BasicActivity {
         new_conf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(TAG,"-------------------------------------------------------------------------");
-                Log.i(TAG,"message = " + message);
-                Log.i(TAG,"token = " + paging_token);
-                Log.i(TAG,"until = " + until);
-                confRequest();
+                try {
+                    Log.i(TAG,"-------------------------------------------------------------------------");
+                    Log.i(TAG,"message = " + message);
+                    Log.i(TAG,"token = " + paging_token);
+                    Log.i(TAG,"until = " + until);
+                    confRequest();
 
-                //Reload activity if request fail
-                if (message==null){
-                    count_null++;
-                    if (count_null==3){
-                        Log.i(TAG,"3 times message=null");
-                        Intent s = new Intent(UConfessions.this,UConfessions.class);
-                        s.putExtra("time_limit",finalTime_limit_init);
-                        startActivity(s);
+                    //Reload activity if request fail too much
+                    if (message == null) {
+                        count_null++;
+                        if (count_null == 3) {
+                            Log.i(TAG,"3 times message=null");
+                            Intent s = new Intent(UConfessions.this,UConfessions.class);
+                            s.putExtra("time_limit",finalTime_limit_init);
+                            startActivity(s);
+                        }
+                    } else {
+                        count_null = 0;
                     }
-                }else {
-                    count_null = 0;
-                }
 
-                conf_tv.setText(message);
-                checkTime();
+                    conf_tv.setText(message);
+                    checkTime();
+                } catch (Exception e) {
+                    Log.e(TAG,e.getMessage());
+                }
             }
         });
 
@@ -160,23 +168,26 @@ public class UConfessions extends BasicActivity {
     }
 
     @Override
-    public void onPause(){
-        MainActivity.isInBackground=true;
+    public void onPause() {
+        MainActivity.isInBackground = true;
         super.onPause();
     }
+
     @Override
-    public void onDestroy(){
-        MainActivity.isInBackground=true;
+    public void onDestroy() {
+        MainActivity.isInBackground = true;
         super.onDestroy();
     }
+
     @Override
-    public void onResume(){
-        MainActivity.isInBackground=false;
+    public void onResume() {
+        MainActivity.isInBackground = false;
         super.onResume();
     }
+
     @Override
-    public void onStop(){
-        MainActivity.isInBackground=true;
+    public void onStop() {
+        MainActivity.isInBackground = true;
         super.onStop();
     }
 

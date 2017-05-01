@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -75,23 +76,6 @@ public class SettingsActivity extends BasicActivity {
         loginButton.setReadPermissions("public_profile");
         loginButton.registerCallback(callbackManager,callback);
 
-
-        //Switch menu graphique
-        Switch typeOfMenu = (Switch) findViewById(R.id.switch_menu);
-        assert typeOfMenu != null;
-        if (mPrefs.getBoolean("graphical",true)) {
-            typeOfMenu.setChecked(true);
-        } else {
-            typeOfMenu.setChecked(false);
-        }
-        typeOfMenu.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton,boolean bChecked) {
-                SharedPreferences.Editor mEdit = mPrefs.edit();
-                mEdit.putBoolean("graphical",!mPrefs.getBoolean("graphical",true)).apply();
-            }
-        });
-
         //Switch TUTO
         Switch tuto = (Switch) findViewById(R.id.tuto);
         assert tuto != null;
@@ -154,7 +138,7 @@ public class SettingsActivity extends BasicActivity {
 
         //Chargement des cours supplémentaires précedement enregistrés
         String save_string = mPrefs.getString("cours_supp",null);
-        if (save_string != null) {
+        if (save_string != null && !save_string.equals("")) {
             String delim = ",";
             String[] codes = save_string.split(delim);
             for (String code : codes) {
@@ -219,6 +203,7 @@ public class SettingsActivity extends BasicActivity {
                     String content = temp.getText().toString();
                     if (content.matches("^[a-zA-Z0-9_]+$")) {
                         if (!temp.getText().toString().equals("")) {
+                            Log.i("Settings",temp.getText().toString());
                             cours_supp += temp.getText().toString() + ",";
                         }
                     } else {
@@ -226,7 +211,10 @@ public class SettingsActivity extends BasicActivity {
                     }
 
                 }
-                cours_supp = cours_supp.substring(0,cours_supp.length() - 1);
+                if (!cours_supp.equals("")){
+                    cours_supp = cours_supp.substring(0,cours_supp.length() - 1);
+
+                }
                 mEditor.putString("cours_supp",cours_supp).commit();
 
                 int delay_min = Integer.parseInt(delay.getText().toString());
@@ -235,8 +223,7 @@ public class SettingsActivity extends BasicActivity {
                 mEditor.putInt("sportSnooze",snooze_min * 60).commit();
 
                 //TODO  : AVERTISSEMENT relancer le chrono pour activer les chagement
-
-                finish();
+                //finish();
             }
         });
     }

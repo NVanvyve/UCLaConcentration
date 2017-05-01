@@ -101,7 +101,7 @@ public class Sport extends BasicActivity {
         level.setText(getString(R.string.your_sport_level) + tab_level[lvl]);
 
         final int dist_tab [] = new int[]{50,90,120,170,210,500};
-        final int recompence_tab[] = {30,70,100,150,200,270};
+        final int recompence_tab[] = {7,12,17,24,30,71}; // dist div 7
 
         if (lvl > dist_tab.length || dist_tab.length != recompence_tab.length) {
             lvl = 0;
@@ -138,7 +138,7 @@ public class Sport extends BasicActivity {
                 if (already_define) {
                     latitude = gps.giveMeLatLong()[0];
                     longitude = gps.giveMeLatLong()[1];
-                    double tolerance = 100;
+                    double tolerance = 10;
                     double dist = gps.distance(latitude,longitude,newLocation[0],newLocation[1]);
                     if (dist <= tolerance) {
                         String text = "Vous y etes!! Récompence : " + recompence_tab[lvl] + " " + getString(R.string.coin_name);

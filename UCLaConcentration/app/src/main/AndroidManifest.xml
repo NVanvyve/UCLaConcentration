@@ -77,16 +77,15 @@
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".DummyMenu"
-            android:label="@string/title_activity_dummy_menu"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
             android:name=".UConfessions"
             android:label="UConfession"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Tuto"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SwipeTuto"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".EventActivity"
             android:label="@string/newEvent"

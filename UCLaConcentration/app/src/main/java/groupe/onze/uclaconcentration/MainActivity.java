@@ -39,8 +39,8 @@ public class MainActivity extends BasicActivity {
     private TextView typeTimer;
     private boolean dialogOnScreen;
 
-    private final int PERIOD = 1;
-    private final int RATE = 10;
+    private final int PERIOD = 60;
+    private final int RATE = 1;
 
     private int lastSportTime;
     private int sportDelay;
@@ -65,15 +65,7 @@ public class MainActivity extends BasicActivity {
 
         if(!mPrefs.getBoolean("tuto", false)){
             Log.i("TUTO","Start");
-            startActivity(new Intent(this,Tuto.class));
-        }
-
-        if (!mPrefs.getBoolean("graphical", true))
-        {
-            Intent s = new Intent(this, DummyMenu.class);
-            startActivity(s);
-            finish();
-            return;
+            startActivity(new Intent(this,SwipeTuto.class));
         }
 
         GridView gridview = (GridView) findViewById(R.id.gridview);
@@ -93,17 +85,6 @@ public class MainActivity extends BasicActivity {
         sportDelay = mPrefs.getInt("sportDelay",60); // Par defaut : 1h
         sportSnooze = mPrefs.getInt("sportSnooze",60); // Par defaut : 1 min
 
-        //sportDelay = 15;
-
-        /*  Ca marche pas pour l'instant
-        Button calendar=(Button)findViewById(R.id.button_calendar);
-        calendar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent s = new Intent(MainActivity.this, CalendarGoogle.class);
-                startActivity(s);
-            }
-        }); */
     }
 
 
@@ -112,13 +93,6 @@ public class MainActivity extends BasicActivity {
         super.onStart();
         setContentView(R.layout.activity_main);
         isInBackground=false;
-        if (!mPrefs.getBoolean("graphical", true))
-        {
-            Intent s = new Intent(this, DummyMenu.class);
-            startActivity(s);
-            finish();
-            return;
-        }
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -161,7 +135,7 @@ public class MainActivity extends BasicActivity {
                     Intent serviceIntent = new Intent(mContext,SensorService.class);
                     context.stopService(serviceIntent);
                     int time = mPrefs.getInt("counterSeconds",0);
-                    mEditor.putInt("lastSportTime",0).commit();
+                    mEditor.putInt("lastSportTime",0).apply();
                     addCoins(time);
                     onPause = false;
                 } else {
@@ -310,13 +284,14 @@ public class MainActivity extends BasicActivity {
         registerReceiver(timerReceiver,movementFilter);
 
         super.onResume();
-
+/*
         if (!mPrefs.getBoolean("graphical", true))
         {
             Intent s = new Intent(this, DummyMenu.class);
             startActivity(s);
             finish();
         }
+*/
         isInBackground=false;
     }
     @Override
@@ -369,7 +344,7 @@ public class MainActivity extends BasicActivity {
 
     private void addCoins(int time) {
         // TODO : Ajouter des coins à chaque pause --> Memoriser le dernier timer
-        int procraCoins = (time / PERIOD) * RATE + mPrefs.getInt("save_coins",0);
+        int procraCoins = (int) (Math.floor((time / PERIOD) * RATE) + mPrefs.getInt("save_coins",0));
         mEditor.putInt("save_coins",procraCoins).commit();
     }
 

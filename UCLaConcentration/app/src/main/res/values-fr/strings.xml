@@ -61,7 +61,7 @@
     <string name="goal">Ta destination</string>
     <string name="no_timer_active">Pas de chrono en route</string>
     <string name="snooze">Snooze [min]</string>
-    <string name="sportdelay">Délais entre deux pause sport [min]</string>
+    <string name="sportdelay">Délais entre deux pauses sport [min]</string>
     <string name="menu_style">Menu graphique</string>
     <string name="graphical">Graphique</string>
     <string name="non_graphical">Non-Graphique</string>
@@ -93,4 +93,6 @@
     <string name="tuto_next_time">Tuto au prochain redémarage</string>
     <string name="give_me_new_position">Nouvelle cible</string>
     <string name="j_y_suis">J\'y suis</string>
+    <string name="swipe">Swipe for tutorial</string>
+    <string name="text_tuto">Appuyez sur le bouton pour quitter le tutoriel</string>
 </resources>

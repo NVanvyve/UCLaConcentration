@@ -115,4 +115,6 @@
     <string name="skip">Skip</string>
     <string name="sell_and_mask">"Buy and no longer show me this warning "</string>
     <string name="sell_avert_switch">Purchase warning</string>
+    <string name="text_tuto">Press on button and use app</string>
+    <string name="swipe">Swipe for tutorial</string>
 </resources>
