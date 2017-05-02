@@ -181,11 +181,9 @@ public class MainActivity extends BasicActivity {
                 startActivity(s);
                 break;
             case 3:
-    //            s = new Intent(MainActivity.this,NewEventActivity.class);
-//                startActivity(s);
-                throw new RuntimeException("This is a crash");
-
-  //              break;
+                s = new Intent(MainActivity.this,NewEventActivity.class);
+                startActivity(s);
+                break;
             case 4:
                 s = new Intent(MainActivity.this,StoreActivity.class);
                 //miseEnPause();
