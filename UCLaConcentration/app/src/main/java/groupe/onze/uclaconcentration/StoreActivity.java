@@ -52,7 +52,7 @@ public class StoreActivity extends BasicActivity {
         money.setText(": " + procraCoins + " P");
         mEditor = mPrefs.edit();
 
-        /*
+/*
         //////////////////////////////////////////////////////////////////////////////
         //DEBUG
 
@@ -78,7 +78,7 @@ public class StoreActivity extends BasicActivity {
             }
         });
         //////////////////////////////////////////////////////////////////////////////
-        */
+*/
 
         // Récompenses 
         // Boutons et Prix associés
@@ -91,7 +91,7 @@ public class StoreActivity extends BasicActivity {
         // Durée de la pause confession
         final int confDuration = 5;
         TextView conf_tv = (TextView) findViewById(R.id.store_conf_tv);
-        conf_tv.setText("UConfession " + confDuration + " min");
+        conf_tv.setText("UConfession : " + confDuration + " min");
 
         final int[] CostList = {
                 60,
@@ -126,8 +126,8 @@ public class StoreActivity extends BasicActivity {
         ButtonList[3].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //sell(CostList[3],confDuration,true);
-                Toast.makeText(getApplicationContext(),"Indisponible pour le moment, Facebook vient de faire une mise à jour",Toast.LENGTH_LONG).show();
+                sell(CostList[3],confDuration,true);
+                //Toast.makeText(getApplicationContext(),"Indisponible pour le moment, Facebook vient de faire une mise à jour",Toast.LENGTH_LONG).show();
             }
         });
 

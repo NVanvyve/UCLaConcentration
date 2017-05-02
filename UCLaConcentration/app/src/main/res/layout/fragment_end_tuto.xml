@@ -27,6 +27,15 @@
             android:text="@string/text_tuto"
             android:layout_below="@+id/imageButtonTuto"
             android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/imageButtonTuto"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="68dp"
+            android:gravity="center_horizontal"
+            android:text="@string/app_avert"/>
     </RelativeLayout>
 
 </LinearLayout>

@@ -95,4 +95,7 @@
     <string name="j_y_suis">J\'y suis</string>
     <string name="swipe">Swipe for tutorial</string>
     <string name="text_tuto">Appuyez sur le bouton pour quitter le tutoriel</string>
+    <string name="studyTime">Temps d\'étude total :</string>
+    <string name="quit_conf">Attention, si vous quitter cette page nous ne saurez pas y retourner sans passer par le Store.</string>
+    <string name="app_avert">Cette application n\'a un but que si vous vous imposez certaines règles. Elle ne vous empechera pas d\'ouvrir votre PC et d\'aller sur Facebook...</string>
 </resources>

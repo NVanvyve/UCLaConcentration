@@ -117,4 +117,7 @@
     <string name="sell_avert_switch">Purchase warning</string>
     <string name="text_tuto">Press on button and use app</string>
     <string name="swipe">Swipe for tutorial</string>
+    <string name="studyTime">Total study time :</string>
+    <string name="quit_conf">Be careful, if you leave this page we will not be able to return without going through the Store.</string>
+    <string name="app_avert">This application has a purpose only if you impose certain rules. It will not prevent you from opening your PC and going to Facebook ...</string>
 </resources>

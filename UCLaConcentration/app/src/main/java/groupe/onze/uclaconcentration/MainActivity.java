@@ -47,6 +47,7 @@ public class MainActivity extends BasicActivity {
     private int sportSnooze;
     private int counterMemo;
 
+
     private SharedPreferences.Editor mEditor;
     private SharedPreferences mPrefs;
 
@@ -68,8 +69,6 @@ public class MainActivity extends BasicActivity {
 
         mPrefs = getSharedPreferences("label",0);
         mEditor = mPrefs.edit();
-
-
 
         if(!mPrefs.getBoolean("tuto", false)){
             Log.i("TUTO","Start");
@@ -125,8 +124,9 @@ public class MainActivity extends BasicActivity {
             typeTimer.setText(typeTimerString);
             int time = mPrefs.getInt("counterSeconds",0);
             tv.setText(" " + time);
-        } else
+        } else {
             typeTimer.setText(R.string.no_timer_active);
+        }
 
     }
 
@@ -145,6 +145,7 @@ public class MainActivity extends BasicActivity {
                     int time = mPrefs.getInt("counterSeconds",0);
                     mEditor.putInt("lastSportTime",0).apply();
                     addCoins(time);
+                    mEditor.putInt("total_study_time",mPrefs.getInt("total_study_time",0)+time).apply();
                     onPause = false;
                 } else {
                     SensorService mSensorService = new SensorService(context);
@@ -344,8 +345,18 @@ public class MainActivity extends BasicActivity {
 
     private void addCoins(int time) {
         // TODO : Ajouter des coins à chaque pause --> Memoriser le dernier timer
-        int procraCoins = (int) (Math.floor((time / PERIOD) * RATE) + mPrefs.getInt("save_coins",0));
-        mEditor.putInt("save_coins",procraCoins).commit();
+        double may_10_17 = 1494367199000.0;
+        if(System.currentTimeMillis() <= may_10_17){
+            int procraCoins = (int) (Math.floor((time / PERIOD) * RATE * 50) + mPrefs.getInt("save_coins",0));
+            mEditor.putInt("save_coins",procraCoins).commit();
+            Toast.makeText(getApplicationContext(),"Durant le phase de tests, vous gagnez plus vite des Procrastinacoins.\n" +
+                    "Et ce à raison de 50P/min.\n" +
+                    "Cette période prend fin le : \nWed May 9 2017 23:59:59 GMT+02",Toast.LENGTH_LONG).show();
+        }else{
+            int procraCoins = (int) (Math.floor((time / PERIOD) * RATE) + mPrefs.getInt("save_coins",0));
+            mEditor.putInt("save_coins",procraCoins).commit();
+        }
+
     }
 
     private void showDialogBox() {

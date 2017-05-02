@@ -20,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -29,6 +30,8 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
 import java.util.LinkedList;
+
+import io.fabric.sdk.android.Fabric;
 
 import static com.facebook.FacebookSdk.sdkInitialize;
 
@@ -67,6 +70,9 @@ public class SettingsActivity extends BasicActivity {
                 Profile profile = Profile.getCurrentProfile();
                 String text = getString(R.string.Hello_face) + " " + profile.getFirstName();
                 Toast.makeText(getApplicationContext(),text,Toast.LENGTH_SHORT).show();
+                if(!BuildConfig.DEBUG) {
+                    Crashlytics.setUserName(profile.getFirstName()+" "+profile.getLastName());
+                }
             }
             @Override
             public void onCancel() {}

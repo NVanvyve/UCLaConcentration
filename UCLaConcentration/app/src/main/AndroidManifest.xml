@@ -82,9 +82,6 @@
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Tuto"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".SwipeTuto"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".EventActivity"

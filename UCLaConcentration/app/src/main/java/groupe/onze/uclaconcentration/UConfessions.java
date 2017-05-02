@@ -64,32 +64,30 @@ public class UConfessions extends BasicActivity {
         dialogOnScreen = false;
         count_null = 0;
 
-        Log.i(TAG,"A");
-
         int time_limit_init = 0;
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             time_limit_init = bundle.getInt("time_limit",10);  // Limte de temps en minute
         } else {
-            Log.i(TAG,"bundle == null");
+            //Log.i(TAG,"bundle == null");
         }
         time_limit = time_limit_init * 60 * 1000; //Milisec
 
         conf_begin = mPrefs.getLong("conf_begin",System.currentTimeMillis());
 
-        Log.i(TAG,"B");
+        String avert_conf  =getResources().getString(R.string.quit_conf);
 
         paging_token = null;
         until = null;
         final TextView conf_tv = (TextView) findViewById(R.id.textView);
 
-        Log.i(TAG,"-------------------------------------------------------------------------");
-        Log.i(TAG,"message = " + message);
+        //Log.i(TAG,"-------------------------------------------------------------------------");
+        //Log.i(TAG,"message = " + message);
         confRequest();
-        conf_tv.setText(message);
+        conf_tv.setText(avert_conf);
 
 
-        Log.i(TAG,"C");
+
 
 
         Button new_conf = (Button) findViewById(R.id.next_conf);
@@ -99,17 +97,17 @@ public class UConfessions extends BasicActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    Log.i(TAG,"-------------------------------------------------------------------------");
-                    Log.i(TAG,"message = " + message);
-                    Log.i(TAG,"token = " + paging_token);
-                    Log.i(TAG,"until = " + until);
+                    //Log.i(TAG,"-------------------------------------------------------------------------");
+                    //Log.i(TAG,"message = " + message);
+                    //Log.i(TAG,"token = " + paging_token);
+                    //Log.i(TAG,"until = " + until);
                     confRequest();
 
                     //Reload activity if request fail too much
                     if (message == null) {
                         count_null++;
                         if (count_null == 3) {
-                            Log.i(TAG,"3 times message=null");
+                            //Log.i(TAG,"3 times message=null");
                             Intent s = new Intent(UConfessions.this,UConfessions.class);
                             s.putExtra("time_limit",finalTime_limit_init);
                             startActivity(s);
@@ -191,6 +189,10 @@ public class UConfessions extends BasicActivity {
         super.onStop();
     }
 
+    public void onBackPressed(){
+        //Désactivation du bouton Back
+    }
+
     private void confRequest() {
         if (!Outils.isConnectedInternet(UConfessions.this)) {
             message = "No internet connection";
@@ -204,12 +206,12 @@ public class UConfessions extends BasicActivity {
             if (paging_token != null) {
                 parameters.putString("__paging_token",paging_token);
             } else {
-                Log.i(TAG,"paging_token is null");
+                //Log.i(TAG,"paging_token is null");
             }
 
             GraphRequest request = GraphRequest.newGraphPathRequest(
                     AccessToken.getCurrentAccessToken(),
-                    "/967219966645066/feed",
+                    "/v2.8/967219966645066/feed",
                     new GraphRequest.Callback() {
                         @Override
                         public void onCompleted(GraphResponse response) {
@@ -222,7 +224,7 @@ public class UConfessions extends BasicActivity {
                                     ret[0] = String.valueOf(retJaElem1.get("message"));
                                     message = ret[0];
                                 } catch (JSONException ex) {
-                                    Log.i(TAG,"JSONException : " + ex.getMessage());
+                                    Log.e(TAG,"JSONException : " + ex.getMessage());
                                     message = "Erreur lors du chargement de la confession :@";
                                 }
                                 JSONObject pa = jo.getJSONObject("paging");
@@ -240,7 +242,7 @@ public class UConfessions extends BasicActivity {
                                     until = ret[1].substring(index_2 + 6,index_2 + 6 + 10);
                                 }
                             } catch (JSONException e) {
-                                Log.i(TAG,e.getMessage());
+                                Log.e(TAG,e.getMessage());
                                 e.printStackTrace();
                             }
                         }
