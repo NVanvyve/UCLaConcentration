@@ -39,7 +39,6 @@ public class EventActivity extends BasicActivity {
     private int delayLastPurchase;
     private SharedPreferences.Editor mEditor;
 
-    private Random rand;
     Calendar myCalendar = Calendar.getInstance();
     DatePickerDialog.OnDateSetListener date;
     EditText datePick;

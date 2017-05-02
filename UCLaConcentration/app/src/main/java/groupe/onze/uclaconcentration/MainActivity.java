@@ -54,7 +54,13 @@ public class MainActivity extends BasicActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        Fabric.with(this, new Crashlytics());
+        if(!BuildConfig.DEBUG)
+        {
+            Fabric.with(this, new Crashlytics());
+            Log.i("CRASH","Crashlytics ENABLE  && BuildConfig.DEBUG = "+BuildConfig.DEBUG);
+        }else{
+            Log.i("CRASH","Crashlytics NOT ENABLE  && BuildConfig.DEBUG = "+BuildConfig.DEBUG);
+        }
         setContentView(R.layout.activity_main);
         isInBackground=false;
 
@@ -62,6 +68,8 @@ public class MainActivity extends BasicActivity {
 
         mPrefs = getSharedPreferences("label",0);
         mEditor = mPrefs.edit();
+
+
 
         if(!mPrefs.getBoolean("tuto", false)){
             Log.i("TUTO","Start");
@@ -173,9 +181,11 @@ public class MainActivity extends BasicActivity {
                 startActivity(s);
                 break;
             case 3:
-                s = new Intent(MainActivity.this,NewEventActivity.class);
-                startActivity(s);
-                break;
+    //            s = new Intent(MainActivity.this,NewEventActivity.class);
+//                startActivity(s);
+                throw new RuntimeException("This is a crash");
+
+  //              break;
             case 4:
                 s = new Intent(MainActivity.this,StoreActivity.class);
                 //miseEnPause();
@@ -284,14 +294,6 @@ public class MainActivity extends BasicActivity {
         registerReceiver(timerReceiver,movementFilter);
 
         super.onResume();
-/*
-        if (!mPrefs.getBoolean("graphical", true))
-        {
-            Intent s = new Intent(this, DummyMenu.class);
-            startActivity(s);
-            finish();
-        }
-*/
         isInBackground=false;
     }
     @Override
