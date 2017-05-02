@@ -229,7 +229,7 @@ public class SettingsActivity extends BasicActivity {
                 mEditor.putInt("sportSnooze",snooze_min * 60).commit();
 
                 //TODO  : AVERTISSEMENT relancer le chrono pour activer les chagement
-                //finish();
+                finish();
             }
         });
     }
