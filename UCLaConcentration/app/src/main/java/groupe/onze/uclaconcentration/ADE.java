@@ -82,24 +82,32 @@ public class ADE extends BasicActivity {
         switch (item.getItemId()) {
             case R.id.home :
                 finish(); // close this activity and return to preview activity (if there is any)
+                return true;
+
 
             case R.id.action_settings:
                 Intent intent = new Intent(this, SettingsActivity.class);
                 finish();
                 startActivity(intent);
+                return true;
 
             case R.id.action_home:
                 Intent t = new Intent(this, MainActivity.class);
                 finish();
                 startActivity(t);
+                return true;
 
             case R.id.action_recompense:
                 Intent s = new Intent(this, StoreActivity.class);
                 finish();
                 startActivity(s);
+                return true;
 
             case R.id.credits:
                 Outils.showCredits(this);
+                return true;
+
+
 
             default:
                 return super.onOptionsItemSelected(item);

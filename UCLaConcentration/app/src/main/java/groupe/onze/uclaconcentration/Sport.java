@@ -44,7 +44,7 @@ public class Sport extends BasicActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_sport);
+        setContentView(R.layout.layout_sport); // TODO : BUG :  Unable to start activity ComponentInfo{groupe.onze.uclaconcentration/groupe.onze.uclaconcentration.Sport}: android.view.InflateException: Binary XML file line #57: Error inflating class fragment
         MainActivity.isInBackground=false;
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
