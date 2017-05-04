@@ -52,7 +52,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String CREATE_EVENT_TABLE = "CREATE TABLE " + TABLE_EVENT + "(" +
-                KEY_ID + " TEXT," + KEY_DATEM + " TEXT," + KEY_EVENT_NAME + " TEXT,"
+                KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_DATEM + " TEXT," + KEY_EVENT_NAME + " TEXT,"
                 + KEY_DEBUT + " TEXT," + KEY_FIN + " TEXT,"+ KEY_CONTENT+ ")"
                 ;
         db.execSQL(CREATE_EVENT_TABLE);
@@ -77,7 +77,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_ID, event.getId());
         values.put(KEY_DATEM, event.getEventDate());
         values.put(KEY_EVENT_NAME, event.getEventName());
 
@@ -187,15 +186,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_DATEM, KEY_EVENT_NAME,  KEY_DEBUT, KEY_FIN, KEY_CONTENT }, KEY_DATEM + "=?",
                 new String[] { EventPerso.dateToString(date)}, null, null, null, null);
 
+
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                EventPerso datel = new EventPerso(cursor.getInt(0),
+                EventPerso datel = new EventPerso(
                         cursor.getString(1), cursor.getString(2),
                         eventTime.stringToEventTime(cursor.getString(3)),
                         eventTime.stringToEventTime(cursor.getString(4)),
                         cursor.getString(5)
                 );
+
 
                 rdvList.add(datel);
             } while (cursor.moveToNext());
@@ -208,8 +209,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Deleting single person
     public void deleteEvent(Integer id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_EVENT, KEY_ID + " = ?",
-                new String[]{String.valueOf(id)});
+        Log.v("DATABASE","delete"+id);
+
+        db.delete(TABLE_EVENT, KEY_ID + " = ?", new String[] {Integer.toString(id)});
         db.close();
     }
 
@@ -231,7 +233,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 // looping through all rows and adding to list
                 if (cursor.moveToFirst()) {
                     do {
-                        EventPerso obj = new EventPerso(cursor.getInt(0),
+                        EventPerso obj = new EventPerso(
 
                                 cursor.getString(1), cursor.getString(2),
                                 eventTime.stringToEventTime(cursor.getString(3)),
@@ -262,7 +264,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         for (int i =0;i<size;i++){
             EventPerso current=list.get(i);
             SQLiteDatabase db = this.getWritableDatabase();
-            db.rawQuery("UPDATE TABLE_EVENT SET JOUR=?,TITRE=?,DESCR=?, HEUREDEP=?,HEUREFIN=? WHERE ID="+current.getId(),
+            db.rawQuery("UPDATE TABLE_EVENT SET JOUR=?,TITRE=?,DESCR=?, HEUREDEP=?,HEUREFIN=? WHERE ID=",
                     new String[]{current.getEventDate(),current.getEventName(),current.getEventDescr(), current.getHeureDeb().toString(),current.getHeureFin().toString()}); // On récupère tout les champs et on les met en texte
 
         }

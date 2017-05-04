@@ -138,13 +138,22 @@ public class EventActivity extends BasicActivity {
             @Override
             public void onClick(View v) {
 
+
+
                 EditText namePick = (EditText) findViewById(R.id.nameEvent);
                 EditText descPick = (EditText) findViewById(R.id.descPick);
-                EventPerso newEvent = new EventPerso(0, datePick.getText().toString(), namePick.getText().toString(), eventTime.stringToEventTime(startPick.getText().toString()), eventTime.stringToEventTime(endPick.getText().toString()), descPick.getText().toString());
-                db.addEvent(newEvent);
-                Log.v("Added",newEvent.getEventDate());
-                Toast.makeText(EventActivity.this, "Event added", Toast.LENGTH_LONG).show();
-                finish();
+                if(namePick.getText().toString().matches("") || descPick.getText().toString().matches("") || startPick.getText().toString().matches("") || endPick.getText().toString().matches("") || datePick.getText().toString().matches("")){
+                    Toast.makeText(EventActivity.this, "Please complete the informations", Toast.LENGTH_LONG).show();
+
+                }
+                else{
+                    EventPerso newEvent = new EventPerso(datePick.getText().toString(), namePick.getText().toString(), eventTime.stringToEventTime(startPick.getText().toString()), eventTime.stringToEventTime(endPick.getText().toString()), descPick.getText().toString());
+                    db.addEvent(newEvent);
+                    Log.v("Added",newEvent.getEventDate());
+                    Toast.makeText(EventActivity.this, "Event added", Toast.LENGTH_LONG).show();
+                    finish();
+
+                }
             }
         });
     }
@@ -175,12 +184,6 @@ public class EventActivity extends BasicActivity {
     public void onStop(){
         MainActivity.isInBackground=true;
         super.onStop();
-    }
-
-    private void update() {
-        mEditor.putInt("save_coins",procraCoins).apply();
-        mEditor.putLong("last_purchase",last_purchase).apply();
-        mEditor.putInt("delayLastPurchase",delayLastPurchase).apply();
     }
 
 

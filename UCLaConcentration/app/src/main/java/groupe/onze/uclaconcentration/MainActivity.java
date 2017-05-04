@@ -182,8 +182,8 @@ public class MainActivity extends BasicActivity {
                 startActivity(s);
                 break;
             case 3:
-                //s = new Intent(MainActivity.this,NewEventActivity.class);
-                //startActivity(s);
+                s = new Intent(MainActivity.this,NewEventActivity.class);
+                startActivity(s);
                 break;
             case 4:
                 s = new Intent(MainActivity.this,StoreActivity.class);

@@ -83,7 +83,11 @@ public class EventPersoAdapter extends BaseAdapter {
         TextView textrdv = (TextView) layoutItem.findViewById(R.id.descr);
 
         //(3) : Renseignement des valeurs
-        textrdv.setText(mListM.get(position)._eventDate);
+        textrdv.setText(mListM.get(position)._eventDate+"\n"
+                +mListM.get(position)._eventName+"\n" + "De :"
+                +mListM.get(position)._heureDeb+"\n"+ "A :"
+                +mListM.get(position)._heureFin+"\n" +"[ "
+                +mListM.get(position)._eventDescr+ " ]");
 
         //------------ Début de l'ajout -------
         //On mémorise la position de la "Personne" dans le composant textview
