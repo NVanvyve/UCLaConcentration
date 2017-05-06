@@ -20,7 +20,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ajout d'un nouvel événement"
+        android:text="@string/add_event"
         tools:layout_editor_absoluteX="70dp"
         tools:layout_editor_absoluteY="29dp" />
 
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="Nom" />
+        android:hint="@string/name" />
 
     <EditText
         android:id="@+id/startPick"
@@ -39,7 +39,7 @@
         android:ems="10"
         android:focusable="false"
         android:inputType="time"
-        android:hint="Heure début" />
+        android:hint="@string/start_time" />
 
     <EditText
         android:id="@+id/endPick"
@@ -48,7 +48,7 @@
         android:ems="10"
         android:focusable="false"
         android:inputType="time"
-        android:hint="Heure fin" />
+        android:hint="@string/end_time" />
 
     <EditText
         android:id="@+id/datePick"
@@ -57,7 +57,7 @@
         android:ems="10"
         android:focusable="false"
         android:inputType="date"
-        android:hint="Date" />
+        android:hint="@string/date" />
 
     <EditText
         android:id="@+id/descPick"
@@ -66,12 +66,12 @@
         android:ems="10"
 
         android:inputType="textMultiLine"
-        android:hint="Description" />
+        android:hint="@string/content" />
 
     <Button
         android:id="@+id/save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enregistrer" />
+        android:text="@string/save_back" />
 
 </LinearLayout>

@@ -1,29 +1,15 @@
 package groupe.onze.uclaconcentration;
-
-import android.app.TimePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
-
-import java.util.Calendar;
 import java.util.List;
-
-import groupe.onze.uclaconcentration.dataBaseMan.DatabaseHandler;
+import groupe.onze.uclaconcentration.objetPerso.DatabaseHandler;
 import groupe.onze.uclaconcentration.objetPerso.EventPerso;
 import groupe.onze.uclaconcentration.objetPerso.EventPersoAdapter;
-import groupe.onze.uclaconcentration.objetPerso.eventTime;
-
 
 public class ListEventActivity extends BasicActivity implements EventPersoAdapter.DispoAdapterListener {
     DatabaseHandler db = new DatabaseHandler(ListEventActivity.this);
@@ -48,36 +34,17 @@ public class ListEventActivity extends BasicActivity implements EventPersoAdapte
        // db.addEvent(new EventPerso(478,"1992-12-25" , "Volloy",new eventTime(18,30) , new eventTime(20,30), "haha"));
         List<EventPerso> listeD = db.getAllEvents();
 
-        EventPersoAdapter adapter = new EventPersoAdapter(this, listeD);
+        adapter = new EventPersoAdapter(this, listeD);
         adapter.addListener(this);
         ListView list = (ListView) findViewById(R.id.ListView4);
         list.setAdapter(adapter);
 
-
-       /* ImageView imageVif = (ImageView) findViewById(R.id.imageVif);
-        imageVif.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-               //TODO DELETE EVENT
-            }
-        });
-*/
-       /*
-        TextView descr = (TextView) findViewById(R.id.descr);
-        descr.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                //Toast.makeText(ListEventActivity.this, , Toast.LENGTH_LONG).show();
-            }
-        });
-        */
     }
+
+    //TODO Lorsque l'utilisateur clique sur le nom de l'event, il le supprime
     public void onClickNom(EventPerso item, int position) {
         boolean bool=db.deleteEvent(position);
-        if (bool) {Log.v("booldelete","YESDELETE");}
+        if (bool) {Log.v("Deleted?","YES");}
         Log.v("ONCLICKNOM","delete");
         finish();
         /*
@@ -118,8 +85,6 @@ public class ListEventActivity extends BasicActivity implements EventPersoAdapte
         MainActivity.isInBackground=true;
         super.onStop();
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -170,4 +135,3 @@ public class ListEventActivity extends BasicActivity implements EventPersoAdapte
         return R.layout.activity_main;
     }
 }
-

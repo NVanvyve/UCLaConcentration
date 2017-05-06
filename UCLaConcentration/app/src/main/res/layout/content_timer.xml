@@ -18,7 +18,7 @@
         <!-- "Mark Favorite", should appear as action button if possible -->
         <item
             android:id="@+id/action_favorite"
-            android:icon="@drawable/car"
+
               android:title="@string/action_favorite"
               android:showAsAction="ifRoom"/>
 

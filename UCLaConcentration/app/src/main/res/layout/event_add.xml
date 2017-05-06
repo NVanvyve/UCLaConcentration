@@ -44,14 +44,14 @@
             android:layout_centerHorizontal="true"
 
 
-            android:text="Ajouter un événement"
+            android:text="@string/add_event"
             android:textColor="#FFFFFF" />
 
         <Button
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:textColor="#FFFFFF"
-            android:text="Liste des événements"
+            android:text="@string/list_event"
             android:id="@+id/deleteEvent"
 
             android:layout_below="@+id/button4"

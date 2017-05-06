@@ -37,6 +37,18 @@
     <string name="welcome_param">Welcome to the jungle</string>
     <string name="already_param">You already are in the settings</string>
     <string name="sport_level">Sport level</string>
+    <string name="complete_info">Please complete the informations</string>
+    <string name="event_add">Event added</string>
+    <string name="select_time">Select time</string>
+
+    <string name="content">Description</string>
+    <string name="list_event">List of events</string>
+    <string name="add_event">Add an event </string>
+    <string name="date">Date</string>
+    <string name="end_time">Ending time</string>
+    <string name="start_time">Starting time</string>
+    <string name="name">Nom</string>
+
     <string-array name="sport_level_array">
         <item>Computer scientist</item>
         <item>Romanist</item>

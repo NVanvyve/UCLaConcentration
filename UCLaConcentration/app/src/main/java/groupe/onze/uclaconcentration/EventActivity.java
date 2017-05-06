@@ -2,11 +2,11 @@ package groupe.onze.uclaconcentration;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.DialogInterface;
+
 import android.content.Intent;
-import android.content.SharedPreferences;
+
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
+
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -15,29 +15,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
-import java.util.Random;
 
-import groupe.onze.uclaconcentration.dataBaseMan.DatabaseHandler;
+import groupe.onze.uclaconcentration.objetPerso.DatabaseHandler;
 import groupe.onze.uclaconcentration.objetPerso.EventPerso;
 import groupe.onze.uclaconcentration.objetPerso.eventTime;
 
 
 public class EventActivity extends BasicActivity {
 
-    private SharedPreferences mPrefs;
-    private TextView money;
-
-    private long last_purchase;
-    private int procraCoins;
-    private int delayLastPurchase;
-    private SharedPreferences.Editor mEditor;
 
     Calendar myCalendar = Calendar.getInstance();
     DatePickerDialog.OnDateSetListener date;
@@ -63,13 +54,11 @@ public class EventActivity extends BasicActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
-
-
+        //Selectionne l'heure de début
         startPick.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 Calendar mcurrentTime = Calendar.getInstance();
                 int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
                 int minute = mcurrentTime.get(Calendar.MINUTE);
@@ -80,17 +69,17 @@ public class EventActivity extends BasicActivity {
                         startPick.setText( selectedHour + ":" + selectedMinute);
                     }
                 }, hour, minute, true);//Yes 24 hour time
-                mTimePicker.setTitle("Select Time");
+                mTimePicker.setTitle(getResources().getString(R.string.select_time));
                 mTimePicker.show();
 
             }
         });
 
+        //Selectionne l'heure de fin
         endPick.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 Calendar mcurrentTime = Calendar.getInstance();
                 int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
                 int minute = mcurrentTime.get(Calendar.MINUTE);
@@ -100,19 +89,20 @@ public class EventActivity extends BasicActivity {
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         endPick.setText( selectedHour + ":" + selectedMinute);
                     }
-                }, hour, minute, true);//Yes 24 hour time
-                mTimePicker.setTitle("Select Time");
+                }, hour, minute, true);
+                mTimePicker.setTitle(getResources().getString(R.string.select_time));
                 mTimePicker.show();
 
             }
         });
 
+        //Selectionne la date
         date = new DatePickerDialog.OnDateSetListener() {
 
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                // TODO Auto-generated method stub
+
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -125,32 +115,30 @@ public class EventActivity extends BasicActivity {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 new DatePickerDialog(EventActivity.this, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
 
+        /*SAUVEGARDE*/
         Button save = (Button) findViewById(R.id.save);
         save.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-
-
                 EditText namePick = (EditText) findViewById(R.id.nameEvent);
                 EditText descPick = (EditText) findViewById(R.id.descPick);
                 if(namePick.getText().toString().matches("") || descPick.getText().toString().matches("") || startPick.getText().toString().matches("") || endPick.getText().toString().matches("") || datePick.getText().toString().matches("")){
-                    Toast.makeText(EventActivity.this, "Please complete the informations", Toast.LENGTH_LONG).show();
+                    Toast.makeText(EventActivity.this, getResources().getString(R.string.complete_info), Toast.LENGTH_LONG).show();
 
                 }
                 else{
                     EventPerso newEvent = new EventPerso(datePick.getText().toString(), namePick.getText().toString(), eventTime.stringToEventTime(startPick.getText().toString()), eventTime.stringToEventTime(endPick.getText().toString()), descPick.getText().toString());
                     db.addEvent(newEvent);
                     Log.v("Added",newEvent.getEventDate());
-                    Toast.makeText(EventActivity.this, "Event added", Toast.LENGTH_LONG).show();
+                    Toast.makeText(EventActivity.this, getResources().getString(R.string.event_add), Toast.LENGTH_LONG).show();
                     finish();
 
                 }
@@ -160,7 +148,7 @@ public class EventActivity extends BasicActivity {
 
     private void updateLabel() {
 
-        String myFormat = "dd/MM/yy"; //In which you need put here
+        String myFormat = "dd/MM/yy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         datePick2 = (EditText) findViewById(R.id.datePick);
         datePick2.setText(sdf.format(myCalendar.getTime()));

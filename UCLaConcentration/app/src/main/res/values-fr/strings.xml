@@ -3,6 +3,15 @@
     <string name="NoNetworkConnection">Aucun réseau disponible</string>
     <string name="StartTime">"Cette application a été crée par "</string>
     <string name="back">Retour</string>
+
+    <string name="content">Description</string>
+    <string name="list_event">Liste des événements</string>
+    <string name="add_event">Ajouter un événement</string>
+    <string name="date">Date</string>
+    <string name="end_time">Heure de fin</string>
+    <string name="start_time">Heure de début</string>
+    <string name="name">Nom</string>
+
     <string name="description">Cette application a été crée par</string>
     <string name="serie20">Episode : 20 min</string>
     <string name="serie40">Episode : 40 min</string>
@@ -10,6 +19,9 @@
     <string name="newEvent">Nouvel Evénement</string>
     <string name="event">Evénement</string>
     <string name="events">Liste des événement</string>
+    <string name="complete_info">Complétez les informations</string>
+    <string name="event_add">Evénement ajouté</string>
+    <string name="select_time">Sélection de l\'heure</string>
     <string name="title_activity_calendar">Calendrier</string>
     <string name="title_activity_store">Magasin</string>
     <string name="title_activity_timer">Chronomètre</string>

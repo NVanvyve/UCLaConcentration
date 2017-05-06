@@ -14,12 +14,8 @@ import groupe.onze.uclaconcentration.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import groupe.onze.uclaconcentration.objetPerso.EventPerso;
-
 /**
  * Created by Aetheya on 5/05/2016.
- * <p/>
- * /**
  * Interface pour écouter les évènements sur le nom d'une personne
  */
 
@@ -46,7 +42,7 @@ public class EventPersoAdapter extends BaseAdapter {
         }
     }
 
-    // Une liste de personnes
+    // Une liste d'evenements
     private List<EventPerso> mListM;
 
     //Un mécanisme pour gérer l'affichage graphique depuis un layout XML
@@ -90,7 +86,7 @@ public class EventPersoAdapter extends BaseAdapter {
                 +mListM.get(position)._eventDescr+ " ]");
 
         //------------ Début de l'ajout -------
-        //On mémorise la position de la "Personne" dans le composant textview
+        //On mémorise la position de l'event dans le composant textview
         textrdv.setTag(position);
         //CHOIX DE LA OU IL FAUT CLIQUER
 
@@ -99,10 +95,10 @@ public class EventPersoAdapter extends BaseAdapter {
 
             @Override
             public void onClick(View v) {
-                //Lorsque l'on clique sur le nom, on récupère la position de la "Personne"
+                //Lorsque l'on clique sur le nom, on récupère la position de de l'event
                 Integer position = (Integer) v.getTag();
 
-                //On prévient les listeners qu'il y a eu un clic sur le TextView "TV_Nom".
+                //On prévient les listeners qu'il y a eu un clic sur le TextView "TV_nom"
                 sendListener(mListM.get(position), position);
             }
 

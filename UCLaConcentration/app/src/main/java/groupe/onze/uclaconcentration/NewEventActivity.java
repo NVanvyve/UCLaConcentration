@@ -1,32 +1,19 @@
 package groupe.onze.uclaconcentration;
 
-import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.Toast;
-
-import groupe.onze.uclaconcentration.dataBaseMan.DatabaseHandler;
-import groupe.onze.uclaconcentration.objetPerso.EventPerso;
-import groupe.onze.uclaconcentration.objetPerso.eventTime;
 
 /**
- * Created by X on 20-04-16.
+ * Menu de choix entre création d'événement et affichage de ceux-ci
  */
 @SuppressWarnings("DefaultFileTemplate")
 public class NewEventActivity extends BasicActivity {
-    Button btn;
-    int year_x, month_x, day_x;
-    static final int DIALOG_ID = 0;
-    DatabaseHandler db = new DatabaseHandler(NewEventActivity.this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -40,9 +27,7 @@ public class NewEventActivity extends BasicActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-
-
-
+        //Bouton qui mène vers l'affichage d'événements
         Button rdv = (Button) findViewById(R.id.deleteEvent);
         rdv.setOnClickListener(new View.OnClickListener() {
 
@@ -51,6 +36,8 @@ public class NewEventActivity extends BasicActivity {
                 startActivity(intent3);
             }
         });
+
+        //Bouton qui mène vers l'ajout d'un événement
         Button newEvent = (Button) findViewById(R.id.newEvent);
         newEvent.setOnClickListener(new View.OnClickListener() {
 
@@ -60,11 +47,7 @@ public class NewEventActivity extends BasicActivity {
             }
         });
 
-
     }
-
-
-
 
     @Override
     public void onPause(){
@@ -100,11 +83,7 @@ public class NewEventActivity extends BasicActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         switch (item.getItemId()) {
             case R.id.home:
                 finish(); // close this activity and return to preview activity (if there is any)
