@@ -76,7 +76,8 @@ public class ListEventActivity extends BasicActivity implements EventPersoAdapte
         */
     }
     public void onClickNom(EventPerso item, int position) {
-        db.deleteEvent(position);
+        boolean bool=db.deleteEvent(position);
+        if (bool) {Log.v("booldelete","YESDELETE");}
         Log.v("ONCLICKNOM","delete");
         finish();
         /*

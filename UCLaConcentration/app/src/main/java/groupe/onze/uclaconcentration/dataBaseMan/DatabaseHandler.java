@@ -175,44 +175,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return messageList;
     }
 */
-    public List<EventPerso> getAllEvent(Date date){
-        List<EventPerso> rdvList = new ArrayList<EventPerso>();
-        // Select All Query
-        Log.v("getAllEvent","lancée");
-
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        Cursor cursor = db.query(TABLE_EVENT, new String[] {KEY_ID,
-                        KEY_DATEM, KEY_EVENT_NAME,  KEY_DEBUT, KEY_FIN, KEY_CONTENT }, KEY_DATEM + "=?",
-                new String[] { EventPerso.dateToString(date)}, null, null, null, null);
-
-
-        // looping through all rows and adding to list
-        if (cursor.moveToFirst()) {
-            do {
-                EventPerso datel = new EventPerso(
-                        cursor.getString(1), cursor.getString(2),
-                        eventTime.stringToEventTime(cursor.getString(3)),
-                        eventTime.stringToEventTime(cursor.getString(4)),
-                        cursor.getString(5)
-                );
-
-
-                rdvList.add(datel);
-            } while (cursor.moveToNext());
-        }
-
-        // return person list
-        return rdvList;
-    }
 
     // Deleting single person
-    public void deleteEvent(Integer id) {
+    public boolean deleteEvent(Integer id) {
         SQLiteDatabase db = this.getWritableDatabase();
         Log.v("DATABASE","delete"+id);
 
-        db.delete(TABLE_EVENT, KEY_ID + " = ?", new String[] {Integer.toString(id)});
-        db.close();
+        return db.delete(TABLE_EVENT, KEY_ID + " = ?", new String[] {Integer.toString(id)})>0;
+
     }
 
 
@@ -233,6 +203,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 // looping through all rows and adding to list
                 if (cursor.moveToFirst()) {
                     do {
+                        Log.v("DATABASE", String.valueOf(cursor.getInt(0)));
+                       // Log.v("DATABASE",cursor.getString(0));
+                      //  Log.v("DATABASE", cursor.getString(1));
                         EventPerso obj = new EventPerso(
 
                                 cursor.getString(1), cursor.getString(2),
@@ -240,8 +213,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 eventTime.stringToEventTime(cursor.getString(4)),
                                 cursor.getString(5)
                         );
-                        Log.v("DATABASE", String.valueOf(cursor.getInt(0)));
-                        Log.v("DATABASE", cursor.getString(1));
+
 
                         list.add(obj);
                     } while (cursor.moveToNext());
