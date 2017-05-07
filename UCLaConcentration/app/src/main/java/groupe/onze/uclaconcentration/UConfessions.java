@@ -44,7 +44,6 @@ public class UConfessions extends BasicActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_conf);
-        MainActivity.isInBackground = false;
 
         final Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -167,25 +166,21 @@ public class UConfessions extends BasicActivity {
 
     @Override
     public void onPause() {
-        MainActivity.isInBackground = true;
         super.onPause();
     }
 
     @Override
     public void onDestroy() {
-        MainActivity.isInBackground = true;
         super.onDestroy();
     }
 
     @Override
     public void onResume() {
-        MainActivity.isInBackground = false;
         super.onResume();
     }
 
     @Override
     public void onStop() {
-        MainActivity.isInBackground = true;
         super.onStop();
     }
 

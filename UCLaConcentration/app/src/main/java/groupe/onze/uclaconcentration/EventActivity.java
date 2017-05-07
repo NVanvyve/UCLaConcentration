@@ -43,7 +43,6 @@ public class EventActivity extends BasicActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
-        MainActivity.isInBackground = false;
         datePick = (EditText) findViewById(R.id.datePick);
         startPick = (EditText) findViewById(R.id.startPick);
         endPick = (EditText) findViewById(R.id.endPick);
@@ -155,22 +154,18 @@ public class EventActivity extends BasicActivity {
     }
     @Override
     public void onPause(){
-        MainActivity.isInBackground=true;
         super.onPause();
     }
     @Override
     public void onDestroy(){
-        MainActivity.isInBackground=true;
         super.onDestroy();
     }
     @Override
     public void onResume(){
-        MainActivity.isInBackground=false;
         super.onResume();
     }
     @Override
     public void onStop(){
-        MainActivity.isInBackground=true;
         super.onStop();
     }
 

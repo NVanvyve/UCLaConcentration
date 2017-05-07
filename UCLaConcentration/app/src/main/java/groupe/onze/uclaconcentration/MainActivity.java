@@ -34,7 +34,6 @@ public class MainActivity extends BasicActivity {
     private int counter;
     private TextView tv;
     public static boolean onPause = false;
-    public static boolean isInBackground=false;
     private Context mContext;
     private TextView typeTimer;
     private boolean dialogOnScreen;
@@ -63,7 +62,6 @@ public class MainActivity extends BasicActivity {
             Log.i("CRASH","Crashlytics NOT ENABLE  && BuildConfig.DEBUG = "+BuildConfig.DEBUG);
         }
         setContentView(R.layout.activity_main);
-        isInBackground=false;
 
         mContext = this;
 
@@ -99,8 +97,6 @@ public class MainActivity extends BasicActivity {
     public void onStart() {
         super.onStart();
         setContentView(R.layout.activity_main);
-        isInBackground=false;
-
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
@@ -133,7 +129,6 @@ public class MainActivity extends BasicActivity {
     private void launch(int pos) {
         Context context = mContext;
         Intent s;
-        isInBackground=false;
         switch (pos) {
             case 0:
                 onPlay = !onPlay;
@@ -271,7 +266,6 @@ public class MainActivity extends BasicActivity {
             e.printStackTrace();
         }
         Log.i("MAINACT","onDestroy!");
-        isInBackground=true;
         super.onDestroy();
 
     }
@@ -286,14 +280,12 @@ public class MainActivity extends BasicActivity {
      */
     @Override
     public void onResume() {
-        isInBackground=false;
         IntentFilter movementFilter;
         movementFilter = new IntentFilter(SensorService.TIMER_UPDATE);
         timerReceiver = new TimerServiceReceiver();
         registerReceiver(timerReceiver,movementFilter);
 
         super.onResume();
-        isInBackground=false;
     }
     @Override
     public void onPause(){
@@ -321,7 +313,6 @@ public class MainActivity extends BasicActivity {
      */
     private void UpdateGUI() {
         myHandler.post(myRunnable);
-        isInBackground=false;
     }
 
     //----------------

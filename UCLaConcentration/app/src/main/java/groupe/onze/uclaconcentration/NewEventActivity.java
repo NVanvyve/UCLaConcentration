@@ -19,7 +19,6 @@ public class NewEventActivity extends BasicActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_add);
-        MainActivity.isInBackground=false;
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -51,22 +50,18 @@ public class NewEventActivity extends BasicActivity {
 
     @Override
     public void onPause(){
-        MainActivity.isInBackground=true;
         super.onPause();
     }
     @Override
     public void onDestroy(){
-        MainActivity.isInBackground=true;
         super.onDestroy();
     }
     @Override
     public void onResume(){
-        MainActivity.isInBackground=false;
         super.onResume();
     }
     @Override
     public void onStop(){
-        MainActivity.isInBackground=true;
         super.onStop();
     }
     @Override

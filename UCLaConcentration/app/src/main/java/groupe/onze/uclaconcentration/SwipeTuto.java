@@ -28,7 +28,6 @@ public class SwipeTuto extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_swipe_tuto);
-        MainActivity.isInBackground = false;
 
         first = true;
 
@@ -88,25 +87,21 @@ public class SwipeTuto extends FragmentActivity {
 
     @Override
     public void onPause() {
-        MainActivity.isInBackground = true;
         super.onPause();
     }
 
     @Override
     public void onDestroy() {
-        MainActivity.isInBackground = true;
         super.onDestroy();
     }
 
     @Override
     public void onResume() {
-        MainActivity.isInBackground = false;
         super.onResume();
     }
 
     @Override
     public void onStop() {
-        MainActivity.isInBackground = true;
         super.onStop();
     }
 

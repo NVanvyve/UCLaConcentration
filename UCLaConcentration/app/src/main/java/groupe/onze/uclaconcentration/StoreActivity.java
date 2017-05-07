@@ -33,7 +33,6 @@ public class StoreActivity extends BasicActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store);
-        MainActivity.isInBackground=false;
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -134,22 +133,18 @@ public class StoreActivity extends BasicActivity {
     }
     @Override
     public void onPause(){
-        MainActivity.isInBackground=true;
         super.onPause();
     }
     @Override
     public void onDestroy(){
-        MainActivity.isInBackground=true;
         super.onDestroy();
     }
     @Override
     public void onResume(){
-        MainActivity.isInBackground=false;
         super.onResume();
     }
     @Override
     public void onStop(){
-        MainActivity.isInBackground=true;
         super.onStop();
     }
 
