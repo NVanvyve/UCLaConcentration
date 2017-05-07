@@ -1,5 +1,7 @@
 package groupe.onze.uclaconcentration.objetPerso;
 
+import android.util.Log;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,10 +14,12 @@ import java.util.Date;
 
 @SuppressWarnings("ALL")
 public class EventPerso {
+    final String TAG = "EVENT";
+
     /* variable de classe */
      String _eventDate;
      String _eventName;
-      String _eventDescr;
+     String _eventDescr;
      eventTime _heureDeb;
      eventTime _heureFin;
 
@@ -75,7 +79,10 @@ public class EventPerso {
         Date date=null;
         try {
            date=dateFormat.parse(str);
-        }catch(ParseException e) {/* TODO Gerer l'exception */}
+        }catch(ParseException e) {
+            Log.e("EVENT",e.getMessage());
+            /* TODO Gerer l'exception */
+        }
         return  date;
     }
 

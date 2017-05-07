@@ -14,6 +14,8 @@ import groupe.onze.uclaconcentration.objetPerso.EventPerso;
 import groupe.onze.uclaconcentration.objetPerso.eventTime;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
+    final String TAG = "EVENT";
+
 
     // All Static variables
     // Database Version
@@ -77,14 +79,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         // Inserting Row
         db.insert(TABLE_EVENT, null, values);
-        Log.v("Event added at date: ", event.getEventDate());
+        Log.i(TAG,"Event added at date: " + event.getEventDate());
         db.close(); // Closing database connection
     }
 
     /* Deleting the event corresponding to the id*/
     public boolean deleteEvent(Integer id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Log.v("DATABASE", "try to delete number: " + id);
+        Log.i(TAG,"DATABASE try to delete number: " + id);
         return db.delete(TABLE_EVENT, KEY_ID + "=" + Integer.toString(id), null) > 0;
         //   return db.delete(TABLE_EVENT, KEY_ID + " = ?", new String[] {Integer.toString(id)})>0;
 
@@ -107,8 +109,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 // looping through all rows and adding to list
                 if (cursor.moveToFirst()) {
                     do {
-                        Log.v("DATABASE, id: ", String.valueOf(cursor.getInt(0)));
-                        Log.v("DATABASE, date: ", cursor.getString(1));
+                        Log.i(TAG,"DATABASE, id: "+ String.valueOf(cursor.getInt(0)));
+                        Log.i(TAG,"DATABASE, date: "+ cursor.getString(1));
                         EventPerso obj = new EventPerso(
 
                                 cursor.getString(1), cursor.getString(2),

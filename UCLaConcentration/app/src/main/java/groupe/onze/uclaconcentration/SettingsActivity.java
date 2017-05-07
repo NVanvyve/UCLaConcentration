@@ -41,6 +41,13 @@ public class SettingsActivity extends BasicActivity {
     private int sportLevel;
     private CallbackManager callbackManager;
 
+    EditText programme;
+    EditText majeure;
+    EditText mineure;
+    LinkedList<EditText> memory;
+    EditText delay;
+    EditText snooze;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,8 +122,8 @@ public class SettingsActivity extends BasicActivity {
 
 
         Spinner spinner = (Spinner) findViewById(R.id.sport_spin);
-        final EditText delay = (EditText) findViewById(R.id.sport_delay_value);
-        final EditText snooze = (EditText) findViewById(R.id.snooze_value);
+        delay = (EditText) findViewById(R.id.sport_delay_value);
+        snooze = (EditText) findViewById(R.id.snooze_value);
 
         int delay_sec = mPrefs.getInt("sportDelay",3600);
         int snooze_sec = mPrefs.getInt("sportSnooze",60);
@@ -128,13 +135,13 @@ public class SettingsActivity extends BasicActivity {
         FloatingActionButton add = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         final LinearLayout lc = (LinearLayout) findViewById(R.id.layout_cours);
 
-        final LinkedList<EditText> memory = new LinkedList<>();
+        memory = new LinkedList<>();
         final SharedPreferences mPrefs = getSharedPreferences("label",0);
 
         // Les 3 de base que on a toujours
-        final EditText programme = (EditText) findViewById(R.id.ed_programme);
-        final EditText majeure = (EditText) findViewById(R.id.ed_maj);
-        final EditText mineure = (EditText) findViewById(R.id.ed_min);
+        programme = (EditText) findViewById(R.id.ed_programme);
+        majeure = (EditText) findViewById(R.id.ed_maj);
+        mineure = (EditText) findViewById(R.id.ed_min);
 
         // On charge ce qui était en mémoire
         programme.setText(mPrefs.getString("programme",null));
@@ -184,53 +191,57 @@ public class SettingsActivity extends BasicActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                SharedPreferences.Editor mEditor = mPrefs.edit();
-                String p = programme.getText().toString();
-                String ma = majeure.getText().toString();
-                String mi = mineure.getText().toString();
-
-                // verif pas de virgule etc
-                if (p.matches("^[a-zA-Z0-9_]+$") || p.equals("")) {
-                    mEditor.putString("programme",p).apply();
-                }
-                if (ma.matches("^[a-zA-Z0-9_]+$") || ma.equals("")) {
-                    mEditor.putString("majeure",ma).commit();
-                }
-                if (mi.matches("^[a-zA-Z0-9_]+$") || mi.equals("")) {
-                    mEditor.putString("mineure",mi).commit();
-                }
-
-
-                String cours_supp = "";
-                while (!memory.isEmpty()) {
-                    EditText temp = memory.pop();
-                    String content = temp.getText().toString();
-                    if (content.matches("^[a-zA-Z0-9_]+$")) {
-                        if (!temp.getText().toString().equals("")) {
-                            Log.i("Settings",temp.getText().toString());
-                            cours_supp += temp.getText().toString() + ",";
-                        }
-                    } else {
-                        Toast.makeText(getApplicationContext(),R.string.alpha_numeric_avertissement,Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-                if (!cours_supp.equals("")){
-                    cours_supp = cours_supp.substring(0,cours_supp.length() - 1);
-
-                }
-                mEditor.putString("cours_supp",cours_supp).commit();
-
-                int delay_min = Integer.parseInt(delay.getText().toString());
-                mEditor.putInt("sportDelay",delay_min * 60).commit();
-                int snooze_min = Integer.parseInt((snooze.getText().toString()));
-                mEditor.putInt("sportSnooze",snooze_min * 60).commit();
-
+                save();
                 //TODO  : AVERTISSEMENT relancer le chrono pour activer les chagement
                 finish();
             }
         });
+    }
+
+    public void save(){
+        SharedPreferences.Editor mEditor = mPrefs.edit();
+        String p = programme.getText().toString();
+        String ma = majeure.getText().toString();
+        String mi = mineure.getText().toString();
+
+        // verif pas de virgule etc
+        if (p.matches("^[a-zA-Z0-9_]+$") || p.equals("")) {
+            mEditor.putString("programme",p).apply();
+        }
+        if (ma.matches("^[a-zA-Z0-9_]+$") || ma.equals("")) {
+            mEditor.putString("majeure",ma).commit();
+        }
+        if (mi.matches("^[a-zA-Z0-9_]+$") || mi.equals("")) {
+            mEditor.putString("mineure",mi).commit();
+        }
+        String cours_supp = "";
+        while (!memory.isEmpty()) {
+            EditText temp = memory.pop();
+            String content = temp.getText().toString();
+            if (content.matches("^[a-zA-Z0-9_]+$") || content.equals("")) {
+                if (!temp.getText().toString().equals("")) {
+                    Log.i("Settings",temp.getText().toString());
+                    cours_supp += temp.getText().toString() + ",";
+                }
+            } else {
+                Toast.makeText(getApplicationContext(),R.string.alpha_numeric_avertissement,Toast.LENGTH_SHORT).show();
+            }
+        }
+        if (!cours_supp.equals("")){
+            cours_supp = cours_supp.substring(0,cours_supp.length() - 1);
+        }
+        mEditor.putString("cours_supp",cours_supp).commit();
+        int delay_min = Integer.parseInt(delay.getText().toString());
+        mEditor.putInt("sportDelay",delay_min * 60).commit();
+        int snooze_min = Integer.parseInt((snooze.getText().toString()));
+        mEditor.putInt("sportSnooze",snooze_min * 60).commit();
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        save();
+        super.onBackPressed();
     }
     @Override
     public void onPause(){
@@ -248,7 +259,6 @@ public class SettingsActivity extends BasicActivity {
     public void onStop(){
         super.onStop();
     }
-
 
     private class CustomOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
 
@@ -273,14 +283,12 @@ public class SettingsActivity extends BasicActivity {
     public int getLayoutResource() {
         return R.layout.activity_main;
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main,menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -316,8 +324,6 @@ public class SettingsActivity extends BasicActivity {
 
         }
     }
-
-
     @Override
     protected void onActivityResult(int requestCode,int responseCode,Intent intent) {
         super.onActivityResult(requestCode,responseCode,intent);

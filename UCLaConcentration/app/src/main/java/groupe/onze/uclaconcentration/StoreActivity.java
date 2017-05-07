@@ -203,7 +203,7 @@ public class StoreActivity extends BasicActivity {
 
             builder.setNeutralButton(neutralText,new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog,int id) {
-                    mEditor.putBoolean("SellAvert",false);
+                    mEditor.putBoolean("SellAvert",false).apply();
                     microSell(prix,minute,confession);
                 }
             });
@@ -257,6 +257,7 @@ public class StoreActivity extends BasicActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+
 
     @Override
     public int getLayoutResource() {

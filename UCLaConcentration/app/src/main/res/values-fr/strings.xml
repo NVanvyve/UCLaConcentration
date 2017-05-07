@@ -110,4 +110,9 @@
     <string name="studyTime">Temps d\'étude total :</string>
     <string name="quit_conf">Attention, si vous quitter cette page nous ne saurez pas y retourner sans passer par le Store.</string>
     <string name="app_avert">Cette application n\'a un but que si vous vous imposez certaines règles. Elle ne vous empechera pas d\'ouvrir votre PC et d\'aller sur Facebook...</string>
+    <string name="vous_y_etes">Vous y etes!! Récompence :</string>
+    <string name="pas_assez_proche">Vous n\'etes pas encore assez proche.</string>
+    <string name="encore">Encore :</string>
+    <string name="continuer_a_marcher">Continuez à marcher</string>
+    <string name="pas_de_cible">Vous n\'avez pas encore defini de cible. Vous ne pouvez donc pas y etre.</string>
 </resources>

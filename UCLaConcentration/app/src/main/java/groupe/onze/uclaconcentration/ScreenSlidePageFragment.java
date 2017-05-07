@@ -15,7 +15,7 @@ import android.widget.Toast;
  * Created by nicolasvanvyve in mai 2017.
  */
 
-public class ScreenSlidePageFragment extends Fragment {
+public class ScreenSlidePageFragment extends Fragment{
 
     private static final int MEGABYTE = (1024*1024);
 

@@ -27,7 +27,7 @@ public class EventPersoAdapter extends BaseAdapter {
 
 
     //Contient la liste des listeners
-    private ArrayList<DispoAdapterListener> mListListener = new ArrayList<DispoAdapterListener>();
+    private ArrayList<DispoAdapterListener> mListListener = new ArrayList<>();
 
     /**
      * Pour ajouter un listener sur notre adapter

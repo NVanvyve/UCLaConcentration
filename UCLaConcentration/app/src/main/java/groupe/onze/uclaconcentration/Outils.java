@@ -9,6 +9,10 @@ import android.util.Log;
 
 import com.facebook.Profile;
 
+import static java.lang.Math.acos;
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
+
 /**
  * Created by nicolasvanvyve in avr. 2017.
  */
@@ -84,5 +88,15 @@ class Outils {
         dialog.show();
     }
 
+
+    public static double distance(double LatA,double LongA,double LatB,double LongB) {
+        double R = 6371000; // Rayon de la Terre en mètres
+        double a = Math.toRadians(LatA); //latitude du point A (en radians)
+        double b = Math.toRadians(LatB); //latitude du point B (en radians)
+        double c = Math.toRadians(LongA); //longitude du point A (en radians)
+        double d = Math.toRadians(LongB); //longitude du point B (en radians)
+
+        return R * acos(cos(a) * cos(b) * cos(c - d) + sin(a) * sin(b));
+    }
 
 }

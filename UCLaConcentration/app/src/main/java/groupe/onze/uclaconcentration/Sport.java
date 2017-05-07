@@ -137,10 +137,10 @@ public class Sport extends BasicActivity {
                 if (already_define) {
                     latitude = gps.giveMeLatLong()[0];
                     longitude = gps.giveMeLatLong()[1];
-                    double tolerance = 10;
-                    double dist = gps.distance(latitude,longitude,newLocation[0],newLocation[1]);
+                    double tolerance = 25;
+                    double dist = Outils.distance(latitude,longitude,newLocation[0],newLocation[1]);
                     if (dist <= tolerance) {
-                        String text = "Vous y etes!! Récompence : " + recompence_tab[lvl] + " " + getString(R.string.coin_name);
+                        String text = getString(R.string.vous_y_etes) + recompence_tab[lvl] + " " + getString(R.string.coin_name);
                         Toast.makeText(mContext,text,Toast.LENGTH_SHORT).show();
                         map.removeMarker();
                         int coins = mPrefs.getInt("save_coins",0);
@@ -150,11 +150,14 @@ public class Sport extends BasicActivity {
                         already_define = false;
                         mEditor.putBoolean("already_define",false).commit();
                     } else {
-                        String text = "Vous n'etes pas encore assez proche. Continuez à marcher";
+                        String text = getString(R.string.pas_assez_proche) + "\n"
+                                + getString(R.string.encore) +(int) Math.floor(Outils.distance(latitude,longitude,newLocation[0],newLocation[1]))
+                                +"m\n" +
+                                getString(R.string.continuer_a_marcher);
                         Toast.makeText(mContext,text,Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    String avert = "Vous n'avez pas encore defini de cible. Vous ne pouvez donc pas y etre.";
+                    String avert = getString(R.string.pas_de_cible);
                     Toast.makeText(mContext,avert,Toast.LENGTH_SHORT).show();
                 }
             }

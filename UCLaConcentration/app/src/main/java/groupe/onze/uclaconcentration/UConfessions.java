@@ -297,6 +297,11 @@ public class UConfessions extends BasicActivity {
 
         }
     }
+    @Override
+    public boolean onSupportNavigateUp() {
+        super.onBackPressed();
+        return true;
+    }
 
     @Override
     public int getLayoutResource() {
