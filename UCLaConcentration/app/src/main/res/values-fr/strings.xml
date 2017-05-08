@@ -83,7 +83,7 @@
     <string name="dialog_sport_ok">C\'est parti !!</string>
     <string name="Store_confession">UConfession : 10min</string>
     <string name="Hello_face">Bonjour</string>
-    <string name="credits">Cette application a été développée par Alexis van den Bogaert, Julien Aigret, Nicolas Vanvyve et Sophie Madessis dans le cadre du cours LFSAB1509 Projet 4 en informatique au cours de l\'année 2016–17 à l\'Université Catholique de Louvain.</string>
+    <string name="credits">Cette application a été développée par Sophie Madessis, Alexis van den Bogaert, Julien Aigret et Nicolas Vanvyve dans le cadre du cours LFSAB1509 Projet 4 en informatique au cours de l\'année 2016–17 à l\'Université Catholique de Louvain.</string>
     <string name="credit_menu">Crédits</string>
     <string name="wait_purchase2">avant le prochain.</string>
     <string name="sell_avert_switch">Avertissement achat</string>

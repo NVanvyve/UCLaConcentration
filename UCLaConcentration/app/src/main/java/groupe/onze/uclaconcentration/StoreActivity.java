@@ -51,34 +51,6 @@ public class StoreActivity extends BasicActivity {
         money.setText(": " + procraCoins + " P");
         mEditor = mPrefs.edit();
 
-/*
-        //////////////////////////////////////////////////////////////////////////////
-        //DEBUG
-
-        Button more = (Button) findViewById(R.id.moremoney);
-        Button reset = (Button) findViewById(R.id.reset_button);
-
-        rand = new Random(System.currentTimeMillis());
-        more.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                procraCoins += 50 + rand.nextInt(50);
-                update();
-                money.setText(": " + procraCoins + " P");
-            }
-        });
-        reset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                procraCoins = 0;
-                last_purchase = 0;
-                update();
-                money.setText(": " + procraCoins + " P");
-            }
-        });
-        //////////////////////////////////////////////////////////////////////////////
-*/
-
         // Récompenses 
         // Boutons et Prix associés
         Button[] ButtonList = {
@@ -129,6 +101,58 @@ public class StoreActivity extends BasicActivity {
                 //Toast.makeText(getApplicationContext(),"Indisponible pour le moment, Facebook vient de faire une mise à jour",Toast.LENGTH_LONG).show();
             }
         });
+
+
+        /**
+         *  DEBUG
+         *  Reset et ajout de P pour les tests
+         *  Sans effet en cersion release
+         */
+        ButtonList[0].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if(BuildConfig.DEBUG) {
+                    procraCoins = 0;
+                    last_purchase = 0;
+                    update();
+                    money.setText(": " + procraCoins + " P");
+                }
+                return true;
+            }
+        });
+        ButtonList[1].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if(BuildConfig.DEBUG) {
+                    procraCoins = 1509;
+                    update();
+                    money.setText(": " + procraCoins + " P");
+                }
+                return true;
+            }
+        });
+        ButtonList[2].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if(BuildConfig.DEBUG) {
+                    Toast.makeText(getApplicationContext(),"C'est l'histoire d'un tetard qui pensait qu'il était tot mais en fait il est tetard",Toast.LENGTH_LONG).show();
+                    //Mon dieu... Que ce projet se termine... :O
+                }
+                return true;
+            }
+        });
+        ButtonList[3].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if(BuildConfig.DEBUG) {
+                    // Do smth...
+                    // En fait je met ca ici parce que comme ca y'a aucune différence entre les boutons en mode release
+                }
+                return true;
+            }
+        });
+
+        //FIN DU DEBUG
 
     }
     @Override

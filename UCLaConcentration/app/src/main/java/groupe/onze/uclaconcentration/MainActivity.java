@@ -60,6 +60,7 @@ public class MainActivity extends BasicActivity {
             Log.i("CRASH","Crashlytics ENABLE  && BuildConfig.DEBUG = "+BuildConfig.DEBUG);
         }else{
             Log.i("CRASH","Crashlytics NOT ENABLE  && BuildConfig.DEBUG = "+BuildConfig.DEBUG);
+
         }
         setContentView(R.layout.activity_main);
 
@@ -71,6 +72,7 @@ public class MainActivity extends BasicActivity {
         if(!mPrefs.getBoolean("tuto", false)){
             Log.i("TUTO","Start");
             startActivity(new Intent(this,SwipeTuto.class));
+
         }
 
         GridView gridview = (GridView) findViewById(R.id.gridview);

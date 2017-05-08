@@ -106,7 +106,7 @@
     <string name="Store_confession">UConfession : 10min</string>
     <string name="Hello_face">Hello</string>
     <string name="credit_menu">Credits</string>
-    <string name="credits">This application was developed by Alexis van den Bogaert, Julien Aigret, Nicolas Vanvyve and Sophie Madessis as part of the course LFSAB1509 Project 4 in computer science during the year 2016–17 at Université Catholique de Louvain.</string>
+    <string name="credits">This application was developed by Sophie Madessis, Alexis van den Bogaert, Julien Aigret and Nicolas Vanvyve as part of the course LFSAB1509 Project 4 in computer science during the year 2016–17 at Université Catholique de Louvain.</string>
     <string name="UConf" translatable="false">UConfession</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
