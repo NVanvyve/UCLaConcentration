@@ -177,12 +177,12 @@
 
             </LinearLayout>
         </ScrollView>
-
+<!--
         <Button
             android:id="@+id/save_button"
             android:layout_width="match_parent"
             android:layout_height="57dp"
-            android:text="@string/save_back"/>
+            android:text="@string/save_back"/>-->
     </LinearLayout>
 
 </LinearLayout>

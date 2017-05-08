@@ -185,7 +185,7 @@ public class SettingsActivity extends BasicActivity {
                 memory.add(ed);
             }
         });
-
+/*
         //Bouton Save&Back sauvegarde la liste des cours supplémentaire qui ont été utilisé ainsi que les temps pour le sport
         Button save = (Button) findViewById(R.id.save_button);
         save.setOnClickListener(new View.OnClickListener() {
@@ -195,7 +195,7 @@ public class SettingsActivity extends BasicActivity {
                 //TODO  : AVERTISSEMENT relancer le chrono pour activer les chagement
                 finish();
             }
-        });
+        });*/
     }
 
     public void save(){
@@ -298,6 +298,7 @@ public class SettingsActivity extends BasicActivity {
 
         switch (item.getItemId()) {
             case R.id.home:
+                save();
                 finish(); // close this activity and return to preview activity (if there is any)
 
             case R.id.action_settings:
@@ -306,10 +307,12 @@ public class SettingsActivity extends BasicActivity {
                 return true;
 
             case R.id.action_home:
+                save();
                 startActivity(new Intent(this,MainActivity.class));
                 return true;
 
             case R.id.action_recompense:
+                save();
                 startActivity(new Intent(this,StoreActivity.class));
                 return true;
 
