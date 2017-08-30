@@ -66,7 +66,7 @@ public class ADE extends BasicActivity {
         if(!codes.equals("")) {
             WebView browser = (WebView) findViewById(R.id.ade_view);
             browser.getSettings().setJavaScriptEnabled(true);
-            String url = "http://horairev6.uclouvain.be/direct/index.jsp?displayConfName=webEtudiant&showTree=false&showOptions=false&login=etudiant&password=student&projectId=21&code="
+            String url = "http://horaire.uclouvain.be/direct//index.jsp?displayConfName=webEtudiant&showTree=false&showOptions=false&login=etudiant&password=student&projectId=1&code="
                     + codes + "&weeks=";
             browser.loadUrl(url);
         }
